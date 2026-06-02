@@ -4,8 +4,6 @@ import './globals.css';
 import Beams from '@/components/ui/Beams';
 import MiniNavbar from '@/components/ui/mini-navbar';
 import Footer from '@/components/Footer';
-import SpotifyNowPlaying from '@/components/SpotifyNowPlaying';
-import { SnowfallEffect } from '@/components/snowfall-effect';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -90,15 +88,11 @@ export default function RootLayout({
           />
         </div>
 
-        <SnowfallEffect />
-
         <div style={{ position: 'relative', zIndex: 1 }}>
           <MiniNavbar />
           {children}
           <Footer />
         </div>
-
-        <SpotifyNowPlaying />
       </body>
     </html>
   );

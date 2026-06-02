@@ -142,7 +142,7 @@ export function EmailTemplate({
             <div className="text-center mt-4">
               <span className="inline-flex items-center gap-2 px-3 py-1 text-xs rounded-full border border-white/20 bg-white/5 text-gray-400">
                 Open to work
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                <span className="size-1.5 rounded-full bg-green-400"></span>
               </span>
             </div>
           </Container>

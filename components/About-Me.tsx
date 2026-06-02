@@ -1,229 +1,241 @@
 'use client';
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import Image from 'next/image';
 import {
-  Code2,
-  Palette,
-  Rocket,
-  User,
-  Calendar,
-  Briefcase,
-  Phone,
-  Check,
-  Mail,
-  Dumbbell,
-  Code,
   ArrowRight,
+  Briefcase,
+  Check,
+  Code,
+  Code2,
+  Dumbbell,
+  Mail,
+  MapPin,
+  Palette,
+  Phone,
+  Rocket,
 } from 'lucide-react';
+import SpotifyListeningCard from '@/components/SpotifyListeningCard';
 
-const About = () => {
+const focusRing =
+  'focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black';
+
+const expertise = [
+  {
+    icon: Code2,
+    title: 'Full-Stack Development',
+    meta: 'React / Next.js / Node.js',
+  },
+  {
+    icon: Palette,
+    title: 'UI / UX Design',
+    meta: 'Figma / Tailwind / Motion',
+  },
+  {
+    icon: Rocket,
+    title: 'Performance & Automation',
+    meta: 'n8n / PowerShell / Edge',
+  },
+];
+
+const stats = [
+  { icon: Briefcase, value: '3+', label: 'Yrs Exp' },
+  { icon: Code2, value: '15+', label: 'Projects' },
+  { icon: Dumbbell, value: '105kg', label: 'Bench' },
+];
+
+export default function About() {
   const [copied, setCopied] = useState(false);
-
-  const skills = [
-    { icon: <Code2 className="w-5 h-5" />, label: 'Full-Stack Development' },
-    { icon: <Palette className="w-5 h-5" />, label: 'UI/UX Design' },
-    { icon: <Rocket className="w-5 h-5" />, label: 'Performance Optimization' },
-  ];
 
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText('pukaluk.adam505@gmail.com');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy email:', err);
+    } catch (error) {
+      console.error('Failed to copy email:', error);
     }
   };
 
   return (
     <section
       id="about"
-      className="min-h-[80vh] flex items-center justify-center px-4 py-16 relative"
+      className="relative flex items-center justify-center px-4 py-16 sm:py-20 lg:py-24"
     >
-      {/* Background */}
       <div aria-hidden className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gr  adient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700/10 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700/10 via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          {/* Left side - Visual */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-gray-600/10 to-gray-800/10 backdrop-blur-sm flex items-center justify-center">
-              <div className="relative w-3/4 h-3/4">
-                <Image
-                  src="/img/me-santa.png"
-                  alt="Adam Pukaluk"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 200px, 300px"
-                  className="object-cover rounded-2xl shadow-2xl shadow-black/40"
-                />
-                <div className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-white/20" />
-              </div>
+      <div className="mx-auto grid w-full max-w-6xl items-start gap-8 lg:grid-cols-[minmax(360px,0.85fr)_1fr] xl:gap-10">
+        <div className="space-y-4">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[16px] border border-white/10 bg-black/70 shadow-2xl shadow-black/50">
+            <Image
+              src="/img/gy19rvVD.jpg"
+              alt="Adam Pukaluk"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 500px"
+              className="object-cover object-[center_35%]"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+
+            <div className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-[12px] border border-white/10 bg-black/55 px-3 py-2 text-xs font-medium text-gray-200 backdrop-blur-md">
+              <span className="size-2.5 rounded-full bg-[#1DB954]" />
+              Available
             </div>
 
-            {/* Floating badge */}
-            <div className="absolute -bottom-4 -right-4 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-3 shadow-xl">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-6 h-6 text-white/80" />
+            <div className="absolute bottom-4 left-4 flex overflow-hidden rounded-[14px] border border-white/10 bg-black/60 backdrop-blur-xl">
+              <div className="flex items-center gap-3 px-3.5 py-2.5">
+                <Briefcase className="size-4 text-gray-400" />
                 <div>
-                  <p className="text-xl font-bold text-white">16</p>
-                  <p className="text-xs text-gray-400">Years</p>
+                  <p className="text-xl font-bold leading-none text-white">
+                    16
+                  </p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase text-gray-500">
+                    Years
+                  </p>
+                </div>
+              </div>
+              <div className="w-px bg-white/10" />
+              <div className="flex items-center gap-3 px-3.5 py-2.5">
+                <MapPin className="size-4 text-gray-400" />
+                <div>
+                  <p className="text-sm font-semibold leading-none text-gray-200">
+                    Poland
+                  </p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase text-gray-500">
+                    Based
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right side - Content */}
-          <div className="space-y-5">
-            <div>
-              <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                About Me
-              </h2>
-              <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-300 via-white to-gray-300 bg-clip-text text-transparent mb-4">
-                Crafting Digital Experiences
-              </h3>
-            </div>
+          <SpotifyListeningCard />
+        </div>
 
-            <p className="text-base text-gray-300 leading-relaxed">
-              I'm a 16-year-old student at{' '}
+        <div className="space-y-4">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase text-gray-500">
+              About Me
+            </p>
+            <h2 className="max-w-xl text-4xl font-bold leading-[1.04] lg:text-5xl text-white">
+              Crafting Digital Experiences
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-base">
+              Student at{' '}
               <a
                 href="https://technischools.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white underline decoration-gray-400/30 hover:decoration-white transition-colors font-medium"
+                className={`font-semibold text-gray-200 underline decoration-white/20 underline-offset-4 transition-colors duration-200 hover:text-white hover:decoration-white ${focusRing}`}
               >
                 TechniSchools
               </a>
-              . I've been programming for over 3 years, developing skills across
-              multiple IT domains.
+              . 3+ years building across full-stack, automation with n8n /
+              PowerShell, and cybersecurity with Kali Linux.
             </p>
+          </div>
 
-            <p className="text-base text-gray-300 leading-relaxed">
-              My expertise spans from Frontend and Backend development to
-              automation with n8n/PowerShell, and even cybersecurity with Kali
-              Linux. I love exploring different areas of technology and
-              continuously expanding my skill set to tackle diverse challenges.
-            </p>
+          <div className="space-y-3">
+            {expertise.map((item) => {
+              const Icon = item.icon;
 
-            {/* Skills Grid */}
-            <div className="grid grid-cols-1 gap-3 pt-4">
-              {skills.map((skill, index) => (
+              return (
                 <div
-                  key={index}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all group"
+                  key={item.title}
+                  className="flex min-h-14 items-center gap-4 rounded-[14px] border border-white/10 bg-black/70 px-4 py-3 backdrop-blur-xl transition-colors duration-200 hover:border-white/20 hover:bg-black/60"
                 >
-                  <div className="text-white/80 group-hover:scale-110 transition-transform">
-                    {skill.icon}
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-[12px] border border-white/10 bg-white/[0.04] text-gray-300">
+                    <Icon className="size-4" />
                   </div>
-                  <span className="text-white text-sm font-medium">
-                    {skill.label}
-                  </span>
+                  <div className="min-w-0">
+                    <h3 className="truncate text-sm font-semibold text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1 font-mono text-xs text-gray-500">
+                      {item.meta}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
+              );
+            })}
+          </div>
 
-            {/* Currently Working On */}
-            <div className="mt-5 p-4 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm group hover:bg-white/10 transition-all">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
-                <Code className="w-4 h-4 text-white/80" />
-                Currently Working On
-              </p>
-              <a
-                href="https://github.com/promptversioncontrol-org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between text-white font-medium hover:text-gray-300 transition-colors"
+          <div className="space-y-2">
+            <p className="flex items-center gap-2 text-[10px] font-semibold uppercase text-gray-500">
+              <Code className="size-3.5" />
+              Currently Working On
+            </p>
+            <a
+              href="https://github.com/promptversioncontrol-org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group flex min-h-14 items-center justify-between rounded-[14px] border border-white/10 bg-black/70 px-4 text-sm font-semibold text-white backdrop-blur-xl transition-colors duration-200 hover:border-white/20 hover:bg-black/60 ${focusRing}`}
+            >
+              <span>promptversioncontrol-org</span>
+              <ArrowRight className="size-4 text-gray-500 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-white" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+
+              return (
+                <div
+                  key={stat.label}
+                  className="min-h-24 rounded-[14px] border border-white/10 bg-black/70 p-4 text-center backdrop-blur-xl"
+                >
+                  <Icon className="mx-auto mb-3 size-4 text-gray-500" />
+                  <p className="text-2xl font-bold text-white">{stat.value}</p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase text-gray-500">
+                    {stat.label}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="space-y-3">
+            <a
+              href="tel:+48695031104"
+              className={`flex min-h-14 items-center gap-3 rounded-[14px] border border-white/10 bg-black/70 px-4 text-sm font-semibold text-gray-200 backdrop-blur-xl transition-colors duration-200 hover:border-white/20 hover:bg-black/60 hover:text-white ${focusRing}`}
+            >
+              <Phone className="size-4 text-gray-500" />
+              +48 695 031 104
+            </a>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-[14px] bg-white px-4 text-sm font-semibold text-black transition-colors duration-200 hover:bg-gray-200 ${focusRing}`}
               >
-                <span>promptversioncontrol-org</span>
-                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                {copied ? (
+                  <>
+                    <Check className="size-4" />
+                    Email Copied
+                  </>
+                ) : (
+                  <>
+                    <Mail className="size-4" />
+                    Copy Email
+                  </>
+                )}
+              </button>
+
+              <a
+                href="mailto:pukaluk.adam505@gmail.com"
+                className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-[14px] border border-white/10 bg-black/70 px-4 text-sm font-semibold text-gray-300 backdrop-blur-xl transition-colors duration-200 hover:border-white/25 hover:bg-black/60 hover:text-white ${focusRing}`}
+              >
+                <Mail className="size-4" />
+                Send Email
               </a>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 pt-4">
-              <div className="text-center p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
-                <Briefcase className="w-5 h-5 text-white/60 mx-auto mb-1" />
-                <p className="text-2xl font-bold text-white mb-0.5">3+</p>
-                <p className="text-xs text-gray-400">Years Exp</p>
-              </div>
-              <div className="text-center p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
-                <Code2 className="w-5 h-5 text-white/60 mx-auto mb-1" />
-                <p className="text-2xl font-bold text-white mb-0.5">15+</p>
-                <p className="text-xs text-gray-400">Projects</p>
-              </div>
-              <div className="text-center p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
-                <Dumbbell className="w-5 h-5 text-white/60 mx-auto mb-1" />
-                <p className="text-2xl font-bold text-white mb-0.5">105kg</p>
-                <p className="text-xs text-gray-400">Bench Press</p>
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-3 pt-4">
-              {/* Phone Number */}
-              <div className="flex items-center gap-3 p-3 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm">
-                <Phone className="w-5 h-5 text-white/80" />
-                <a
-                  href="tel:+48695031104"
-                  className="text-white text-sm font-medium hover:text-gray-300 transition-colors"
-                >
-                  +48 695 031 104
-                </a>
-              </div>
-
-              {/* Copy Email Button */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* Copy Email Button */}
-                <div className="relative group w-full">
-                  {/* Glow effect */}
-                  <div
-                    className="absolute inset-0 -m-2 rounded-lg
-                                bg-white
-                                opacity-30 filter blur-lg pointer-events-none
-                                transition-all duration-300 ease-out
-                                group-hover:opacity-50 group-hover:blur-xl group-hover:-m-3"
-                  ></div>
-
-                  {/* Button */}
-                  <button
-                    onClick={handleCopyEmail}
-                    className="relative z-10 w-full px-4 py-3 text-sm font-semibold 
-                             text-black bg-gradient-to-br from-white to-gray-300 
-                             rounded-lg hover:from-gray-100 hover:to-gray-400 
-                             transition-all duration-200
-                             shadow-lg flex items-center justify-center gap-2"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-5 h-5" />
-                        <span>Email Copied!</span>
-                      </>
-                    ) : (
-                      <span>Copy Email</span>
-                    )}
-                  </button>
-                </div>
-
-                {/* Send Email Button */}
-                <a
-                  href="mailto:pukaluk.adam505@gmail.com"
-                  className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold 
-                           text-white border border-white/20 bg-white/5 backdrop-blur-sm
-                           rounded-lg hover:bg-white/10 hover:border-white/40
-                           transition-all duration-200"
-                >
-                  <Mail className="w-5 h-5" />
-                  <span>Send Email</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default About;
+}

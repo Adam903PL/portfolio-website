@@ -1,61 +1,77 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, Coffee } from 'lucide-react';
-import ScrambledText from './ui/Scrambled-Text';
+import { ArrowRight, Coffee, Github, Linkedin } from 'lucide-react';
+
+const techStack = [
+  'React',
+  'Next.js',
+  'Node.js',
+  'TypeScript',
+  'Tailwind',
+  'PostgreSQL',
+];
+
+const focusRing =
+  'focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black';
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center px-4 pt-24 relative overflow-hidden"
+      className="relative flex min-h-[86vh] items-center justify-center overflow-hidden px-4 pb-10 pt-24 sm:pt-24"
     >
-      {/* Background decorative elements */}
-      <div aria-hidden className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+      <div aria-hidden className="absolute inset-0 -z-10 opacity-35">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:96px_96px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.08),transparent_55%)]" />
       </div>
 
-      <div className="max-w-5xl mx-auto text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm mb-8 hover:bg-white/10 transition-all">
-          <span className="text-gray-300 text-sm">Open to work</span>
-          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-center text-center">
+        <div className="mb-7 inline-flex items-center gap-3 rounded-[14px] border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm font-semibold text-gray-300 backdrop-blur-xl transition-colors duration-200 hover:bg-white/[0.09]">
+          <span className="size-2.5 rounded-full bg-[#10d091]" />
+          Open to work
         </div>
 
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-          Hi, I'm{' '}
-          <span className="bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent animate-[gradient_3s_ease_infinite] bg-[length:200%_auto]">
+        <h1 className="max-w-4xl text-center font-bold leading-[0.95] text-white">
+          <span className="block text-5xl sm:text-6xl lg:text-7xl">
+            Hi, I&apos;m
+          </span>
+          <span className="mt-3 block text-6xl sm:text-7xl lg:text-[92px] text-white">
             Adam Pukaluk
-          </span>{' '}
+          </span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-2xl md:text-3xl text-gray-300 mb-4">
+        <p className="mt-7 text-2xl font-bold text-gray-300 md:text-3xl">
           Full-Stack Developer
         </p>
 
-        <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-          I build exceptional digital experiences that combine beautiful design
-          with powerful functionality. Specializing in React, Next.js, and
-          Node.js.
+        <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-gray-500 md:text-lg">
+          Building exceptional digital experiences that combine beautiful design
+          with powerful functionality.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex gap-4 justify-center flex-wrap mb-12">
+        <div className="mt-7 flex flex-wrap justify-center gap-2.5">
+          {techStack.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full border border-white/10 bg-white/[0.055] px-4 py-1.5 font-mono text-xs font-semibold text-gray-400 backdrop-blur-md"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href="/projects"
-            className="group flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-semibold 
-                     hover:bg-gray-200 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            className={`group inline-flex min-h-14 items-center justify-center gap-3 rounded-[14px] bg-white px-8 text-base font-bold text-black shadow-lg shadow-white/10 transition-colors duration-200 hover:bg-gray-200 ${focusRing}`}
           >
             <span>View My Work</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
 
           <Link
             href="/contact"
-            className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-semibold 
-                     hover:bg-white/10 hover:border-white transition-all duration-300 backdrop-blur-sm"
+            className={`inline-flex min-h-14 items-center justify-center rounded-[14px] border border-white/15 bg-black/55 px-8 text-base font-bold text-gray-300 backdrop-blur-xl transition-colors duration-200 hover:border-white/30 hover:bg-white/10 hover:text-white ${focusRing}`}
           >
             Get in Touch
           </Link>
@@ -64,44 +80,41 @@ export default function Hero() {
             href="https://buymeacoffee.com/adam903"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 px-8 py-4 bg-[#FFDD00] text-black rounded-full font-semibold 
-                     hover:bg-[#e6c700] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+            className={`group inline-flex min-h-14 items-center justify-center gap-3 rounded-[14px] bg-[#FFDD00] px-8 text-base font-bold text-black shadow-lg shadow-[#FFDD00]/15 transition-colors duration-200 hover:bg-[#e8c900] ${focusRing}`}
           >
-            <Coffee className="w-5 h-5 group-hover:animate-bounce" />
+            <Coffee className="size-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
             <span>Buy me a coffee</span>
           </a>
         </div>
 
-        {/* Social Links */}
-        <div className="flex gap-6 justify-center items-center">
-          <span className="text-gray-400 text-sm">Follow me:</span>
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <span className="font-mono text-xs font-semibold uppercase text-gray-600">
+            Follow me
+          </span>
           <a
             href="https://github.com/Adam903PL/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200"
+            aria-label="GitHub"
+            className={`flex size-11 items-center justify-center rounded-[13px] border border-white/10 bg-white/[0.045] text-gray-400 backdrop-blur-md transition-colors duration-200 hover:border-white/25 hover:text-white ${focusRing}`}
           >
-            <Github className="w-6 h-6" />
+            <Github className="size-5" />
           </a>
           <a
             href="https://www.linkedin.com/in/adam-pukaluk-339058298/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors hover:scale-110 transform duration-200"
+            aria-label="LinkedIn"
+            className={`flex size-11 items-center justify-center rounded-[13px] border border-white/10 bg-white/[0.045] text-gray-400 backdrop-blur-md transition-colors duration-200 hover:border-white/25 hover:text-white ${focusRing}`}
           >
-            <Linkedin className="w-6 h-6" />
+            <Linkedin className="size-5" />
           </a>
         </div>
 
-        {/* Scroll Indicator */}
-        {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <a href="#about" className="flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors">
-            <span className="text-sm">Scroll down</span>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-          </a>
-        </div> */}
+        <div
+          aria-hidden
+          className="mt-9 h-10 w-px bg-gradient-to-b from-white/25 to-transparent"
+        />
       </div>
     </section>
   );

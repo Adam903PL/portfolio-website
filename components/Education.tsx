@@ -40,8 +40,8 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               className="flex justify-start pt-10 md:pt-40 md:gap-10"
             >
               <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-                <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                  <div className="h-4 w-4 rounded-full bg-white border border-white/50 p-2" />
+                <div className="size-10 absolute left-3 md:left-3 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                  <div className="size-4 rounded-full bg-white border border-white/50 p-2" />
                 </div>
                 <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-white">
                   {item.title}
@@ -246,12 +246,12 @@ const SkillLevelStars = ({
   return (
     <div className="flex items-center gap-0.5">
       {[...Array(stars)].map((_, i) => (
-        <div key={`full-${i}`} className="text-yellow-400 w-3 h-3">
+        <div key={`full-${i}`} className="text-yellow-400 size-3">
           ★
         </div>
       ))}
       {[...Array(5 - stars)].map((_, i) => (
-        <div key={`empty-${i}`} className="text-gray-600 w-3 h-3">
+        <div key={`empty-${i}`} className="text-gray-600 size-3">
           ☆
         </div>
       ))}
@@ -301,7 +301,7 @@ const EducationJourney: React.FC<EducationJourneyProps> = ({
               translateZ="60"
               className="text-gray-300 text-sm mb-4 flex items-center gap-2"
             >
-              {IconComponent && <IconComponent className="w-4 h-4" />}
+              {IconComponent && <IconComponent className="size-4" />}
               {item.institution}
             </CardItem>
 
@@ -353,7 +353,7 @@ const EducationJourney: React.FC<EducationJourneyProps> = ({
             </h2>
           )}
           {header.title && (
-            <h3 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-300 via-white to-gray-300 bg-clip-text text-transparent mb-6">
+            <h3 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               {header.title}
             </h3>
           )}
@@ -379,7 +379,7 @@ const EducationJourney: React.FC<EducationJourneyProps> = ({
                 key={index}
                 className="text-center p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
               >
-                <stat.icon className="w-6 h-6 text-white/60 mx-auto mb-2" />
+                <stat.icon className="size-6 text-white/60 mx-auto mb-2" />
                 <p className="text-2xl font-bold text-white mb-1">
                   {stat.value}
                 </p>
