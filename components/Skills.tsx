@@ -1,7 +1,13 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import {
+  AnimatePresence,
+  LazyMotion,
+  domMax,
+  m,
+  useReducedMotion,
+} from 'framer-motion';
 import { RotateCcw, Search, X } from 'lucide-react';
 import Image, { type StaticImageData } from 'next/image';
 
@@ -539,7 +545,7 @@ function SkillCard({
     : 'bg-white/[0.06] border-white/10';
 
   return (
-    <motion.article
+    <m.article
       layout={!reduceMotion}
       className={`overflow-hidden rounded-2xl border transition-colors duration-200 ${
         expanded
@@ -579,7 +585,7 @@ function SkillCard({
         </span>
 
         {/* Expand indicator */}
-        <motion.span
+        <m.span
           animate={{ rotate: expanded ? 45 : 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.18 }}
           className="flex size-6 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40"
@@ -593,13 +599,13 @@ function SkillCard({
               strokeLinecap="round"
             />
           </svg>
-        </motion.span>
+        </m.span>
       </button>
 
       {/* Expandable detail */}
       <AnimatePresence initial={false}>
         {expanded && (
-          <motion.div
+          <m.div
             initial={reduceMotion ? false : { height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
@@ -615,7 +621,7 @@ function SkillCard({
                   </span>
                 </div>
                 <div className="h-1 overflow-hidden rounded-full bg-white/10">
-                  <motion.div
+                  <m.div
                     initial={reduceMotion ? false : { width: 0 }}
                     animate={{ width: `${LEVEL_BAR[skill.level]}%` }}
                     transition={{
@@ -645,10 +651,10 @@ function SkillCard({
                 ))}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -737,169 +743,175 @@ export default function Skills() {
   ).length;
 
   return (
-    <section
-      id="skills"
-      className="relative w-full scroll-mt-28 px-4 py-20 sm:px-6 lg:py-28"
-    >
-      {/* Background glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+    <LazyMotion features={domMax}>
+      <section
+        id="skills"
+        className="relative w-full scroll-mt-28 px-4 py-20 sm:px-6 lg:py-28"
       >
-        <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-white/[0.015] blur-3xl" />
-      </div>
-
-      <div className="mx-auto max-w-5xl">
-        {/* ── Header ── */}
-        <div className="mb-12">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55 backdrop-blur">
-            My Expertise
-          </div>
-          <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
-            Skills & Technologies
-          </h2>
-          <p className="mt-4 max-w-xl text-base leading-7 text-white/50">
-            {allSkills.length} technologies across{' '}
-            {Object.keys(SkillCategory).length} domains — {advancedPlus} at
-            Advanced level or above.
-          </p>
+        {/* Background glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+        >
+          <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-white/[0.015] blur-3xl" />
         </div>
 
-        {/* ── Filters ── */}
-        <div className="mb-8 space-y-4">
-          {/* Search + reset */}
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1 max-w-xs">
-              <Search
-                aria-hidden
-                className="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-white/30"
-              />
-              <input
-                type="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search skills..."
-                className="h-10 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-9 pr-4 text-sm text-white placeholder:text-white/25 focus:border-white/25 focus:outline-none focus:ring-0"
-              />
+        <div className="mx-auto max-w-5xl">
+          {/* ── Header ── */}
+          <div className="mb-12">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55 backdrop-blur">
+              My Expertise
             </div>
-            {hasFilters && (
+            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
+              Skills & Technologies
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-white/50">
+              {allSkills.length} technologies across{' '}
+              {Object.keys(SkillCategory).length} domains — {advancedPlus} at
+              Advanced level or above.
+            </p>
+          </div>
+
+          {/* ── Filters ── */}
+          <div className="mb-8 space-y-4">
+            {/* Search + reset */}
+            <div className="flex items-center gap-3">
+              <div className="relative flex-1 max-w-xs">
+                <Search
+                  aria-hidden
+                  className="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-white/30"
+                />
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search skills..."
+                  className="h-10 w-full rounded-xl border border-white/10 bg-white/[0.04] pl-9 pr-4 text-sm text-white placeholder:text-white/25 focus:border-white/25 focus:outline-none focus:ring-0"
+                />
+              </div>
+              {hasFilters && (
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="inline-flex h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-xs font-semibold text-white/50 transition-colors hover:border-white/20 hover:text-white"
+                >
+                  <RotateCcw className="size-3.5" />
+                  Clear
+                </button>
+              )}
+            </div>
+
+            {/* Category tabs */}
+            <div className="flex flex-wrap gap-2">
+              {CATEGORY_TABS.map((cat) => {
+                const active = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`rounded-xl border px-4 py-2 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
+                      active
+                        ? 'border-white bg-white text-black'
+                        : 'border-white/10 bg-white/[0.04] text-white/55 hover:border-white/20 hover:text-white'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Level toggles */}
+            <div className="flex flex-wrap gap-2">
+              {LEVEL_ORDER.map((level) => {
+                const active = activeLevels.has(level);
+                return (
+                  <button
+                    key={level}
+                    type="button"
+                    onClick={() => toggleLevel(level)}
+                    className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
+                      active
+                        ? 'border-white/30 bg-white/10 text-white'
+                        : 'border-white/10 bg-transparent text-white/35 hover:border-white/15 hover:text-white/60'
+                    }`}
+                  >
+                    <span
+                      className={`size-1.5 rounded-full ${LEVEL_DOT_COLOR[level]}`}
+                    />
+                    {level}
+                    {active && (
+                      <X className="size-3 text-white/50" aria-hidden />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ── Skill list ── */}
+          {filtered.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-white/10 py-16 text-center">
+              <p className="text-lg font-semibold text-white">
+                No skills match
+              </p>
+              <p className="mt-2 text-sm text-white/40">
+                Try clearing the filters.
+              </p>
               <button
                 type="button"
                 onClick={clearAll}
-                className="inline-flex h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-xs font-semibold text-white/50 transition-colors hover:border-white/20 hover:text-white"
+                className="mt-6 rounded-xl border border-white/20 bg-white px-6 py-2.5 text-sm font-bold text-black transition-colors hover:bg-white/90"
               >
-                <RotateCcw className="size-3.5" />
-                Clear
+                Reset
               </button>
-            )}
-          </div>
-
-          {/* Category tabs */}
-          <div className="flex flex-wrap gap-2">
-            {CATEGORY_TABS.map((cat) => {
-              const active = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setActiveCategory(cat)}
-                  className={`rounded-xl border px-4 py-2 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
-                    active
-                      ? 'border-white bg-white text-black'
-                      : 'border-white/10 bg-white/[0.04] text-white/55 hover:border-white/20 hover:text-white'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Level toggles */}
-          <div className="flex flex-wrap gap-2">
-            {LEVEL_ORDER.map((level) => {
-              const active = activeLevels.has(level);
-              return (
-                <button
-                  key={level}
-                  type="button"
-                  onClick={() => toggleLevel(level)}
-                  className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
-                    active
-                      ? 'border-white/30 bg-white/10 text-white'
-                      : 'border-white/10 bg-transparent text-white/35 hover:border-white/15 hover:text-white/60'
-                  }`}
-                >
-                  <span
-                    className={`size-1.5 rounded-full ${LEVEL_DOT_COLOR[level]}`}
-                  />
-                  {level}
-                  {active && <X className="size-3 text-white/50" aria-hidden />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ── Skill list ── */}
-        {filtered.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/10 py-16 text-center">
-            <p className="text-lg font-semibold text-white">No skills match</p>
-            <p className="mt-2 text-sm text-white/40">
-              Try clearing the filters.
-            </p>
-            <button
-              type="button"
-              onClick={clearAll}
-              className="mt-6 rounded-xl border border-white/20 bg-white px-6 py-2.5 text-sm font-bold text-black transition-colors hover:bg-white/90"
-            >
-              Reset
-            </button>
-          </div>
-        ) : isGrouped && groups ? (
-          <div className="space-y-8">
-            {groups.map((group) => (
-              <div key={group.level}>
-                <div className="mb-3 flex items-center gap-3">
-                  <span
-                    className={`inline-block size-2 rounded-full ${LEVEL_DOT_COLOR[group.level]}`}
-                  />
-                  <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-                    {group.level}
-                    <span className="ml-2 text-white/20">
-                      {group.skills.length}
-                    </span>
-                  </h3>
-                  <span className="h-px flex-1 bg-white/[0.06]" />
-                </div>
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {group.skills.map((skill) => (
-                    <SkillCard
-                      key={skill.name}
-                      skill={skill}
-                      expanded={expandedSkills.has(skill.name)}
-                      onToggle={() => toggleExpand(skill.name)}
-                      reduceMotion={reduceMotion}
+            </div>
+          ) : isGrouped && groups ? (
+            <div className="space-y-8">
+              {groups.map((group) => (
+                <div key={group.level}>
+                  <div className="mb-3 flex items-center gap-3">
+                    <span
+                      className={`inline-block size-2 rounded-full ${LEVEL_DOT_COLOR[group.level]}`}
                     />
-                  ))}
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+                      {group.level}
+                      <span className="ml-2 text-white/20">
+                        {group.skills.length}
+                      </span>
+                    </h3>
+                    <span className="h-px flex-1 bg-white/[0.06]" />
+                  </div>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {group.skills.map((skill) => (
+                      <SkillCard
+                        key={skill.name}
+                        skill={skill}
+                        expanded={expandedSkills.has(skill.name)}
+                        onToggle={() => toggleExpand(skill.name)}
+                        reduceMotion={reduceMotion}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid gap-2 sm:grid-cols-2">
-            {filtered.map((skill) => (
-              <SkillCard
-                key={skill.name}
-                skill={skill}
-                expanded={expandedSkills.has(skill.name)}
-                onToggle={() => toggleExpand(skill.name)}
-                reduceMotion={reduceMotion}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+              ))}
+            </div>
+          ) : (
+            <div className="grid gap-2 sm:grid-cols-2">
+              {filtered.map((skill) => (
+                <SkillCard
+                  key={skill.name}
+                  skill={skill}
+                  expanded={expandedSkills.has(skill.name)}
+                  onToggle={() => toggleExpand(skill.name)}
+                  reduceMotion={reduceMotion}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </LazyMotion>
   );
 }

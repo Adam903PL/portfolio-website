@@ -1,396 +1,370 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { useScroll, useTransform, motion } from 'framer-motion';
-import type { LucideIcon } from 'lucide-react';
+import {
+  AnimatePresence,
+  LazyMotion,
+  domAnimation,
+  m,
+  useInView,
+} from 'framer-motion';
+import { ChevronDown, type LucideIcon } from 'lucide-react';
+import { useRef, useState } from 'react';
 
-// ============ ACETERNITY UI - Timeline Component ============
-interface TimelineEntry {
-  title: string;
-  content: React.ReactNode;
-}
-
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start 10%', 'end 50%'],
-  });
-
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
-  return (
-    <div className="w-full font-sans" ref={containerRef}>
-      <div className="max-w-7xl mx-auto pt-0 pb-20 px-4 md:px-8 lg:px-10">
-        <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="flex justify-start pt-10 md:pt-40 md:gap-10"
-            >
-              <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-                <div className="size-10 absolute left-3 md:left-3 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                  <div className="size-4 rounded-full bg-white border border-white/50 p-2" />
-                </div>
-                <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-white">
-                  {item.title}
-                </h3>
-              </div>
-
-              <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-white">
-                  {item.title}
-                </h3>
-                {item.content}
-              </div>
-            </div>
-          ))}
-          <div
-            style={{
-              height: height + 'px',
-            }}
-            className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-white/20 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
-          >
-            <motion.div
-              style={{
-                height: heightTransform,
-                opacity: opacityTransform,
-              }}
-              className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-white via-white/50 to-transparent from-[0%] via-[10%] rounded-full"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// ============ ACETERNITY UI - 3D Card Component ============
-const CardContainer = ({
-  children,
-  className,
-  containerClassName,
-}: {
-  children?: React.ReactNode;
-  className?: string;
-  containerClassName?: string;
-}) => {
-  const [isMouseEntered, setIsMouseEntered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isMouseEntered) setIsMouseEntered(true);
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / 25;
-    const y = (e.clientY - top - height / 2) / 25;
-    e.currentTarget.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-  };
-
-  const handleMouseEnter = () => {
-    setIsMouseEntered(true);
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsMouseEntered(false);
-    e.currentTarget.style.transform = `rotateY(0deg) rotateX(0deg)`;
-  };
-
-  return (
-    <div className={containerClassName} style={{ perspective: '1000px' }}>
-      <div
-        onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={`relative transition-all duration-200 ease-linear ${className}`}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const CardBody = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div
-      className={`h-full w-full ${className}`}
-      style={{ transformStyle: 'preserve-3d' }}
-    >
-      {children}
-    </div>
-  );
-};
-
-const CardItem = ({
-  as: Tag = 'div',
-  children,
-  className,
-  translateX = 0,
-  translateY = 0,
-  translateZ = 0,
-  ...rest
-}: {
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  translateX?: number | string;
-  translateY?: number | string;
-  translateZ?: number | string;
-  [key: string]: any;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isMouseEntered, setIsMouseEntered] = useState(false);
-
-  useEffect(() => {
-    const handleMouseEnter = () => setIsMouseEntered(true);
-    const handleMouseLeave = () => setIsMouseEntered(false);
-    const parent = ref.current?.parentElement?.parentElement;
-    if (parent) {
-      parent.addEventListener('mouseenter', handleMouseEnter);
-      parent.addEventListener('mouseleave', handleMouseLeave);
-      return () => {
-        parent.removeEventListener('mouseenter', handleMouseEnter);
-        parent.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }
-  }, []);
-
-  return (
-    <Tag
-      ref={ref}
-      className={className}
-      style={{
-        transform: isMouseEntered
-          ? `translateX(${translateX}px) translateY(${translateY}px) translateZ(${translateZ}px)`
-          : 'translateX(0px) translateY(0px) translateZ(0px)',
-        transition: 'all 0.5s ease-out',
-      }}
-      {...rest}
-    >
-      {children}
-    </Tag>
-  );
-};
-
-// ============ Types ============
-export interface EducationItem {
-  id?: string; // Unikalne ID (opcjonalne, będzie auto-generowane)
-  year: string;
+export interface EducationMilestone {
+  id: string;
+  phase: string;
+  periodLabel: string;
+  status: string;
   title: string;
   institution: string;
   description: string;
+  highlights: string[];
   skills: string[];
-  grade?: string;
   level: string;
-  icon?: string; // Klucz z iconMap
-  color?: string;
-  bgGlow?: string;
+  icon: string;
 }
 
-export interface EducationJourneyProps {
-  data: EducationItem[];
-  iconMap?: Record<string, LucideIcon>; // Mapa ikon
-  header?: {
-    subtitle?: string;
-    title?: string;
-    description?: string;
-  };
-  stats?: {
-    icon: LucideIcon;
-    value: string | number;
-    label: string;
-  }[];
-  showStats?: boolean;
-  showStars?: boolean;
-  levelConfig?: {
-    [key: string]: number;
-  };
+export interface EducationStat {
+  icon: LucideIcon;
+  value: string;
+  label: string;
+  description: string;
 }
 
-// ============ Skill Level Stars Component ============
-const SkillLevelStars = ({
-  level,
-  levelConfig,
-}: {
-  level: string;
-  levelConfig?: { [key: string]: number };
-}) => {
-  const defaultConfig = {
-    Expert: 5,
-    Advanced: 4,
-    Intermediate: 3,
-    Basic: 2,
-    Beginner: 1,
+interface EducationJourneyProps {
+  data: EducationMilestone[];
+  iconMap: Record<string, LucideIcon>;
+  header: {
+    subtitle: string;
+    title: string;
+    description: string;
   };
+  stats: EducationStat[];
+}
 
-  const config = levelConfig || defaultConfig;
-  const stars = config[level] || 3;
-
-  return (
-    <div className="flex items-center gap-0.5">
-      {[...Array(stars)].map((_, i) => (
-        <div key={`full-${i}`} className="text-yellow-400 size-3">
-          ★
-        </div>
-      ))}
-      {[...Array(5 - stars)].map((_, i) => (
-        <div key={`empty-${i}`} className="text-gray-600 size-3">
-          ☆
-        </div>
-      ))}
-    </div>
-  );
+const LEVEL_COLORS: Record<
+  string,
+  { dot: string; badge: string; text: string }
+> = {
+  Foundation: {
+    dot: 'bg-zinc-500',
+    badge: 'bg-zinc-900 border-zinc-700',
+    text: 'text-zinc-400',
+  },
+  Exploration: {
+    dot: 'bg-violet-500',
+    badge: 'bg-violet-950 border-violet-800',
+    text: 'text-violet-400',
+  },
+  'Creative Practice': {
+    dot: 'bg-sky-500',
+    badge: 'bg-sky-950 border-sky-800',
+    text: 'text-sky-400',
+  },
+  'Technical Foundation': {
+    dot: 'bg-amber-500',
+    badge: 'bg-amber-950 border-amber-800',
+    text: 'text-amber-400',
+  },
+  'Current Focus': {
+    dot: 'bg-emerald-400',
+    badge: 'bg-emerald-950 border-emerald-700',
+    text: 'text-emerald-400',
+  },
 };
 
-// ============ Main Component ============
-const EducationJourney: React.FC<EducationJourneyProps> = ({
-  data,
-  iconMap = {},
-  header = {
-    subtitle: 'My Journey',
-    title: 'Education & Certifications',
-    description:
-      'From fundamentals to advanced expertise - tracking my continuous learning journey in technology',
-  },
-  stats,
-  showStats = true,
-  showStars = true,
-  levelConfig,
-}) => {
-  // Generuj unikalne ID dla każdego itemu
-  const dataWithIds = data.map((item, index) => ({
-    ...item,
-    id:
-      item.id ||
-      `${item.year}-${item.title}-${index}`.replace(/\s+/g, '-').toLowerCase(),
-  }));
+function useLevelColor(level: string) {
+  return (
+    LEVEL_COLORS[level] ?? {
+      dot: 'bg-white/40',
+      badge: 'bg-white/5 border-white/10',
+      text: 'text-white/60',
+    }
+  );
+}
 
-  const timelineData = dataWithIds.map((item) => {
-    const IconComponent = item.icon && iconMap[item.icon];
+function TimelineDot({
+  level,
+  isActive,
+}: {
+  level: string;
+  isActive: boolean;
+}) {
+  const c = useLevelColor(level);
+  return (
+    <div className="relative flex size-10 items-center justify-center flex-shrink-0">
+      <m.div
+        className={`absolute inset-0 rounded-full ${c.dot} opacity-20`}
+        animate={isActive ? { scale: [1, 1.5, 1] } : { scale: 1 }}
+        transition={{
+          duration: 1.6,
+          repeat: isActive ? Infinity : 0,
+          ease: 'easeInOut',
+        }}
+      />
+      <div
+        className={`size-3.5 rounded-full ${c.dot} ring-2 ring-black relative z-10`}
+      />
+    </div>
+  );
+}
 
-    return {
-      title: item.year,
-      content: (
-        <CardContainer className="w-full" key={item.id}>
-          <CardBody className="relative group/card border border-white/10 bg-white/5 backdrop-blur-sm w-full h-auto rounded-xl p-6 hover:border-white/20 transition-all">
-            <CardItem
-              translateZ="50"
-              className="text-xl font-bold text-white mb-2"
-            >
-              {item.title}
-            </CardItem>
+function SkillPill({ skill }: { skill: string }) {
+  return (
+    <span className="text-[11px] font-mono tracking-wide px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/50 whitespace-nowrap">
+      {skill}
+    </span>
+  );
+}
 
-            <CardItem
-              translateZ="60"
-              className="text-gray-300 text-sm mb-4 flex items-center gap-2"
-            >
-              {IconComponent && <IconComponent className="size-4" />}
-              {item.institution}
-            </CardItem>
-
-            <CardItem translateZ="100" className="w-full mb-4">
-              <p className="text-gray-400 text-sm leading-relaxed">
-                {item.description}
-              </p>
-            </CardItem>
-
-            <CardItem
-              translateZ="80"
-              className="flex items-center justify-between mb-4 pb-4 border-b border-white/10"
-            >
-              {showStars && (
-                <SkillLevelStars level={item.level} levelConfig={levelConfig} />
-              )}
-
-              {item.grade && (
-                <span className="text-xs text-white bg-white/10 px-3 py-1 rounded-full border border-white/20">
-                  {item.grade}
-                </span>
-              )}
-            </CardItem>
-
-            <CardItem translateZ="70" className="flex flex-wrap gap-2">
-              {item.skills.map((skill, i) => (
-                <span
-                  key={`${item.id}-skill-${i}`}
-                  className="text-xs px-2 py-1 bg-white/5 border border-white/10 rounded-md text-gray-400 hover:bg-white/10 hover:border-white/20 transition-all"
-                >
-                  {skill}
-                </span>
-              ))}
-            </CardItem>
-          </CardBody>
-        </CardContainer>
-      ),
-    };
-  });
+function MilestoneCard({
+  milestone,
+  index,
+  iconMap,
+  isLast,
+}: {
+  milestone: EducationMilestone;
+  index: number;
+  iconMap: Record<string, LucideIcon>;
+  isLast: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const c = useLevelColor(milestone.level);
+  const Icon = iconMap[milestone.icon];
 
   return (
-    <section className="w-full relative">
-      {/* Header */}
-      {header && (
-        <div className="text-center pt-32 pb-10 px-4">
-          {header.subtitle && (
-            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, x: -24 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{
+        duration: 0.55,
+        delay: index * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      className="flex gap-0 relative"
+    >
+      {/* Timeline spine */}
+      <div className="flex flex-col items-center w-10 flex-shrink-0">
+        <TimelineDot
+          level={milestone.level}
+          isActive={milestone.level === 'Current Focus'}
+        />
+        {!isLast && (
+          <m.div
+            className="w-px flex-1 mt-1 bg-gradient-to-b from-white/10 to-transparent"
+            initial={{ scaleY: 0, originY: 0 }}
+            animate={inView ? { scaleY: 1 } : {}}
+            transition={{ duration: 0.7, delay: index * 0.1 + 0.3 }}
+          />
+        )}
+      </div>
+
+      {/* Card */}
+      <div className="ml-5 mb-10 flex-1 min-w-0">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="w-full text-left group"
+          aria-expanded={open}
+        >
+          <div className="rounded-xl border border-white/[0.07] bg-white/[0.03] hover:bg-white/[0.055] hover:border-white/[0.12] transition-all duration-300 overflow-hidden">
+            {/* Card header */}
+            <div className="px-5 py-4 flex items-start gap-4">
+              {/* Icon */}
+              <div
+                className={`mt-0.5 flex-shrink-0 size-9 rounded-lg flex items-center justify-center ${c.badge} border`}
+              >
+                {Icon && <Icon size={16} className={c.text} />}
+              </div>
+
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span
+                    className={`text-[11px] font-mono uppercase tracking-widest ${c.text}`}
+                  >
+                    {milestone.periodLabel}
+                  </span>
+                  <span className="text-white/20 text-[10px]">·</span>
+                  <span className="text-[11px] text-white/30 font-mono">
+                    {milestone.status}
+                  </span>
+                </div>
+                <h3 className="text-[15px] font-semibold text-white/90 leading-snug">
+                  {milestone.title}
+                </h3>
+                <p className="text-[12px] text-white/40 mt-0.5">
+                  {milestone.institution}
+                </p>
+              </div>
+
+              {/* Chevron */}
+              <m.div
+                animate={{ rotate: open ? 180 : 0 }}
+                transition={{ duration: 0.25 }}
+                className="flex-shrink-0 mt-1"
+              >
+                <ChevronDown
+                  size={15}
+                  className="text-white/30 group-hover:text-white/50 transition-colors"
+                />
+              </m.div>
+            </div>
+
+            {/* Peek description — visible before expand */}
+            {!open && (
+              <div className="px-5 pb-4 -mt-1">
+                <p className="text-[13px] text-white/40 leading-relaxed line-clamp-2">
+                  {milestone.description}
+                </p>
+              </div>
+            )}
+
+            {/* Expanded content */}
+            <AnimatePresence initial={false}>
+              {open && (
+                <m.div
+                  key="expanded"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{
+                    duration: 0.35,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-5 pb-5 space-y-4 border-t border-white/[0.06] pt-4">
+                    <p className="text-[13px] text-white/55 leading-relaxed">
+                      {milestone.description}
+                    </p>
+
+                    {/* Highlights */}
+                    <ul className="space-y-2">
+                      {milestone.highlights.map((h, i) => (
+                        <m.li
+                          key={i}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.06 }}
+                          className="flex items-start gap-2.5 text-[13px] text-white/50"
+                        >
+                          <span
+                            className={`mt-[5px] size-1.5 rounded-full flex-shrink-0 ${c.dot}`}
+                          />
+                          {h}
+                        </m.li>
+                      ))}
+                    </ul>
+
+                    {/* Skills */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {milestone.skills.map((s) => (
+                        <SkillPill key={s} skill={s} />
+                      ))}
+                    </div>
+                  </div>
+                </m.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </button>
+      </div>
+    </m.div>
+  );
+}
+
+function StatCard({ stat, index }: { stat: EducationStat; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const Icon = stat.icon;
+
+  return (
+    <m.div
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flex flex-col gap-3 p-5 rounded-xl border border-white/[0.07] bg-white/[0.03]"
+    >
+      <div className="size-8 rounded-lg bg-white/[0.06] border border-white/[0.08] flex items-center justify-center">
+        <Icon size={15} className="text-white/50" />
+      </div>
+      <div>
+        <p className="text-2xl font-bold text-white tracking-tight">
+          {stat.value}
+        </p>
+        <p className="text-[11px] font-mono uppercase tracking-widest text-white/40 mt-0.5">
+          {stat.label}
+        </p>
+      </div>
+      <p className="text-[12px] text-white/35 leading-relaxed">
+        {stat.description}
+      </p>
+    </m.div>
+  );
+}
+
+export default function EducationJourney({
+  data,
+  iconMap,
+  header,
+  stats,
+}: EducationJourneyProps) {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { once: true });
+
+  return (
+    <LazyMotion features={domAnimation}>
+      <section className="min-h-screen px-4 py-20 md:py-28">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
+          <m.div
+            ref={headerRef}
+            initial={{ opacity: 0, y: 24 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/30 mb-4">
               {header.subtitle}
-            </h2>
-          )}
-          {header.title && (
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
               {header.title}
-            </h3>
-          )}
-          {header.description && (
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            </h1>
+            <p className="text-[14px] text-white/45 leading-relaxed max-w-lg">
               {header.description}
             </p>
-          )}
-        </div>
-      )}
+          </m.div>
 
-      {/* Timeline */}
-      <Timeline data={timelineData} />
-
-      {/* Stats */}
-      {showStats && stats && stats.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 pb-20">
-          <div
-            className={`grid grid-cols-2 md:grid-cols-${Math.min(stats.length, 4)} gap-4`}
+          {/* Stats row */}
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={headerInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-3 gap-3 mb-14"
           >
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
-              >
-                <stat.icon className="size-6 text-white/60 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-white mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-xs text-gray-400">{stat.label}</p>
-              </div>
+            {stats.map((s, i) => (
+              <StatCard key={s.label} stat={s} index={i} />
+            ))}
+          </m.div>
+
+          {/* Timeline */}
+          <div className="relative">
+            {data.map((milestone, i) => (
+              <MilestoneCard
+                key={milestone.id}
+                milestone={milestone}
+                index={i}
+                iconMap={iconMap}
+                isLast={i === data.length - 1}
+              />
             ))}
           </div>
         </div>
-      )}
-    </section>
+      </section>
+    </LazyMotion>
   );
-};
-
-export default EducationJourney;
+}
