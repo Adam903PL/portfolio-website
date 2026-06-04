@@ -7,6 +7,8 @@ const searchAndRetrievalBots = [
   'OAI-SearchBot',
   'ChatGPT-User',
   'PerplexityBot',
+  'Claude-User',
+  'Claude-SearchBot',
 ];
 
 const trainingBots = [

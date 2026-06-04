@@ -127,7 +127,7 @@ export const profilePageJsonLd = {
   },
 };
 
-const projectItems = [
+export const portfolioProjectItems = [
   {
     name: 'Prompt Version Control',
     description:
@@ -217,7 +217,7 @@ export const projectsJsonLd = {
   },
   mainEntity: {
     '@type': 'ItemList',
-    itemListElement: projectItems.map((project, index) => ({
+    itemListElement: portfolioProjectItems.map((project, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       item: {
