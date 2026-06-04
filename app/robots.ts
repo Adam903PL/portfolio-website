@@ -1,16 +1,6 @@
 import { SITE_URL } from '@/lib/seo';
 import type { MetadataRoute } from 'next';
 
-const searchAndRetrievalBots = [
-  'Googlebot',
-  'Bingbot',
-  'OAI-SearchBot',
-  'ChatGPT-User',
-  'PerplexityBot',
-  'Claude-User',
-  'Claude-SearchBot',
-];
-
 const trainingBots = [
   'GPTBot',
   'Google-Extended',
@@ -27,11 +17,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: '/api/',
       },
-      ...searchAndRetrievalBots.map((userAgent) => ({
-        userAgent,
-        allow: '/',
-        disallow: '/api/',
-      })),
       ...trainingBots.map((userAgent) => ({
         userAgent,
         disallow: '/',

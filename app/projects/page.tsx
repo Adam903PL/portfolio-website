@@ -2,7 +2,11 @@ import ProjectsFocusCards from '@/components/Projects';
 import React from 'react';
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
-import { createPageMetadata, projectsJsonLd } from '@/lib/seo';
+import {
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+  projectsJsonLd,
+} from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Projects',
@@ -15,6 +19,12 @@ const page = () => {
   return (
     <>
       <JsonLd data={projectsJsonLd} />
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Projects', path: '/projects' },
+        ])}
+      />
       <ProjectsFocusCards />
     </>
   );

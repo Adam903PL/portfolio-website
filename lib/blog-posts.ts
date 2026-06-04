@@ -10,6 +10,8 @@ export type BlogPost = {
   imageAlt: string;
   imagePosition?: string;
   linkedInUrl: string;
+  canonicalPath: `/blog/${string}`;
+  lastModified: string;
   tags: string[];
   content: string[];
 };
@@ -30,6 +32,8 @@ export const blogPosts: BlogPost[] = [
     imagePosition: 'center',
     linkedInUrl:
       'https://www.linkedin.com/feed/update/urn:li:share:7450267832547799040/',
+    canonicalPath: '/blog/civil42-hackathon',
+    lastModified: '2026-06-04',
     tags: ['Civil42', 'Hackathon', 'TechniSchools', 'Cybersecurity'],
     content: [
       'Niezwykłe 24h za mną - maraton kodowania, burz mózgów i totalnego skupienia. ⚡',
@@ -67,6 +71,8 @@ export const blogPosts: BlogPost[] = [
     imagePosition: 'center',
     linkedInUrl:
       'https://www.linkedin.com/feed/update/urn:li:share:7466488797933932545/',
+    canonicalPath: '/blog/vibe-coding-techni-schools',
+    lastModified: '2026-06-04',
     tags: ['VibeCoding', 'AI', 'Codex', 'TechEducation'],
     content: [
       'Miałem przyjemność poprowadzić wykłady na temat Vibe Codingu w Niepubliczne Technikum Programistyczne Techni Schools 🚀',

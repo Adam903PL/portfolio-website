@@ -83,7 +83,7 @@ const BlogPreview = () => {
 
                 <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
                   <Link
-                    href={`/blog#${post.slug}`}
+                    href={post.canonicalPath}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors duration-200 hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                   >
                     Read full post

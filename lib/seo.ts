@@ -1,4 +1,4 @@
-import type { BlogPost } from './blog-posts';
+import { blogPosts, type BlogPost } from './blog-posts';
 import type { Metadata } from 'next';
 
 export const SITE_URL = 'https://www.adampukaluk.pl';
@@ -20,13 +20,73 @@ export const contactLinks = {
   phone: '+48695031104',
 };
 
-export const siteRoutes = [
-  '/',
-  '/projects',
-  '/blog',
-  '/education',
-  '/contact',
+export const expertiseTopics = [
+  'Full-stack development',
+  'Next.js',
+  'React',
+  'TypeScript',
+  'AI applications',
+  'Automation',
+  'Cybersecurity',
+  'Mobile development',
 ] as const;
+
+type SiteRoute = {
+  path: string;
+  lastModified: string;
+  changeFrequency:
+    | 'always'
+    | 'hourly'
+    | 'daily'
+    | 'weekly'
+    | 'monthly'
+    | 'yearly'
+    | 'never';
+  priority: number;
+};
+
+const staticSiteRoutes: SiteRoute[] = [
+  {
+    path: '/',
+    lastModified: '2026-06-04',
+    changeFrequency: 'weekly',
+    priority: 1,
+  },
+  {
+    path: '/projects',
+    lastModified: '2026-06-04',
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  },
+  {
+    path: '/blog',
+    lastModified: '2026-06-04',
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  },
+  {
+    path: '/education',
+    lastModified: '2026-06-04',
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  },
+  {
+    path: '/contact',
+    lastModified: '2026-06-04',
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  },
+];
+
+export const siteRoutes: SiteRoute[] = [
+  ...staticSiteRoutes,
+  ...blogPosts.map((post) => ({
+    path: post.canonicalPath,
+    lastModified: post.lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  })),
+];
 
 export const absoluteUrl = (path = '/') => new URL(path, SITE_URL).toString();
 
@@ -38,7 +98,7 @@ export const createPageMetadata = ({
 }: {
   title: string;
   description: string;
-  path: (typeof siteRoutes)[number];
+  path: string;
   type?: 'website' | 'article';
 }): Metadata => ({
   title,
@@ -126,6 +186,19 @@ export const profilePageJsonLd = {
     '@id': `${SITE_URL}/#person`,
   },
 };
+
+export const createBreadcrumbJsonLd = (
+  items: Array<{ name: string; path: string }>,
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: absoluteUrl(item.path),
+  })),
+});
 
 export const portfolioProjectItems = [
   {
@@ -249,20 +322,47 @@ export const createBlogJsonLd = (posts: BlogPost[]) => ({
   },
   blogPost: posts.map((post) => ({
     '@type': 'SocialMediaPosting',
-    '@id': `${SITE_URL}/blog#${post.slug}`,
+    '@id': `${SITE_URL}${post.canonicalPath}#post`,
     headline: post.title,
     name: post.title,
     description: post.excerpt,
     articleBody: post.content.join('\n\n'),
     image: absoluteUrl(post.image),
-    url: `${absoluteUrl('/blog')}#${post.slug}`,
+    url: absoluteUrl(post.canonicalPath),
     sameAs: post.linkedInUrl,
+    dateModified: post.lastModified,
     inLanguage: 'pl',
     author: {
       '@id': `${SITE_URL}/#person`,
     },
     keywords: post.tags.join(', '),
   })),
+});
+
+export const createBlogPostJsonLd = (post: BlogPost) => ({
+  '@context': 'https://schema.org',
+  '@type': ['BlogPosting', 'SocialMediaPosting'],
+  '@id': `${SITE_URL}${post.canonicalPath}#post`,
+  headline: post.title,
+  name: post.title,
+  description: post.excerpt,
+  articleBody: post.content.join('\n\n'),
+  image: absoluteUrl(post.image),
+  url: absoluteUrl(post.canonicalPath),
+  sameAs: post.linkedInUrl,
+  dateModified: post.lastModified,
+  inLanguage: 'pl',
+  author: {
+    '@id': `${SITE_URL}/#person`,
+  },
+  publisher: {
+    '@id': `${SITE_URL}/#person`,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': absoluteUrl(post.canonicalPath),
+  },
+  keywords: post.tags.join(', '),
 });
 
 export const contactJsonLd = {

@@ -1,6 +1,7 @@
 import EducationPageClient from '@/components/EducationPageClient';
 import type { Metadata } from 'next';
-import { createPageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { createBreadcrumbJsonLd, createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Education',
@@ -10,5 +11,15 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function Page() {
-  return <EducationPageClient />;
+  return (
+    <>
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Education', path: '/education' },
+        ])}
+      />
+      <EducationPageClient />
+    </>
+  );
 }

@@ -6,7 +6,11 @@ import BlogPreview from '@/components/BlogPreview';
 import ProjectCTA from '@/components/ProjectCTA';
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
-import { createPageMetadata, profilePageJsonLd } from '@/lib/seo';
+import {
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+  profilePageJsonLd,
+} from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Full-Stack Developer Portfolio',
@@ -19,6 +23,7 @@ const Home = () => {
   return (
     <>
       <JsonLd data={profilePageJsonLd} />
+      <JsonLd data={createBreadcrumbJsonLd([{ name: 'Home', path: '/' }])} />
       <Hero />
       <About />
       <Skills />

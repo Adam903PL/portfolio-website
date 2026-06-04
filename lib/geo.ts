@@ -3,6 +3,7 @@ import {
   absoluteUrl,
   contactLinks,
   DEFAULT_DESCRIPTION,
+  expertiseTopics,
   portfolioProjectItems,
   SITE_NAME,
   SITE_TITLE,
@@ -16,10 +17,10 @@ type GeoPage = {
   path: string;
   title: string;
   description: string;
-  section: 'core' | 'resources';
+  section: 'core' | 'blog' | 'resources';
 };
 
-export const canonicalGeoPages: GeoPage[] = [
+const mainCanonicalGeoPages: GeoPage[] = [
   {
     path: '/',
     title: 'Home',
@@ -55,6 +56,18 @@ export const canonicalGeoPages: GeoPage[] = [
       'Contact signals for collaboration, project work and full-stack development opportunities.',
     section: 'core',
   },
+];
+
+const blogPostGeoPages: GeoPage[] = blogPosts.map((post) => ({
+  path: post.canonicalPath,
+  title: post.title,
+  description: post.excerpt,
+  section: 'blog',
+}));
+
+export const canonicalGeoPages: GeoPage[] = [
+  ...mainCanonicalGeoPages,
+  ...blogPostGeoPages,
 ];
 
 export const markdownGeoPages: GeoPage[] = [
@@ -131,8 +144,12 @@ export function buildLlmsTxt() {
     `> ${DEFAULT_DESCRIPTION}`,
     `Canonical website: ${SITE_URL}`,
     `Last updated: ${LAST_UPDATED}`,
+    '## Expertise',
+    expertiseTopics.map((topic) => `- ${topic}`).join('\n'),
     '## Core HTML Pages',
-    renderPageList(canonicalGeoPages),
+    renderPageList(mainCanonicalGeoPages),
+    '## Blog Post Pages',
+    renderPageList(blogPostGeoPages),
     '## AI Markdown Resources',
     renderPageList(markdownGeoPages),
     '## Markdown Mirrors',
@@ -160,6 +177,8 @@ export function buildProfileMarkdown() {
     `${SITE_NAME} is a full-stack developer from Poland building modern web applications, AI tooling, automation workflows, cybersecurity-oriented developer systems and mobile apps. This portfolio is the canonical public profile for projects, technical skills, education, blog posts and collaboration contact details.`,
     `Canonical URL: ${SITE_URL}`,
     `Last updated: ${LAST_UPDATED}`,
+    '## Expertise',
+    expertiseTopics.map((topic) => `- ${topic}`).join('\n'),
     '## Primary Focus',
     [
       '- Full-stack web development with Next.js, React, TypeScript and backend APIs.',
@@ -167,6 +186,19 @@ export function buildProfileMarkdown() {
       '- Cybersecurity-adjacent systems such as AI session audit, local proxy/firewall flows and incident command tooling.',
       '- Mobile development with React Native and Expo.',
     ].join('\n'),
+    '## Technology Stack',
+    [
+      '- Frontend: Next.js, React, TypeScript, Tailwind CSS, Framer Motion.',
+      '- Backend: Node.js, Python, FastAPI, Prisma, PostgreSQL, MongoDB.',
+      '- AI and automation: Codex workflows, Claude Code, Lovable, n8n, agent tooling, AI-assisted development.',
+      '- Security and operations: local proxy/firewall concepts, AI session audit, cybersecurity learning, Linux/Kali Linux context.',
+      '- Mobile: React Native, Expo and cross-platform app delivery.',
+    ].join('\n'),
+    '## Flagship Projects',
+    portfolioProjectItems
+      .slice(0, 3)
+      .map((project) => `- ${project.name}: ${project.description}`)
+      .join('\n'),
     '## Key Links',
     [
       bulletLink('Projects', '/projects'),
@@ -211,7 +243,7 @@ export function buildBlogMarkdown() {
   const postSections = blogPosts.map((post) =>
     joinMarkdown([
       `## ${post.title}`,
-      `Canonical URL: ${absoluteUrl(`/blog#${post.slug}`)}`,
+      `Canonical URL: ${absoluteUrl(post.canonicalPath)}`,
       `Source: ${post.source}`,
       `Original LinkedIn URL: ${post.linkedInUrl}`,
       `Tags: ${post.tags.map((tag) => `#${tag}`).join(', ')}`,
@@ -230,6 +262,29 @@ export function buildBlogMarkdown() {
     `Canonical URL: ${absoluteUrl('/blog')}`,
     `Last updated: ${LAST_UPDATED}`,
     ...postSections,
+  ]);
+}
+
+export function buildBlogPostMarkdown(slug: string) {
+  const post = blogPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return null;
+  }
+
+  return joinMarkdown([
+    `# ${post.title}`,
+    `Canonical URL: ${absoluteUrl(post.canonicalPath)}`,
+    `Last updated: ${post.lastModified}`,
+    `Source: ${post.source}`,
+    `Original LinkedIn URL: ${post.linkedInUrl}`,
+    `Tags: ${post.tags.map((tag) => `#${tag}`).join(', ')}`,
+    `Image: ${absoluteUrl(post.image)}`,
+    `Image alt: ${post.imageAlt}`,
+    '## Summary',
+    post.excerpt,
+    '## Full post text',
+    post.content.join('\n\n'),
   ]);
 }
 
@@ -300,6 +355,12 @@ export function normalizeMirrorPath(pathSegments?: string[]) {
 }
 
 export function getMarkdownForPath(pathname: string) {
+  const blogPostMatch = pathname.match(/^\/blog\/([^/]+)$/);
+
+  if (blogPostMatch) {
+    return buildBlogPostMarkdown(blogPostMatch[1]);
+  }
+
   switch (pathname) {
     case '/':
     case '/home':

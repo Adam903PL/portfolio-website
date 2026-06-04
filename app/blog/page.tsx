@@ -4,7 +4,11 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, Linkedin } from 'lucide-react';
 import { blogPosts } from '@/lib/blog-posts';
 import JsonLd from '@/components/JsonLd';
-import { createBlogJsonLd, createPageMetadata } from '@/lib/seo';
+import {
+  createBlogJsonLd,
+  createBreadcrumbJsonLd,
+  createPageMetadata,
+} from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Blog',
@@ -17,6 +21,12 @@ const BlogPage = () => {
   return (
     <>
       <JsonLd data={createBlogJsonLd(blogPosts)} />
+      <JsonLd
+        data={createBreadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Blog', path: '/blog' },
+        ])}
+      />
       <main className="min-h-screen px-4 pb-24 pt-28 text-white sm:px-6 lg:pt-32">
         <section className="mx-auto max-w-3xl" lang="pl">
           {/* Back button */}
@@ -78,6 +88,13 @@ const BlogPage = () => {
                       #{tag}
                     </span>
                   ))}
+                  <Link
+                    href={post.canonicalPath}
+                    className="inline-flex shrink-0 items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white/55 transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  >
+                    Open post page
+                    <ArrowUpRight className="size-3.5" aria-hidden />
+                  </Link>
                   <a
                     href={post.linkedInUrl}
                     target="_blank"
