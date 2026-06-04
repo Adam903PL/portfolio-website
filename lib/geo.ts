@@ -190,7 +190,8 @@ export function buildProfileMarkdown() {
     [
       '- Frontend: Next.js, React, TypeScript, Tailwind CSS, Framer Motion.',
       '- Backend: Node.js, Python, FastAPI, Prisma, PostgreSQL, MongoDB.',
-      '- AI and automation: Codex workflows, Claude Code, Lovable, n8n, agent tooling, AI-assisted development.',
+      '- Cloud: AWS fundamentals, Amazon S3, Amazon EC2 basics, Google Cloud familiarity, Cloudflare and Railway deployments.',
+      '- AI and automation: Claude, Claude Code, Google Antigravity, OpenAI Codex, Codex workflows, Lovable, n8n, agent tooling, AI-assisted development.',
       '- Security and operations: local proxy/firewall concepts, AI session audit, cybersecurity learning, Linux/Kali Linux context.',
       '- Mobile: React Native, Expo and cross-platform app delivery.',
     ].join('\n'),

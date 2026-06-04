@@ -8,7 +8,7 @@ import {
   m,
   useReducedMotion,
 } from 'framer-motion';
-import { RotateCcw, Search, X } from 'lucide-react';
+import { RotateCcw, Search } from 'lucide-react';
 import Image, { type StaticImageData } from 'next/image';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
@@ -41,6 +41,13 @@ import KotlinIcon from '@/public/img/icons/Kotlin_icon.svg';
 import ReactHookFormIcon from '@/public/img/icons/react-hooj-form-icon.svg';
 import StripeIcon from '@/public/img/icons/stripe-icon.svg';
 import PrismaIcon from '@/public/img/icons/prisma-svgrepo-com.svg';
+import AwsLogoIcon from '@/public/img/icons/aws-logo.svg';
+import AwsS3Icon from '@/public/img/icons/aws-s3.svg';
+import AwsEc2Icon from '@/public/img/icons/aws-ec2.svg';
+import GoogleCloudLogoIcon from '@/public/img/icons/google-cloud-logo.svg';
+import ClaudeIcon from '@/public/img/icons/claude.svg';
+import OpenAIIcon from '@/public/img/icons/openai.svg';
+import GoogleAntigravityIcon from '@/public/img/icons/google-antigravity.png';
 
 // ─── Inline SVG icons for Supabase, Railway, Cloudflare ───────────────────────
 
@@ -99,28 +106,17 @@ function CloudflareIcon({ size = 24 }: { size?: number }) {
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
-const ExperienceLevel = {
-  BEGINNER: 'Beginner',
-  BASIC: 'Basic',
-  INTERMEDIATE: 'Intermediate',
-  ADVANCED: 'Advanced',
-  EXPERT: 'Expert',
-} as const;
-
 const SkillCategory = {
   LANGUAGE: 'Languages',
   FRAMEWORK: 'Frameworks',
   LIBRARY: 'Libraries',
   BACKEND: 'Backend',
   DATABASE: 'Databases',
+  CLOUD_AI: 'Cloud & AI',
   TOOLS: 'Tools',
 } as const;
 
-type ExperienceLevelValue =
-  (typeof ExperienceLevel)[keyof typeof ExperienceLevel];
 type SkillCategoryValue = (typeof SkillCategory)[keyof typeof SkillCategory];
-type FilterCategory = 'All' | SkillCategoryValue;
-type FilterLevel = 'All' | ExperienceLevelValue;
 type ProjectCount =
   | number
   | 'Daily'
@@ -133,10 +129,10 @@ type Skill = {
   name: string;
   icon: StaticImageData | null;
   customIcon?: 'conventional-commits' | 'supabase' | 'railway' | 'cloudflare';
-  level: ExperienceLevelValue;
   projects: ProjectCount;
   categories: SkillCategoryValue[];
   details: string;
+  wideIcon?: boolean;
   lightSurface?: boolean; // use white bg for dark icons
 };
 
@@ -146,7 +142,6 @@ const allSkills: Skill[] = [
   {
     name: 'JavaScript',
     icon: JavaScriptIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -155,7 +150,6 @@ const allSkills: Skill[] = [
   {
     name: 'TypeScript',
     icon: TypeScriptIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -164,7 +158,6 @@ const allSkills: Skill[] = [
   {
     name: 'Python',
     icon: PythonIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -173,7 +166,6 @@ const allSkills: Skill[] = [
   {
     name: 'HTML',
     icon: HTMLIcon,
-    level: ExperienceLevel.EXPERT,
     projects: 'Many',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -182,7 +174,6 @@ const allSkills: Skill[] = [
   {
     name: 'PHP',
     icon: PhpIcon,
-    level: ExperienceLevel.BASIC,
     projects: 'Several',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -191,7 +182,6 @@ const allSkills: Skill[] = [
   {
     name: 'Kotlin',
     icon: KotlinIcon,
-    level: ExperienceLevel.BASIC,
     projects: 'Several',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -200,7 +190,6 @@ const allSkills: Skill[] = [
   {
     name: 'C++',
     icon: CppIcon,
-    level: ExperienceLevel.BASIC,
     projects: 'Few',
     categories: [SkillCategory.LANGUAGE],
     details:
@@ -209,7 +198,6 @@ const allSkills: Skill[] = [
   {
     name: 'React',
     icon: ReactIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 7,
     categories: [SkillCategory.FRAMEWORK],
     details:
@@ -218,7 +206,6 @@ const allSkills: Skill[] = [
   {
     name: 'Next.js',
     icon: NextJsIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 3,
     categories: [SkillCategory.FRAMEWORK],
     lightSurface: true,
@@ -228,7 +215,6 @@ const allSkills: Skill[] = [
   {
     name: 'Tailwind CSS',
     icon: TailwindIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Several',
     categories: [SkillCategory.FRAMEWORK],
     details:
@@ -237,7 +223,6 @@ const allSkills: Skill[] = [
   {
     name: 'React Native',
     icon: ReactNativeIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 2,
     categories: [SkillCategory.FRAMEWORK],
     details:
@@ -246,7 +231,6 @@ const allSkills: Skill[] = [
   {
     name: 'Node.js',
     icon: NodeIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.BACKEND],
     details:
@@ -255,7 +239,6 @@ const allSkills: Skill[] = [
   {
     name: 'Express.js',
     icon: ExpressIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.BACKEND],
     lightSurface: true,
@@ -265,7 +248,6 @@ const allSkills: Skill[] = [
   {
     name: 'FastAPI',
     icon: FastAPIIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 4,
     categories: [SkillCategory.BACKEND],
     details:
@@ -274,7 +256,6 @@ const allSkills: Skill[] = [
   {
     name: 'Flask',
     icon: FlaskIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 4,
     categories: [SkillCategory.BACKEND],
     details:
@@ -283,7 +264,6 @@ const allSkills: Skill[] = [
   {
     name: 'BetterAuth',
     icon: BetterAuthIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 3,
     categories: [SkillCategory.BACKEND],
     details:
@@ -292,7 +272,6 @@ const allSkills: Skill[] = [
   {
     name: 'Stripe',
     icon: StripeIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.BACKEND],
     details:
@@ -301,7 +280,6 @@ const allSkills: Skill[] = [
   {
     name: 'Zustand',
     icon: ZustandIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.LIBRARY],
     details:
@@ -310,7 +288,6 @@ const allSkills: Skill[] = [
   {
     name: 'Redux Toolkit',
     icon: ReduxIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.LIBRARY],
     details:
@@ -319,7 +296,6 @@ const allSkills: Skill[] = [
   {
     name: 'React Hook Form',
     icon: ReactHookFormIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.LIBRARY],
     details:
@@ -328,7 +304,6 @@ const allSkills: Skill[] = [
   {
     name: 'Lottie',
     icon: LottieIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.LIBRARY],
     details:
@@ -337,7 +312,6 @@ const allSkills: Skill[] = [
   {
     name: 'Prisma',
     icon: PrismaIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.DATABASE],
     lightSurface: true,
@@ -347,7 +321,6 @@ const allSkills: Skill[] = [
   {
     name: 'PostgreSQL',
     icon: PostgresIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.DATABASE],
     details:
@@ -356,7 +329,6 @@ const allSkills: Skill[] = [
   {
     name: 'MS SQL',
     icon: MsSqlIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.DATABASE],
     details:
@@ -366,7 +338,6 @@ const allSkills: Skill[] = [
     name: 'Supabase',
     icon: null,
     customIcon: 'supabase',
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.DATABASE, SkillCategory.BACKEND],
     details:
@@ -375,7 +346,6 @@ const allSkills: Skill[] = [
   {
     name: 'Git',
     icon: GitIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Daily',
     categories: [SkillCategory.TOOLS],
     details:
@@ -384,7 +354,6 @@ const allSkills: Skill[] = [
   {
     name: 'VS Code',
     icon: VSCodeIcon,
-    level: ExperienceLevel.EXPERT,
     projects: 'Daily',
     categories: [SkillCategory.TOOLS],
     details:
@@ -393,7 +362,6 @@ const allSkills: Skill[] = [
   {
     name: 'Docker',
     icon: DockerIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Several',
     categories: [SkillCategory.TOOLS],
     details:
@@ -403,7 +371,6 @@ const allSkills: Skill[] = [
     name: 'Railway',
     icon: null,
     customIcon: 'railway',
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.TOOLS],
     details:
@@ -413,16 +380,75 @@ const allSkills: Skill[] = [
     name: 'Cloudflare',
     icon: null,
     customIcon: 'cloudflare',
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.TOOLS],
     details:
       'DNS management, CDN, Workers for edge logic, and Pages for frontend hosting. Used across many projects for performance and security.',
   },
   {
+    name: 'AWS',
+    icon: AwsLogoIcon,
+    projects: 'Several',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    wideIcon: true,
+    lightSurface: true,
+    details:
+      'Cloud fundamentals across AWS services, project deployment planning, storage, compute basics, IAM-aware access patterns, and production-oriented infrastructure workflows.',
+  },
+  {
+    name: 'Amazon S3',
+    icon: AwsS3Icon,
+    projects: 'Several',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.BACKEND],
+    details:
+      'Object storage for uploads, static assets, backups, and app integrations. Comfortable with bucket structure, public/private access patterns, and S3-backed project storage.',
+  },
+  {
+    name: 'Amazon EC2',
+    icon: AwsEc2Icon,
+    projects: 'Few',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    details:
+      'Virtual machine and server basics: instances, SSH access, Linux setup, deployment experiments, and understanding how compute fits into AWS architecture.',
+  },
+  {
+    name: 'Google Cloud',
+    icon: GoogleCloudLogoIcon,
+    projects: 'Few',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    wideIcon: true,
+    lightSurface: true,
+    details:
+      'General Google Cloud familiarity: cloud console, project setup, managed services, deployment concepts, and how GCP fits into modern web app infrastructure.',
+  },
+  {
+    name: 'Claude / Claude Code',
+    icon: ClaudeIcon,
+    projects: 'Frequently',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    details:
+      'AI-assisted development workflows with Claude and Claude Code: prompt iteration, code review, debugging support, refactoring assistance, and agent-style engineering flows.',
+  },
+  {
+    name: 'Google Antigravity',
+    icon: GoogleAntigravityIcon,
+    projects: 'Frequently',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    details:
+      'AI-first IDE and agent development workflow for planning, editing, inspecting browser state, and moving faster through full-stack implementation loops.',
+  },
+  {
+    name: 'OpenAI Codex',
+    icon: OpenAIIcon,
+    projects: 'Frequently',
+    categories: [SkillCategory.CLOUD_AI, SkillCategory.TOOLS],
+    lightSurface: true,
+    details:
+      'Agentic coding workflow for repo navigation, implementation, debugging, refactoring, review, and production-focused iteration across real codebases.',
+  },
+  {
     name: 'n8n',
     icon: N8NIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Many',
     categories: [SkillCategory.TOOLS],
     details:
@@ -431,7 +457,6 @@ const allSkills: Skill[] = [
   {
     name: 'JetBrains',
     icon: JetBrainsIcon,
-    level: ExperienceLevel.ADVANCED,
     projects: 'Frequently',
     categories: [SkillCategory.TOOLS],
     details:
@@ -440,7 +465,6 @@ const allSkills: Skill[] = [
   {
     name: 'Postman',
     icon: PostmanIcon,
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.TOOLS],
     details:
@@ -450,7 +474,6 @@ const allSkills: Skill[] = [
     name: 'Conventional Commits',
     icon: null,
     customIcon: 'conventional-commits',
-    level: ExperienceLevel.INTERMEDIATE,
     projects: 'Many',
     categories: [SkillCategory.TOOLS],
     details:
@@ -460,34 +483,12 @@ const allSkills: Skill[] = [
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
-const LEVEL_ORDER: ExperienceLevelValue[] = [
-  ExperienceLevel.EXPERT,
-  ExperienceLevel.ADVANCED,
-  ExperienceLevel.INTERMEDIATE,
-  ExperienceLevel.BASIC,
-  ExperienceLevel.BEGINNER,
-];
-
-const LEVEL_BAR: Record<ExperienceLevelValue, number> = {
-  Expert: 100,
-  Advanced: 80,
-  Intermediate: 60,
-  Basic: 40,
-  Beginner: 20,
-};
-
-const LEVEL_DOT_COLOR: Record<ExperienceLevelValue, string> = {
-  Expert: 'bg-white',
-  Advanced: 'bg-white/80',
-  Intermediate: 'bg-white/55',
-  Basic: 'bg-white/30',
-  Beginner: 'bg-white/15',
-};
-
 const CATEGORY_TABS: Array<'All' | SkillCategoryValue> = [
   'All',
   ...Object.values(SkillCategory),
 ];
+
+const CATEGORY_ORDER: SkillCategoryValue[] = Object.values(SkillCategory);
 
 function projectLabel(val: ProjectCount): string {
   if (typeof val === 'number') return `${val} projects`;
@@ -520,9 +521,9 @@ function SkillIcon({ skill, size = 22 }: { skill: Skill; size?: number }) {
       src={skill.icon}
       alt=""
       aria-hidden
-      width={size}
-      height={size}
-      className="object-contain"
+      width={skill.wideIcon ? 34 : size}
+      height={skill.wideIcon ? 18 : size}
+      className="max-h-7 max-w-[34px] object-contain"
     />
   );
 }
@@ -547,7 +548,7 @@ function SkillCard({
   return (
     <m.article
       layout={!reduceMotion}
-      className={`overflow-hidden rounded-2xl border transition-colors duration-200 ${
+      className={`self-start overflow-hidden rounded-2xl border transition-colors duration-200 ${
         expanded
           ? 'border-white/25 bg-white/[0.06]'
           : 'border-white/10 bg-black/60 hover:border-white/20 hover:bg-white/[0.04]'
@@ -572,15 +573,12 @@ function SkillCard({
           <span className="block truncate text-sm font-semibold text-white">
             {skill.name}
           </span>
-          <span className="mt-0.5 flex items-center gap-2 text-[11px] text-white/35">
-            <span
-              className={`inline-block size-1.5 rounded-full ${LEVEL_DOT_COLOR[skill.level]}`}
-            />
-            {skill.level}
+          <span className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-white/35">
+            <span>{skill.categories.slice(0, 2).join(' / ')}</span>
             <span aria-hidden className="text-white/15">
-              ·
+              &middot;
             </span>
-            {projectLabel(skill.projects)}
+            <span>{projectLabel(skill.projects)}</span>
           </span>
         </span>
 
@@ -612,28 +610,6 @@ function SkillCard({
             transition={{ duration: reduceMotion ? 0 : 0.2, ease: 'easeOut' }}
           >
             <div className="px-4 pb-4 pt-0">
-              {/* Progress bar */}
-              <div className="mb-3 space-y-1.5">
-                <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wide text-white/25">
-                  <span>Proficiency</span>
-                  <span className="font-mono text-white/45">
-                    {LEVEL_BAR[skill.level]}%
-                  </span>
-                </div>
-                <div className="h-1 overflow-hidden rounded-full bg-white/10">
-                  <m.div
-                    initial={reduceMotion ? false : { width: 0 }}
-                    animate={{ width: `${LEVEL_BAR[skill.level]}%` }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.5,
-                      ease: 'easeOut',
-                      delay: 0.05,
-                    }}
-                    className="h-full rounded-full bg-white/70"
-                  />
-                </div>
-              </div>
-
               {/* Description */}
               <p className="text-[13px] leading-6 text-white/55">
                 {skill.details}
@@ -658,6 +634,46 @@ function SkillCard({
   );
 }
 
+function SkillColumns({
+  skills,
+  expandedSkills,
+  onToggle,
+  reduceMotion,
+}: {
+  skills: Skill[];
+  expandedSkills: Set<string>;
+  onToggle: (name: string) => void;
+  reduceMotion: boolean;
+}) {
+  const columns = [
+    skills.filter((_, index) => index % 2 === 0),
+    skills.filter((_, index) => index % 2 === 1),
+  ];
+
+  const renderCard = (skill: Skill) => (
+    <SkillCard
+      key={skill.name}
+      skill={skill}
+      expanded={expandedSkills.has(skill.name)}
+      onToggle={() => onToggle(skill.name)}
+      reduceMotion={reduceMotion}
+    />
+  );
+
+  return (
+    <>
+      <div className="space-y-2 sm:hidden">{skills.map(renderCard)}</div>
+      <div className="hidden gap-2 sm:grid sm:grid-cols-2">
+        {columns.map((column, index) => (
+          <div key={index === 0 ? 'left' : 'right'} className="space-y-2">
+            {column.map(renderCard)}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 // ─── Main component ─────────────────────────────────────────────────────────────
 
 export default function Skills() {
@@ -666,9 +682,6 @@ export default function Skills() {
   const [activeCategory, setActiveCategory] = useState<
     'All' | SkillCategoryValue
   >('All');
-  const [activeLevels, setActiveLevels] = useState<Set<ExperienceLevelValue>>(
-    new Set(),
-  );
   const [search, setSearch] = useState('');
   const [expandedSkills, setExpandedSkills] = useState<Set<string>>(new Set());
 
@@ -684,36 +697,19 @@ export default function Skills() {
     });
   }
 
-  function toggleLevel(level: ExperienceLevelValue) {
-    setActiveLevels((prev) => {
-      const next = new Set(prev);
-      if (next.has(level)) {
-        next.delete(level);
-      } else {
-        next.add(level);
-      }
-      return next;
-    });
-  }
-
   function clearAll() {
     setActiveCategory('All');
-    setActiveLevels(new Set());
     setSearch('');
     setExpandedSkills(new Set());
   }
 
-  const hasFilters =
-    activeCategory !== 'All' ||
-    activeLevels.size > 0 ||
-    search.trim().length > 0;
+  const hasFilters = activeCategory !== 'All' || search.trim().length > 0;
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return allSkills.filter((s) => {
       if (activeCategory !== 'All' && !s.categories.includes(activeCategory))
         return false;
-      if (activeLevels.size > 0 && !activeLevels.has(s.level)) return false;
       if (
         q &&
         !s.name.toLowerCase().includes(q) &&
@@ -722,25 +718,18 @@ export default function Skills() {
         return false;
       return true;
     });
-  }, [activeCategory, activeLevels, search]);
+  }, [activeCategory, search]);
 
-  // Group by level when no category/search filter, or flat list when filtered
-  const isGrouped =
-    activeCategory === 'All' && activeLevels.size === 0 && !search.trim();
+  // Group by primary domain when no category/search filter, or flat list when filtered
+  const isGrouped = activeCategory === 'All' && !search.trim();
 
   const groups = useMemo(() => {
     if (!isGrouped) return null;
-    return LEVEL_ORDER.map((level) => ({
-      level,
-      skills: filtered.filter((s) => s.level === level),
+    return CATEGORY_ORDER.map((category) => ({
+      category,
+      skills: filtered.filter((s) => s.categories[0] === category),
     })).filter((g) => g.skills.length > 0);
   }, [isGrouped, filtered]);
-
-  const advancedPlus = allSkills.filter(
-    (s) =>
-      s.level === ExperienceLevel.ADVANCED ||
-      s.level === ExperienceLevel.EXPERT,
-  ).length;
 
   return (
     <LazyMotion features={domMax}>
@@ -767,8 +756,8 @@ export default function Skills() {
             </h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-white/50">
               {allSkills.length} technologies across{' '}
-              {Object.keys(SkillCategory).length} domains — {advancedPlus} at
-              Advanced level or above.
+              {Object.keys(SkillCategory).length} domains, focused on practical
+              projects, automation, cloud, AI tooling, and full-stack delivery.
             </p>
           </div>
 
@@ -821,33 +810,6 @@ export default function Skills() {
                 );
               })}
             </div>
-
-            {/* Level toggles */}
-            <div className="flex flex-wrap gap-2">
-              {LEVEL_ORDER.map((level) => {
-                const active = activeLevels.has(level);
-                return (
-                  <button
-                    key={level}
-                    type="button"
-                    onClick={() => toggleLevel(level)}
-                    className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${
-                      active
-                        ? 'border-white/30 bg-white/10 text-white'
-                        : 'border-white/10 bg-transparent text-white/35 hover:border-white/15 hover:text-white/60'
-                    }`}
-                  >
-                    <span
-                      className={`size-1.5 rounded-full ${LEVEL_DOT_COLOR[level]}`}
-                    />
-                    {level}
-                    {active && (
-                      <X className="size-3 text-white/50" aria-hidden />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
           {/* ── Skill list ── */}
@@ -870,45 +832,33 @@ export default function Skills() {
           ) : isGrouped && groups ? (
             <div className="space-y-8">
               {groups.map((group) => (
-                <div key={group.level}>
+                <div key={group.category}>
                   <div className="mb-3 flex items-center gap-3">
-                    <span
-                      className={`inline-block size-2 rounded-full ${LEVEL_DOT_COLOR[group.level]}`}
-                    />
+                    <span className="inline-block size-2 rounded-full bg-white/35" />
                     <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-                      {group.level}
+                      {group.category}
                       <span className="ml-2 text-white/20">
                         {group.skills.length}
                       </span>
                     </h3>
                     <span className="h-px flex-1 bg-white/[0.06]" />
                   </div>
-                  <div className="grid gap-2 sm:grid-cols-2">
-                    {group.skills.map((skill) => (
-                      <SkillCard
-                        key={skill.name}
-                        skill={skill}
-                        expanded={expandedSkills.has(skill.name)}
-                        onToggle={() => toggleExpand(skill.name)}
-                        reduceMotion={reduceMotion}
-                      />
-                    ))}
-                  </div>
+                  <SkillColumns
+                    skills={group.skills}
+                    expandedSkills={expandedSkills}
+                    onToggle={toggleExpand}
+                    reduceMotion={reduceMotion}
+                  />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid gap-2 sm:grid-cols-2">
-              {filtered.map((skill) => (
-                <SkillCard
-                  key={skill.name}
-                  skill={skill}
-                  expanded={expandedSkills.has(skill.name)}
-                  onToggle={() => toggleExpand(skill.name)}
-                  reduceMotion={reduceMotion}
-                />
-              ))}
-            </div>
+            <SkillColumns
+              skills={filtered}
+              expandedSkills={expandedSkills}
+              onToggle={toggleExpand}
+              reduceMotion={reduceMotion}
+            />
           )}
         </div>
       </section>
