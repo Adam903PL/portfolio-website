@@ -23,7 +23,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1fr_360px]">
+      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.2fr_1fr]">
         {/* Headline + copy */}
         <div>
           <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em] text-ink">
@@ -67,18 +67,21 @@ export default function Hero() {
         </div>
 
         {/* Portrait card */}
-        <div className="relative w-full">
+        <div className="relative mx-auto w-full max-w-[420px]">
           <div
             className="relative overflow-hidden border bg-sand"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
-            <Image
-              src={HeroPortrait}
-              alt="Adam Pukaluk"
-              priority
-              sizes="(max-width: 900px) 100vw, 300px"
-              className="block h-auto w-full"
-            />
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src={HeroPortrait}
+                alt="Adam Pukaluk"
+                fill
+                priority
+                sizes="(max-width: 900px) 100vw, 420px"
+                className="object-cover object-[center_35%]"
+              />
+            </div>
             <div
               className="absolute left-3 top-3 font-mono text-[11px] tracking-[0.06em] text-cream"
               style={{
