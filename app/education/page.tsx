@@ -1,4 +1,4 @@
-import EducationPageClient from '@/components/EducationPageClient';
+import Education from '@/components/Education';
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
 import { createBreadcrumbJsonLd, createPageMetadata } from '@/lib/seo';
@@ -19,7 +19,7 @@ export default function Page() {
           { name: 'Education', path: '/education' },
         ])}
       />
-      <EducationPageClient />
+      <Education />
     </>
   );
 }
