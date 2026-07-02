@@ -1,120 +1,121 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Coffee, Github, Linkedin } from 'lucide-react';
+import Image from 'next/image';
 
-const techStack = [
-  'React',
-  'Next.js',
-  'Node.js',
-  'TypeScript',
-  'Tailwind',
-  'PostgreSQL',
+const eyebrow = ['Full-Stack Developer', 'Lublin, Poland', 'Est. 2009'];
+
+const stats = [
+  { value: '16', label: 'Years old', border: true },
+  { value: '3+', label: 'Yrs building', border: false },
 ];
-
-const focusRing =
-  'focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black';
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className="relative flex min-h-[86vh] items-center justify-center overflow-hidden px-4 pb-10 pt-24 sm:pt-24"
-    >
-      <div aria-hidden className="absolute inset-0 -z-10 opacity-35">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:96px_96px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.08),transparent_55%)]" />
+    <section id="hero" className="side-pad relative z-[2] pb-10 pt-16">
+      {/* Eyebrow */}
+      <div className="mb-[30px] flex flex-wrap gap-[18px] font-mono text-[13px] uppercase tracking-[0.08em] text-ink-40">
+        {eyebrow.map((item, i) => (
+          <React.Fragment key={item}>
+            {i > 0 && <span className="text-ink-10">/</span>}
+            <span>{item}</span>
+          </React.Fragment>
+        ))}
       </div>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center text-center">
-        <div className="mb-7 inline-flex items-center gap-3 rounded-[14px] border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm font-semibold text-gray-300 backdrop-blur-xl transition-colors duration-200 hover:bg-white/[0.09]">
-          <span className="size-2.5 rounded-full bg-[#10d091]" />
-          Open to work
-        </div>
-
-        <h1 className="max-w-4xl text-center font-bold leading-[0.95] text-white">
-          <span className="block text-5xl sm:text-6xl lg:text-7xl">
-            Hi, I&apos;m
-          </span>
-          <span className="mt-3 block text-6xl sm:text-7xl lg:text-[92px] text-white">
-            Adam Pukaluk
-          </span>
-        </h1>
-
-        <p className="mt-7 text-2xl font-bold text-gray-300 md:text-3xl">
-          Full-Stack Developer
-        </p>
-
-        <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-gray-500 md:text-lg">
-          Building exceptional digital experiences that combine beautiful design
-          with powerful functionality.
-        </p>
-
-        <div className="mt-7 flex flex-wrap justify-center gap-2.5">
-          {techStack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-white/10 bg-white/[0.055] px-4 py-1.5 font-mono text-xs font-semibold text-gray-400 backdrop-blur-md"
+      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.35fr_0.65fr]">
+        {/* Headline + copy */}
+        <div>
+          <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em] text-ink">
+            I build
+            <br />
+            <span className="font-serif text-[1.06em] italic text-accent">
+              exceptional
+            </span>{' '}
+            digital
+            <br />
+            experiences.
+          </h1>
+          <p className="mt-[30px] max-w-[520px] text-[18px] leading-[1.55] text-ink-70">
+            16-year-old developer from Poland. Three years shipping across the
+            full stack — React &amp; Next.js on the front, Node &amp; Postgres
+            behind it, automation and security woven through.
+          </p>
+          <div className="mt-[34px] flex flex-wrap gap-[14px]">
+            <Link
+              href="/projects"
+              className="rounded-[2px] bg-accent px-[26px] py-[15px] font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] no-underline"
             >
-              {tech}
-            </span>
-          ))}
+              View my work →
+            </Link>
+            <Link
+              href="/contact"
+              className="rounded-[2px] border px-[26px] py-[15px] font-mono text-[13px] uppercase tracking-[0.04em] text-ink no-underline"
+              style={{ borderColor: 'rgba(26,23,18,0.3)' }}
+            >
+              Get in touch
+            </Link>
+            <a
+              href="https://buymeacoffee.com/adam903"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-[6px] py-[15px] font-mono text-[13px] tracking-[0.04em] text-ink-40 no-underline"
+            >
+              ☕ Buy me a coffee
+            </a>
+          </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link
-            href="/projects"
-            className={`group inline-flex min-h-14 items-center justify-center gap-3 rounded-[14px] bg-white px-8 text-base font-bold text-black shadow-lg shadow-white/10 transition-colors duration-200 hover:bg-gray-200 ${focusRing}`}
+        {/* Portrait card */}
+        <div className="relative">
+          <div
+            className="relative overflow-hidden border bg-sand"
+            style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
-            <span>View My Work</span>
-            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1" />
-          </Link>
-
-          <Link
-            href="/contact"
-            className={`inline-flex min-h-14 items-center justify-center rounded-[14px] border border-white/15 bg-black/55 px-8 text-base font-bold text-gray-300 backdrop-blur-xl transition-colors duration-200 hover:border-white/30 hover:bg-white/10 hover:text-white ${focusRing}`}
+            <div className="relative h-[440px] w-full">
+              <Image
+                src="/img/gy19rvVD.jpg"
+                alt="Adam Pukaluk"
+                fill
+                priority
+                sizes="(max-width: 900px) 100vw, 400px"
+                className="object-cover object-[center_35%]"
+              />
+            </div>
+            <div
+              className="absolute left-3 top-3 font-mono text-[11px] tracking-[0.06em] text-cream"
+              style={{
+                background: 'rgba(26,23,18,0.55)',
+                backdropFilter: 'blur(4px)',
+                padding: '5px 9px',
+              }}
+            >
+              AVAILABLE
+            </div>
+          </div>
+          <div
+            className="grid grid-cols-2 border border-t-0"
+            style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
-            Get in Touch
-          </Link>
-
-          <a
-            href="https://buymeacoffee.com/adam903"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group inline-flex min-h-14 items-center justify-center gap-3 rounded-[14px] bg-[#FFDD00] px-8 text-base font-bold text-black shadow-lg shadow-[#FFDD00]/15 transition-colors duration-200 hover:bg-[#e8c900] ${focusRing}`}
-          >
-            <Coffee className="size-5 transition-transform duration-200 group-hover:-translate-y-0.5" />
-            <span>Buy me a coffee</span>
-          </a>
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className={`px-4 py-3.5 ${stat.border ? 'border-r' : ''}`}
+                style={
+                  stat.border
+                    ? { borderColor: 'rgba(26,23,18,0.16)' }
+                    : undefined
+                }
+              >
+                <div className="font-serif text-[32px] leading-none text-ink">
+                  {stat.value}
+                </div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.06em] text-ink-40">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <span className="font-mono text-xs font-semibold uppercase text-gray-600">
-            Follow me
-          </span>
-          <a
-            href="https://github.com/Adam903PL/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className={`flex size-11 items-center justify-center rounded-[13px] border border-white/10 bg-white/[0.045] text-gray-400 backdrop-blur-md transition-colors duration-200 hover:border-white/25 hover:text-white ${focusRing}`}
-          >
-            <Github className="size-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/adam-pukaluk-339058298/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className={`flex size-11 items-center justify-center rounded-[13px] border border-white/10 bg-white/[0.045] text-gray-400 backdrop-blur-md transition-colors duration-200 hover:border-white/25 hover:text-white ${focusRing}`}
-          >
-            <Linkedin className="size-5" />
-          </a>
-        </div>
-
-        <div
-          aria-hidden
-          className="mt-9 h-10 w-px bg-gradient-to-b from-white/25 to-transparent"
-        />
       </div>
     </section>
   );
