@@ -41,9 +41,14 @@ export default function About() {
           </h2>
           <p className="mt-[26px] max-w-[460px] text-[17px] leading-[1.6] text-ink-70">
             Student at{' '}
-            <span className="border-b border-accent text-ink">
+            <a
+              href="https://technischools.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-b border-accent text-ink no-underline transition-colors hover:text-accent"
+            >
               TechniSchools Lublin
-            </span>
+            </a>
             . I move fluidly between full-stack product work, automation with
             n8n &amp; PowerShell, and cybersecurity on Kali Linux — always
             shipping real projects, not tutorials.
