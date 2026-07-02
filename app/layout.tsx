@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Instrument_Serif, Space_Grotesk, Space_Mono } from 'next/font/google';
 import './globals.css';
-import Beams from '@/components/ui/Beams';
 import MiniNavbar from '@/components/ui/mini-navbar';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
@@ -14,14 +13,26 @@ import {
   websiteJsonLd,
 } from '@/lib/seo';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const spaceMono = Space_Mono({
+  variable: '--font-space-mono',
   subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -97,33 +108,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${instrumentSerif.variable} antialiased`}
       >
         <JsonLd data={websiteJsonLd} />
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100vh',
-            zIndex: -1,
-            pointerEvents: 'none',
-          }}
-        >
-          <Beams
-            beamWidth={3}
-            beamHeight={15}
-            beamNumber={12}
-            lightColor="#ffffff"
-            speed={4.75}
-            noiseIntensity={3.15}
-            scale={0.25}
-            rotation={30}
-          />
-        </div>
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Faint vertical-rule overlay across the whole page */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-0"
+          style={{
+            backgroundImage:
+              'linear-gradient(90deg, rgba(26,23,18,0.05) 1px, transparent 1px)',
+            backgroundSize: '25% 100%',
+          }}
+        />
+
+        <div className="relative z-[2] min-h-screen overflow-x-hidden">
           <MiniNavbar />
           {children}
           <Footer />
