@@ -22,6 +22,10 @@ export default function Contact() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [copyLabel, setCopyLabel] = useState('Copy');
+  const [status, setStatus] = useState<
+    'idle' | 'sending' | 'success' | 'error'
+  >('idle');
+  const [feedback, setFeedback] = useState('');
 
   const copyEmail = () => {
     const done = () => {
@@ -35,14 +39,52 @@ export default function Contact() {
     }
   };
 
-  const send = () => {
-    const subject = encodeURIComponent(
-      'Portfolio enquiry' + (name ? ` — ${name}` : ''),
-    );
-    const body = encodeURIComponent(
-      `${message || ''}\n\n— ${name || ''}${email ? ` (${email})` : ''}`,
-    );
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+  const send = async () => {
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus('error');
+      setFeedback('Please add your name, email and a message.');
+      return;
+    }
+
+    setStatus('sending');
+    setFeedback('');
+
+    const [firstName, ...rest] = name.trim().split(/\s+/);
+
+    try {
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName,
+          lastName: rest.join(' '),
+          email: email.trim(),
+          message: message.trim(),
+        }),
+      });
+
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as {
+          error?: { message?: string } | string;
+        } | null;
+        const detail =
+          typeof data?.error === 'string' ? data.error : data?.error?.message;
+        throw new Error(detail || `Request failed (${res.status})`);
+      }
+
+      setStatus('success');
+      setFeedback("Message sent — I'll get back to you within a day.");
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (err) {
+      setStatus('error');
+      setFeedback(
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong — email me directly instead.',
+      );
+    }
   };
 
   const inputClass =
@@ -212,12 +254,26 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={send}
-                className="mt-1.5 cursor-pointer border-none bg-accent px-[22px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)]"
+                disabled={status === 'sending'}
+                className="mt-1.5 cursor-pointer border-none bg-accent px-[22px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Send message →
+                {status === 'sending' ? 'Sending…' : 'Send message →'}
               </button>
-              <div className="font-mono text-[11px] leading-[1.5] text-ink-30">
-                Opens your mail client, pre-filled and addressed to me.
+              <div
+                className="font-mono text-[11px] leading-[1.5]"
+                style={{
+                  color:
+                    status === 'success'
+                      ? '#7FD18B'
+                      : status === 'error'
+                        ? 'var(--color-accent)'
+                        : 'rgba(237,231,218,0.4)',
+                }}
+                role="status"
+                aria-live="polite"
+              >
+                {feedback ||
+                  'Sends straight to my inbox — no mail client needed.'}
               </div>
             </div>
           </div>
