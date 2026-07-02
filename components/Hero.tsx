@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import HeroPortrait from '@/public/img/gy19rvVD.jpg';
 
 const eyebrow = ['Full-Stack Developer', 'Lublin, Poland', 'Est. 2009'];
 
@@ -22,7 +23,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1fr_0.85fr]">
+      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.55fr_0.55fr]">
         {/* Headline + copy */}
         <div>
           <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em] text-ink">
@@ -66,21 +67,18 @@ export default function Hero() {
         </div>
 
         {/* Portrait card */}
-        <div className="relative">
+        <div className="relative mx-auto w-full max-w-[280px]">
           <div
             className="relative overflow-hidden border bg-sand"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
-            <div className="relative h-[520px] w-full">
-              <Image
-                src="/img/gy19rvVD.jpg"
-                alt="Adam Pukaluk"
-                fill
-                priority
-                sizes="(max-width: 900px) 100vw, 560px"
-                className="object-cover object-[center_35%]"
-              />
-            </div>
+            <Image
+              src={HeroPortrait}
+              alt="Adam Pukaluk"
+              priority
+              sizes="(max-width: 900px) 100vw, 300px"
+              className="block h-auto w-full"
+            />
             <div
               className="absolute left-3 top-3 font-mono text-[11px] tracking-[0.06em] text-cream"
               style={{
