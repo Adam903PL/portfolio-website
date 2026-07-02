@@ -22,7 +22,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.35fr_0.65fr]">
+      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1fr_0.85fr]">
         {/* Headline + copy */}
         <div>
           <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em] text-ink">
@@ -71,13 +71,13 @@ export default function Hero() {
             className="relative overflow-hidden border bg-sand"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
-            <div className="relative h-[440px] w-full">
+            <div className="relative h-[520px] w-full">
               <Image
                 src="/img/gy19rvVD.jpg"
                 alt="Adam Pukaluk"
                 fill
                 priority
-                sizes="(max-width: 900px) 100vw, 400px"
+                sizes="(max-width: 900px) 100vw, 560px"
                 className="object-cover object-[center_35%]"
               />
             </div>

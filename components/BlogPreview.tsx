@@ -38,7 +38,7 @@ const BlogPreview = () => {
               className="relative overflow-hidden border-b"
               style={{ borderColor: 'rgba(26,23,18,0.16)' }}
             >
-              <div className="relative h-[200px] w-full">
+              <div className="relative h-[260px] w-full">
                 <Image
                   src={post.image}
                   alt={post.imageAlt}
