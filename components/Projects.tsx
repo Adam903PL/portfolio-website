@@ -461,7 +461,8 @@ function ImageLightbox({
           key={state.index}
           src={state.images[state.index]}
           alt={`${state.alt} — screenshot ${state.index + 1}`}
-          className="max-h-[calc(100dvh-120px)] w-auto max-w-full object-contain"
+          className="mx-auto h-auto max-h-[82dvh] w-auto max-w-[min(1040px,90vw)] border object-contain"
+          style={{ borderColor: 'rgba(237,231,218,0.15)' }}
         />
         {multi && (
           <button
