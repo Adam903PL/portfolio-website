@@ -23,7 +23,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.55fr_0.55fr]">
+      <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1fr_360px]">
         {/* Headline + copy */}
         <div>
           <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em] text-ink">
@@ -67,7 +67,7 @@ export default function Hero() {
         </div>
 
         {/* Portrait card */}
-        <div className="relative mx-auto w-full max-w-[280px]">
+        <div className="relative w-full">
           <div
             className="relative overflow-hidden border bg-sand"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
