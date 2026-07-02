@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, Linkedin } from 'lucide-react';
-import { blogPosts } from '@/lib/blog-posts';
 import JsonLd from '@/components/JsonLd';
+import { blogPosts } from '@/lib/blog-posts';
 import {
   createBlogJsonLd,
   createBreadcrumbJsonLd,
@@ -17,7 +16,12 @@ export const metadata: Metadata = createPageMetadata({
   path: '/blog',
 });
 
+const LINE = 'rgba(26,23,18,0.16)';
+const LINE_STRONG = 'rgba(26,23,18,0.18)';
+
 const BlogPage = () => {
+  const [featured, ...rest] = blogPosts;
+
   return (
     <>
       <JsonLd data={createBlogJsonLd(blogPosts)} />
@@ -27,125 +31,170 @@ const BlogPage = () => {
           { name: 'Blog', path: '/blog' },
         ])}
       />
-      <main className="min-h-screen px-4 pb-24 pt-28 text-white sm:px-6 lg:pt-32">
-        <section className="mx-auto max-w-3xl" lang="pl">
-          {/* Back button */}
-          <Link
-            href="/"
-            className="mb-10 inline-flex items-center gap-2 rounded-[12px] border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white/70 backdrop-blur transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            <ArrowLeft className="size-4" aria-hidden />
-            Back Home
-          </Link>
 
-          {/* Page header */}
-          <div className="mb-14">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55 backdrop-blur">
-              <Linkedin className="size-3.5" aria-hidden />
-              Blog
-            </div>
-            <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl">
-              LinkedIn Posts
-            </h1>
-            <p className="mt-4 text-base leading-7 text-white/55 sm:text-lg">
-              Wpisy złożone ręcznie w stylu strony: pełny tekst, zdjęcia i linki
-              do oryginalnych publikacji na LinkedInie.
-            </p>
-          </div>
+      {/* Page hero */}
+      <section className="side-pad relative z-[2] pb-11 pt-16">
+        <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
+          Field notes — from LinkedIn
+        </div>
+        <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
+          Writing &amp;
+          <br />
+          <span className="font-serif text-[1.05em] italic text-accent">
+            happenings
+          </span>
+          .
+        </h1>
+        <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-ink-70">
+          Hand-picked posts from LinkedIn — events, hackathons and talks — with
+          the full context and a link to the original, without heavy embeds
+          weighing down the page.
+        </p>
+      </section>
 
-          {/* Posts */}
-          <div className="flex flex-col gap-20">
-            {blogPosts.map((post, index) => (
-              <article
-                key={post.id}
-                id={post.slug}
-                className="scroll-mt-28"
-                lang="pl"
+      {/* Featured post */}
+      <section className="side-pad relative z-[2] py-4">
+        <Link
+          href={featured.canonicalPath}
+          className="block border bg-paper no-underline transition-colors hover:border-accent"
+          style={{ borderColor: LINE_STRONG }}
+        >
+          <div className="feat-grid grid min-[901px]:grid-cols-[1.1fr_0.9fr]">
+            <div
+              className="relative min-h-[340px] overflow-hidden border-b bg-sand min-[901px]:border-b-0 min-[901px]:border-r"
+              style={{ borderColor: LINE }}
+            >
+              <Image
+                src={featured.image}
+                alt={featured.imageAlt}
+                fill
+                priority
+                sizes="(max-width: 900px) 100vw, 560px"
+                className="object-cover"
+                style={{ objectPosition: featured.imagePosition ?? 'center' }}
+              />
+              <span
+                className="absolute left-3.5 top-3.5 font-mono text-[11px] text-cream"
+                style={{
+                  background: 'rgba(26,23,18,0.6)',
+                  padding: '5px 10px',
+                }}
               >
-                {/* Post number + kicker */}
-                <div className="mb-5 flex items-center gap-3">
-                  <span className="font-mono text-xs uppercase tracking-[0.22em] text-white/25">
-                    0{index + 1}
+                FEATURED · 01
+              </span>
+            </div>
+            <div className="flex flex-col justify-center px-[34px] py-10">
+              <div className="font-mono text-[11px] uppercase tracking-[0.04em] text-ink-30">
+                {featured.kicker}
+              </div>
+              <h2 className="mt-4 font-sans text-[30px] font-semibold leading-[1.12] tracking-[-0.01em]">
+                {featured.title}
+              </h2>
+              <p className="mt-4 text-[15px] leading-[1.6] text-ink-70">
+                {featured.excerpt}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {featured.tags.slice(0, 3).map((tag) => (
+                  <span key={tag} className="font-mono text-[11px] text-accent">
+                    #{tag}
                   </span>
-                  <span className="h-px flex-1 bg-white/10" />
-                  <p className="text-xs uppercase tracking-[0.22em] text-white/35">
-                    {post.kicker}
-                  </p>
-                </div>
-
-                {/* Title */}
-                <h2 className="mb-6 text-3xl font-black tracking-tight text-white sm:text-4xl">
-                  {post.title}
-                </h2>
-
-                {/* Tags + LinkedIn button row */}
-                <div className="mb-6 flex flex-wrap items-center gap-3">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-white/45"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                  <Link
-                    href={post.canonicalPath}
-                    className="inline-flex shrink-0 items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white/55 transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                  >
-                    Open post page
-                    <ArrowUpRight className="size-3.5" aria-hidden />
-                  </Link>
-                  <a
-                    href={post.linkedInUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white/55 transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                  >
-                    Open on LinkedIn
-                    <ArrowUpRight className="size-3.5" aria-hidden />
-                  </a>
-                </div>
-
-                {/* Image */}
-                <div className="relative mb-8 overflow-hidden rounded-[16px] border border-white/10 bg-black">
-                  <div className="relative aspect-[16/9]">
-                    <Image
-                      src={post.image}
-                      alt={post.imageAlt}
-                      fill
-                      priority={post.slug === 'civil42-hackathon'}
-                      sizes="(max-width: 768px) 100vw, 768px"
-                      className="object-contain"
-                      style={{ objectPosition: post.imagePosition ?? 'center' }}
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="space-y-4 text-sm leading-7 text-white/62 sm:text-[15px] sm:leading-8">
-                  {post.content.map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      className={
-                        paragraph.startsWith('#')
-                          ? 'font-mono text-xs leading-6 text-white/30'
-                          : paragraph.startsWith('👉')
-                            ? 'rounded-[12px] border border-white/10 bg-white/[0.035] px-4 py-3 font-semibold text-white/72'
-                            : undefined
-                      }
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-
-                {/* Bottom divider (not on last post) */}
-                <div className="mt-12 h-px w-full bg-white/[0.06]" />
-              </article>
-            ))}
+                ))}
+              </div>
+              <div
+                className="mt-6 border-t pt-[18px] font-mono text-[12px] text-ink"
+                style={{ borderColor: LINE }}
+              >
+                Read full post →
+              </div>
+            </div>
           </div>
-        </section>
-      </main>
+        </Link>
+      </section>
+
+      {/* Post grid */}
+      <section className="side-pad relative z-[2] pb-5 pt-9">
+        <div className="grid-2 grid gap-[22px] min-[901px]:grid-cols-2">
+          {rest.map((post, i) => (
+            <Link
+              key={post.id}
+              href={post.canonicalPath}
+              className="group flex flex-col border bg-paper no-underline transition-colors hover:border-accent"
+              style={{ borderColor: LINE }}
+            >
+              <div
+                className="relative overflow-hidden border-b"
+                style={{ borderColor: LINE }}
+              >
+                <div className="relative h-[220px] w-full bg-sand">
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt}
+                    fill
+                    sizes="(max-width: 900px) 100vw, 560px"
+                    className="object-cover"
+                    style={{ objectPosition: post.imagePosition ?? 'center' }}
+                  />
+                </div>
+                <span
+                  className="absolute left-3 top-3 font-mono text-[11px] text-cream"
+                  style={{
+                    background: 'rgba(26,23,18,0.6)',
+                    padding: '4px 8px',
+                  }}
+                >
+                  0{i + 2}
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col px-6 pb-[26px] pt-6">
+                <div className="font-mono text-[11px] uppercase tracking-[0.04em] text-ink-30">
+                  {post.kicker}
+                </div>
+                <h3 className="mb-2.5 mt-3 font-sans text-[22px] font-semibold leading-[1.2]">
+                  {post.title}
+                </h3>
+                <p className="m-0 flex-1 text-[14px] leading-[1.55] text-ink-60">
+                  {post.excerpt}
+                </p>
+                <div
+                  className="mt-5 flex items-center justify-between border-t pt-4"
+                  style={{ borderColor: 'rgba(26,23,18,0.14)' }}
+                >
+                  <span className="font-mono text-[12px] text-accent">
+                    Read post →
+                  </span>
+                  <span className="font-mono text-[11px] text-ink-30">
+                    LinkedIn
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="side-pad relative z-[2] pb-[60px] pt-14">
+        <div
+          className="flex flex-wrap items-center justify-between gap-6 border-t pt-10"
+          style={{ borderColor: 'rgba(26,23,18,0.2)' }}
+        >
+          <h2 className="m-0 max-w-[520px] font-sans text-[32px] font-medium tracking-[-0.02em]">
+            Follow along on{' '}
+            <span className="font-serif font-normal italic text-accent">
+              LinkedIn
+            </span>{' '}
+            for the next one.
+          </h2>
+          <a
+            href="https://www.linkedin.com/in/adam-pukaluk-339058298/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-ink px-[26px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-cream no-underline"
+          >
+            Connect on LinkedIn →
+          </a>
+        </div>
+      </section>
     </>
   );
 };
