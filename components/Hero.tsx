@@ -5,7 +5,7 @@ import Image from 'next/image';
 const eyebrow = ['Full-Stack Developer', 'Lublin, Poland', 'Est. 2009'];
 
 const stats = [
-  { value: '16', label: 'Years old', border: true },
+  { value: '17', label: 'Years old', border: true },
   { value: '3+', label: 'Yrs building', border: false },
 ];
 
@@ -36,7 +36,7 @@ export default function Hero() {
             experiences.
           </h1>
           <p className="mt-[30px] max-w-[520px] text-[18px] leading-[1.55] text-ink-70">
-            16-year-old developer from Poland. Three years shipping across the
+            17-year-old developer from Poland. Three years shipping across the
             full stack — React &amp; Next.js on the front, Node &amp; Postgres
             behind it, automation and security woven through.
           </p>
