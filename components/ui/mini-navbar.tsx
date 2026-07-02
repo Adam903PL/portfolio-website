@@ -1,167 +1,139 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-const AnimatedNavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <a
-      href={href}
-      className="rounded-[8px] text-sm text-gray-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-    >
-      {children}
-    </a>
-  );
-};
+const navLinks = [
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Education', href: '/education' },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const headerShapeClass = isOpen ? 'rounded-[18px]' : 'rounded-full';
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
-  const navLinksData = [
-    { label: 'Home', href: '/' },
-    { label: 'Projects', href: '/projects' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Education', href: '/education' },
-  ];
-
-  const logoElement = (
-    <div className="relative flex size-8 items-center justify-center">
-      <svg viewBox="0 0 24 24" className="h-full w-full" aria-hidden>
-        <defs>
-          <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.5" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.5" />
-          </linearGradient>
-          <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.4" />
-          </linearGradient>
-        </defs>
-
-        <path
-          d="M4 9 Q12 12, 20 9"
-          fill="none"
-          stroke="url(#waveGrad1)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          className="animate-[wave_1.2s_ease-in-out_infinite]"
-        />
-        <path
-          d="M4 15 Q12 12, 20 15"
-          fill="none"
-          stroke="url(#waveGrad2)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          className="animate-[wave_1.2s_ease-in-out_infinite]"
-          style={{ animationDelay: '0.3s' }}
-        />
-      </svg>
-    </div>
-  );
-
-  const contactButtonElement = (
-    <a
-      href="/contact"
-      className="group relative inline-flex h-10 w-full items-center justify-center rounded-full px-4 text-sm font-semibold text-black sm:w-auto"
-    >
-      <span className="pointer-events-none absolute inset-0 -m-2 hidden rounded-full bg-white opacity-30 blur-lg transition-[opacity,filter,margin] duration-300 ease-out group-hover:-m-3 group-hover:opacity-50 group-hover:blur-xl sm:block" />
-      <span className="relative z-10 inline-flex h-10 w-full items-center justify-center rounded-full bg-gradient-to-br from-white to-gray-300 px-4 text-black shadow-lg transition-[background-color,transform] duration-200 group-hover:-translate-y-0.5 sm:w-auto">
-        Contact Me
-      </span>
-    </a>
-  );
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header
-      className={`fixed left-1/2 top-6 z-20 flex w-[calc(100%-2rem)] -translate-x-1/2 flex-col items-center border border-[#333] bg-[#1f1f1f57] px-5 py-3 backdrop-blur-sm transition-[border-radius] duration-200 ease-in-out sm:w-auto sm:px-6 ${headerShapeClass}`}
+      className="side-pad sticky top-0 z-40 border-b"
+      style={{
+        background: 'rgba(237,231,218,0.82)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderColor: 'var(--color-line-soft)',
+      }}
     >
-      <div className="flex w-full items-center justify-between gap-x-5 sm:gap-x-6">
-        <div className="flex items-center">{logoElement}</div>
+      <div className="flex items-center justify-between py-4">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-3.5 no-underline">
+          <span className="flex size-[34px] items-center justify-center rounded-[2px] bg-ink font-mono text-[15px] font-bold text-cream">
+            AP
+          </span>
+          <span className="font-mono text-[12px] leading-tight tracking-[0.02em] text-ink">
+            Adam&nbsp;Pukaluk
+            <br />
+            <span className="text-ink-40">full-stack&nbsp;dev</span>
+          </span>
+        </Link>
 
-        <nav className="hidden items-center gap-5 text-sm sm:flex lg:gap-6">
-          {navLinksData.map((link) => (
-            <AnimatedNavLink key={link.href} href={link.href}>
-              {link.label}
-            </AnimatedNavLink>
-          ))}
-        </nav>
-
-        <div className="hidden items-center sm:flex">
-          {contactButtonElement}
-        </div>
-
-        <button
-          className="flex size-8 items-center justify-center text-gray-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:hidden"
-          onClick={() => setIsOpen((value) => !value)}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? 'Close Menu' : 'Open Menu'}
-        >
-          {isOpen ? (
-            <svg
-              className="size-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="size-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      <div
-        className={`flex w-full flex-col items-center overflow-hidden transition-[max-height,opacity,padding-top] duration-300 ease-in-out sm:hidden ${
-          isOpen
-            ? 'max-h-[480px] opacity-100 pt-4'
-            : 'max-h-0 opacity-0 pt-0 pointer-events-none'
-        }`}
-      >
-        <nav className="flex w-full flex-col items-center gap-4 text-base">
-          {navLinksData.map((link) => (
-            <a
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-[34px] font-mono text-[13px] uppercase tracking-[0.04em] min-[901px]:flex">
+          {navLinks.map((link) => (
+            <Link
               key={link.href}
               href={link.href}
-              className="w-full rounded-[10px] py-1 text-center text-gray-300 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-              onClick={() => setIsOpen(false)}
+              className="no-underline transition-colors"
+              style={
+                isActive(link.href)
+                  ? {
+                      color: 'var(--color-accent)',
+                      borderBottom: '1px solid var(--color-accent)',
+                      paddingBottom: 2,
+                    }
+                  : { color: 'var(--color-ink)' }
+              }
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <div className="mt-4 flex w-full flex-col items-center">
-          {contactButtonElement}
+
+        {/* Right: status + contact */}
+        <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-2 font-mono text-[12px] text-live-ink min-[901px]:flex">
+            <span className="inline-block size-2 animate-[blink_1.8s_ease-in-out_infinite] rounded-full bg-live" />
+            Open to work
+          </div>
+          <Link
+            href="/contact"
+            className="hidden rounded-[2px] bg-ink px-[18px] py-[11px] font-mono text-[12px] uppercase tracking-[0.04em] text-cream no-underline min-[901px]:inline-block"
+          >
+            Contact&nbsp;→
+          </Link>
+
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="flex size-9 items-center justify-center text-ink min-[901px]:hidden"
+          >
+            <svg
+              className="size-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              viewBox="0 0 24 24"
+              aria-hidden
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 7h16M4 12h16M4 17h16'}
+              />
+            </svg>
+          </button>
         </div>
+      </div>
+
+      {/* Mobile menu */}
+      <div
+        className={`overflow-hidden transition-[max-height] duration-300 min-[901px]:hidden ${
+          open ? 'max-h-80' : 'max-h-0'
+        }`}
+      >
+        <nav
+          className="flex flex-col gap-1 border-t py-3 font-mono text-[13px] uppercase tracking-[0.04em]"
+          style={{ borderColor: 'var(--color-line-soft)' }}
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="py-2 no-underline"
+              style={{
+                color: isActive(link.href)
+                  ? 'var(--color-accent)'
+                  : 'var(--color-ink)',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 inline-block rounded-[2px] bg-ink px-[18px] py-[11px] text-center text-cream no-underline"
+          >
+            Contact&nbsp;→
+          </Link>
+        </nav>
       </div>
     </header>
   );
