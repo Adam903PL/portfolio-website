@@ -1,8 +1,52 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image, { type StaticImageData } from 'next/image';
 
-type Skill = { name: string; cat: string; freq: string; mono: string };
+import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
+import TypeScriptIcon from '@/public/img/icons/typescript-programming-language-icon.svg';
+import PythonIcon from '@/public/img/icons/python-programming-language-icon.svg';
+import HTMLIcon from '@/public/img/icons/html-icon.svg';
+import PhpIcon from '@/public/img/icons/php.svg';
+import KotlinIcon from '@/public/img/icons/Kotlin_icon.svg';
+import CppIcon from '@/public/img/icons/c-plus-plus-programming-language-icon.svg';
+import ReactIcon from '@/public/img/icons/react-js-icon.svg';
+import NextJsIcon from '@/public/img/icons/nextjs-icon.svg';
+import TailwindIcon from '@/public/img/icons/tailwind-css-icon.svg';
+import ReactNativeIcon from '@/public/img/icons/react-native-app-icon.svg';
+import ZustandIcon from '@/public/img/icons/zustand.svg';
+import ReduxIcon from '@/public/img/icons/redux.svg';
+import ReactHookFormIcon from '@/public/img/icons/react-hooj-form-icon.svg';
+import LottieIcon from '@/public/img/icons/lottiefiles.svg';
+import NodeIcon from '@/public/img/icons/node-js-icon.svg';
+import ExpressIcon from '@/public/img/icons/express-js-icon.svg';
+import FastAPIIcon from '@/public/img/icons/FastAPI.svg';
+import FlaskIcon from '@/public/img/icons/icons8-flask.svg';
+import StripeIcon from '@/public/img/icons/stripe-icon.svg';
+import PrismaIcon from '@/public/img/icons/prisma-svgrepo-com.svg';
+import PostgresIcon from '@/public/img/icons/PostgreSQL.svg';
+import MsSqlIcon from '@/public/img/icons/mssql.svg';
+import AwsLogoIcon from '@/public/img/icons/aws-logo.svg';
+import AwsS3Icon from '@/public/img/icons/aws-s3.svg';
+import AwsEc2Icon from '@/public/img/icons/aws-ec2.svg';
+import GoogleCloudIcon from '@/public/img/icons/google-cloud-logo.svg';
+import ClaudeIcon from '@/public/img/icons/claude.svg';
+import AntigravityIcon from '@/public/img/icons/google-antigravity.png';
+import OpenAIIcon from '@/public/img/icons/openai.svg';
+import GitIcon from '@/public/img/icons/git-icon.svg';
+import VSCodeIcon from '@/public/img/icons/icons8-visual-studio-code-2019.svg';
+import DockerIcon from '@/public/img/icons/icons8-docker.svg';
+import N8NIcon from '@/public/img/icons/n8n.svg';
+import JetBrainsIcon from '@/public/img/icons/icons8-jetbrains.svg';
+import PostmanIcon from '@/public/img/icons/postman-icon.svg';
+
+type Skill = {
+  name: string;
+  cat: string;
+  freq: string;
+  mono: string;
+  icon?: StaticImageData;
+};
 
 const categories = [
   'All',
@@ -16,46 +60,226 @@ const categories = [
 ];
 
 const skills: Skill[] = [
-  { name: 'JavaScript', cat: 'Languages', freq: 'Many', mono: 'JS' },
-  { name: 'TypeScript', cat: 'Languages', freq: 'Many', mono: 'TS' },
-  { name: 'Python', cat: 'Languages', freq: 'Many', mono: 'PY' },
-  { name: 'HTML', cat: 'Languages', freq: 'Many', mono: '<>' },
-  { name: 'PHP', cat: 'Languages', freq: 'Several', mono: 'PH' },
-  { name: 'Kotlin', cat: 'Languages', freq: 'Several', mono: 'KT' },
-  { name: 'C++', cat: 'Languages', freq: 'Few', mono: 'C+' },
-  { name: 'React', cat: 'Frameworks', freq: '7 proj', mono: 'Re' },
-  { name: 'Next.js', cat: 'Frameworks', freq: '3 proj', mono: 'Nx' },
-  { name: 'Tailwind CSS', cat: 'Frameworks', freq: 'Several', mono: 'Tw' },
-  { name: 'React Native', cat: 'Frameworks', freq: '2 proj', mono: 'RN' },
-  { name: 'Zustand', cat: 'Libraries', freq: 'Many', mono: 'Zu' },
-  { name: 'Redux Toolkit', cat: 'Libraries', freq: 'Several', mono: 'Rx' },
-  { name: 'React Hook Form', cat: 'Libraries', freq: 'Several', mono: 'HF' },
-  { name: 'Lottie', cat: 'Libraries', freq: 'Many', mono: 'Lo' },
-  { name: 'Node.js', cat: 'Backend', freq: 'Many', mono: 'No' },
-  { name: 'Express.js', cat: 'Backend', freq: 'Many', mono: 'Ex' },
-  { name: 'FastAPI', cat: 'Backend', freq: '4 proj', mono: 'Fa' },
-  { name: 'Flask', cat: 'Backend', freq: '4 proj', mono: 'Fl' },
+  {
+    name: 'JavaScript',
+    cat: 'Languages',
+    freq: 'Many',
+    mono: 'JS',
+    icon: JavaScriptIcon,
+  },
+  {
+    name: 'TypeScript',
+    cat: 'Languages',
+    freq: 'Many',
+    mono: 'TS',
+    icon: TypeScriptIcon,
+  },
+  {
+    name: 'Python',
+    cat: 'Languages',
+    freq: 'Many',
+    mono: 'PY',
+    icon: PythonIcon,
+  },
+  { name: 'HTML', cat: 'Languages', freq: 'Many', mono: '<>', icon: HTMLIcon },
+  { name: 'PHP', cat: 'Languages', freq: 'Several', mono: 'PH', icon: PhpIcon },
+  {
+    name: 'Kotlin',
+    cat: 'Languages',
+    freq: 'Several',
+    mono: 'KT',
+    icon: KotlinIcon,
+  },
+  { name: 'C++', cat: 'Languages', freq: 'Few', mono: 'C+', icon: CppIcon },
+  {
+    name: 'React',
+    cat: 'Frameworks',
+    freq: '7 proj',
+    mono: 'Re',
+    icon: ReactIcon,
+  },
+  {
+    name: 'Next.js',
+    cat: 'Frameworks',
+    freq: '3 proj',
+    mono: 'Nx',
+    icon: NextJsIcon,
+  },
+  {
+    name: 'Tailwind CSS',
+    cat: 'Frameworks',
+    freq: 'Several',
+    mono: 'Tw',
+    icon: TailwindIcon,
+  },
+  {
+    name: 'React Native',
+    cat: 'Frameworks',
+    freq: '2 proj',
+    mono: 'RN',
+    icon: ReactNativeIcon,
+  },
+  {
+    name: 'Zustand',
+    cat: 'Libraries',
+    freq: 'Many',
+    mono: 'Zu',
+    icon: ZustandIcon,
+  },
+  {
+    name: 'Redux Toolkit',
+    cat: 'Libraries',
+    freq: 'Several',
+    mono: 'Rx',
+    icon: ReduxIcon,
+  },
+  {
+    name: 'React Hook Form',
+    cat: 'Libraries',
+    freq: 'Several',
+    mono: 'HF',
+    icon: ReactHookFormIcon,
+  },
+  {
+    name: 'Lottie',
+    cat: 'Libraries',
+    freq: 'Many',
+    mono: 'Lo',
+    icon: LottieIcon,
+  },
+  { name: 'Node.js', cat: 'Backend', freq: 'Many', mono: 'No', icon: NodeIcon },
+  {
+    name: 'Express.js',
+    cat: 'Backend',
+    freq: 'Many',
+    mono: 'Ex',
+    icon: ExpressIcon,
+  },
+  {
+    name: 'FastAPI',
+    cat: 'Backend',
+    freq: '4 proj',
+    mono: 'Fa',
+    icon: FastAPIIcon,
+  },
+  {
+    name: 'Flask',
+    cat: 'Backend',
+    freq: '4 proj',
+    mono: 'Fl',
+    icon: FlaskIcon,
+  },
   { name: 'BetterAuth', cat: 'Backend', freq: '3 proj', mono: 'BA' },
-  { name: 'Stripe', cat: 'Backend', freq: 'Several', mono: 'St' },
-  { name: 'Prisma', cat: 'Databases', freq: 'Several', mono: 'Pr' },
-  { name: 'PostgreSQL', cat: 'Databases', freq: 'Many', mono: 'Pg' },
-  { name: 'MS SQL', cat: 'Databases', freq: 'Many', mono: 'MS' },
+  {
+    name: 'Stripe',
+    cat: 'Backend',
+    freq: 'Several',
+    mono: 'St',
+    icon: StripeIcon,
+  },
+  {
+    name: 'Prisma',
+    cat: 'Databases',
+    freq: 'Several',
+    mono: 'Pr',
+    icon: PrismaIcon,
+  },
+  {
+    name: 'PostgreSQL',
+    cat: 'Databases',
+    freq: 'Many',
+    mono: 'Pg',
+    icon: PostgresIcon,
+  },
+  {
+    name: 'MS SQL',
+    cat: 'Databases',
+    freq: 'Many',
+    mono: 'MS',
+    icon: MsSqlIcon,
+  },
   { name: 'Supabase', cat: 'Databases', freq: 'Several', mono: 'Sb' },
-  { name: 'AWS', cat: 'Cloud & AI', freq: 'Several', mono: 'aws' },
-  { name: 'Amazon S3', cat: 'Cloud & AI', freq: 'Several', mono: 'S3' },
-  { name: 'Amazon EC2', cat: 'Cloud & AI', freq: 'Few', mono: 'EC' },
-  { name: 'Google Cloud', cat: 'Cloud & AI', freq: 'Few', mono: 'GC' },
-  { name: 'Claude Code', cat: 'Cloud & AI', freq: 'Often', mono: 'Cl' },
-  { name: 'Antigravity', cat: 'Cloud & AI', freq: 'Often', mono: 'Ag' },
-  { name: 'OpenAI Codex', cat: 'Cloud & AI', freq: 'Often', mono: 'Cx' },
-  { name: 'Git', cat: 'Tools', freq: 'Daily', mono: 'Gi' },
-  { name: 'VS Code', cat: 'Tools', freq: 'Daily', mono: 'VS' },
-  { name: 'Docker', cat: 'Tools', freq: 'Several', mono: 'Dk' },
+  {
+    name: 'AWS',
+    cat: 'Cloud & AI',
+    freq: 'Several',
+    mono: 'aws',
+    icon: AwsLogoIcon,
+  },
+  {
+    name: 'Amazon S3',
+    cat: 'Cloud & AI',
+    freq: 'Several',
+    mono: 'S3',
+    icon: AwsS3Icon,
+  },
+  {
+    name: 'Amazon EC2',
+    cat: 'Cloud & AI',
+    freq: 'Few',
+    mono: 'EC',
+    icon: AwsEc2Icon,
+  },
+  {
+    name: 'Google Cloud',
+    cat: 'Cloud & AI',
+    freq: 'Few',
+    mono: 'GC',
+    icon: GoogleCloudIcon,
+  },
+  {
+    name: 'Claude Code',
+    cat: 'Cloud & AI',
+    freq: 'Often',
+    mono: 'Cl',
+    icon: ClaudeIcon,
+  },
+  {
+    name: 'Antigravity',
+    cat: 'Cloud & AI',
+    freq: 'Often',
+    mono: 'Ag',
+    icon: AntigravityIcon,
+  },
+  {
+    name: 'OpenAI Codex',
+    cat: 'Cloud & AI',
+    freq: 'Often',
+    mono: 'Cx',
+    icon: OpenAIIcon,
+  },
+  { name: 'Git', cat: 'Tools', freq: 'Daily', mono: 'Gi', icon: GitIcon },
+  {
+    name: 'VS Code',
+    cat: 'Tools',
+    freq: 'Daily',
+    mono: 'VS',
+    icon: VSCodeIcon,
+  },
+  {
+    name: 'Docker',
+    cat: 'Tools',
+    freq: 'Several',
+    mono: 'Dk',
+    icon: DockerIcon,
+  },
   { name: 'Railway', cat: 'Tools', freq: 'Many', mono: 'Ra' },
   { name: 'Cloudflare', cat: 'Tools', freq: 'Many', mono: 'Cf' },
-  { name: 'n8n', cat: 'Tools', freq: 'Many', mono: 'n8' },
-  { name: 'JetBrains', cat: 'Tools', freq: 'Often', mono: 'JB' },
-  { name: 'Postman', cat: 'Tools', freq: 'Many', mono: 'Pm' },
+  { name: 'n8n', cat: 'Tools', freq: 'Many', mono: 'n8', icon: N8NIcon },
+  {
+    name: 'JetBrains',
+    cat: 'Tools',
+    freq: 'Often',
+    mono: 'JB',
+    icon: JetBrainsIcon,
+  },
+  {
+    name: 'Postman',
+    cat: 'Tools',
+    freq: 'Many',
+    mono: 'Pm',
+    icon: PostmanIcon,
+  },
   { name: 'Conv. Commits', cat: 'Tools', freq: 'Many', mono: 'CC' },
 ];
 
@@ -127,7 +351,16 @@ export default function Skills() {
               className="flex size-10 flex-none items-center justify-center border bg-sand font-mono text-[14px] font-bold text-ink"
               style={{ borderColor: 'rgba(26,23,18,0.2)' }}
             >
-              {s.mono}
+              {s.icon ? (
+                <Image
+                  src={s.icon}
+                  alt=""
+                  aria-hidden
+                  className="max-h-[22px] max-w-[24px] object-contain"
+                />
+              ) : (
+                s.mono
+              )}
             </div>
             <div className="min-w-0">
               <div className="truncate text-[15px] font-semibold">{s.name}</div>
