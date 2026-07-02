@@ -1,111 +1,76 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, BookOpen, Linkedin } from 'lucide-react';
 import { blogPosts } from '@/lib/blog-posts';
 
 const BlogPreview = () => {
+  const posts = blogPosts.slice(0, 3);
+
   return (
-    <section
-      id="blog"
-      className="relative w-full scroll-mt-28 px-4 py-16 sm:px-6 lg:py-24"
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/55 backdrop-blur">
-              <BookOpen className="size-3.5" aria-hidden />
-              Blog
-            </div>
-            <h2 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
-              LinkedIn Posts
-            </h2>
-            <p className="mt-4 text-base leading-7 text-white/55 sm:text-lg">
-              Ręcznie złożone wpisy z LinkedIna: zdjęcia, kontekst i link do
-              oryginalnej publikacji bez ciężkich embedów na stronie głównej.
-            </p>
+    <section id="writing" className="side-pad relative z-[2] pb-10 pt-20">
+      {/* Header */}
+      <div className="mb-[38px] flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+            / 03 — Writing
           </div>
-
-          <Link
-            href="/blog"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-[14px] border border-white bg-white px-5 text-sm font-bold text-black transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            View Blog
-            <ArrowRight className="size-4" aria-hidden />
-          </Link>
+          <h2 className="m-0 font-sans text-[44px] font-medium leading-none tracking-[-0.02em]">
+            From LinkedIn
+          </h2>
         </div>
+        <Link
+          href="/blog"
+          className="border-b border-accent pb-[3px] font-mono text-[13px] uppercase tracking-[0.04em] text-ink no-underline"
+        >
+          View all →
+        </Link>
+      </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          {blogPosts.map((post, index) => (
-            <article
-              key={post.id}
-              className="group overflow-hidden rounded-[18px] border border-white/10 bg-black/70 backdrop-blur-xl transition-[border-color,background-color,transform] duration-200 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.04]"
+      {/* Grid */}
+      <div className="blog-grid grid gap-6 min-[901px]:grid-cols-3">
+        {posts.map((post, i) => (
+          <Link
+            key={post.id}
+            href={post.canonicalPath}
+            className="group flex flex-col border bg-paper no-underline transition-colors hover:border-accent"
+            style={{ borderColor: 'rgba(26,23,18,0.16)' }}
+          >
+            <div
+              className="relative overflow-hidden border-b"
+              style={{ borderColor: 'rgba(26,23,18,0.16)' }}
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-white/[0.03]">
+              <div className="relative h-[200px] w-full">
                 <Image
                   src={post.image}
                   alt={post.imageAlt}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 560px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 900px) 100vw, 380px"
+                  className="object-cover"
                   style={{ objectPosition: post.imagePosition ?? 'center' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-black/55 px-3 py-2 text-xs font-semibold text-white/75 backdrop-blur">
-                  <Linkedin className="size-4" aria-hidden />
-                  {post.source}
-                </div>
-                <span className="absolute right-4 top-4 rounded-[10px] border border-white/10 bg-black/55 px-3 py-2 font-mono text-xs uppercase tracking-[0.22em] text-white/55 backdrop-blur">
-                  0{index + 1}
-                </span>
               </div>
-
-              <div className="p-5 sm:p-6">
-                <p className="mb-3 text-xs uppercase tracking-[0.22em] text-white/35">
-                  {post.kicker}
-                </p>
-                <h3 className="text-2xl font-bold tracking-tight text-white">
-                  {post.title}
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-white/58">
-                  {post.excerpt}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-white/45"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                  <Link
-                    href={post.canonicalPath}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors duration-200 hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                  >
-                    Read full post
-                    <ArrowRight
-                      className="size-4 transition-transform duration-200 group-hover:translate-x-1"
-                      aria-hidden
-                    />
-                  </Link>
-                  <a
-                    href={post.linkedInUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white/55 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                  >
-                    Open on LinkedIn
-                    <ArrowUpRight className="size-4" aria-hidden />
-                  </a>
-                </div>
+              <span
+                className="absolute left-3 top-3 font-mono text-[11px] text-cream"
+                style={{ background: 'rgba(26,23,18,0.6)', padding: '4px 8px' }}
+              >
+                0{i + 1}
+              </span>
+            </div>
+            <div className="flex flex-1 flex-col px-[22px] pb-[26px] pt-[22px]">
+              <div className="font-mono text-[11px] uppercase tracking-[0.04em] text-ink-30">
+                {post.kicker}
               </div>
-            </article>
-          ))}
-        </div>
+              <h3 className="mb-2.5 mt-3 font-sans text-[20px] font-semibold leading-[1.2] text-ink">
+                {post.title}
+              </h3>
+              <p className="m-0 flex-1 text-[14px] leading-[1.55] text-ink-60">
+                {post.excerpt}
+              </p>
+              <div className="mt-[18px] font-mono text-[12px] text-accent">
+                Read post →
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </section>
   );
