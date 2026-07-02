@@ -1,33 +1,79 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 const ProjectCTA = () => {
   return (
-    <section className="py-24 px-4 relative flex items-center justify-center">
-      <div className="max-w-4xl mx-auto text-center relative z-10">
-        <div className="p-8 md:p-12 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
-          {/* Background Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-32 bg-white/20 rounded-full blur-[100px] group-hover:bg-white/30 transition-colors duration-500"></div>
+    <section id="contact" className="side-pad relative z-[2] py-[70px]">
+      <div className="relative overflow-hidden bg-ink px-8 py-16 text-cream min-[901px]:px-14 min-[901px]:py-[72px]">
+        {/* vertical rule overlay */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              'linear-gradient(90deg, rgba(237,231,218,0.05) 1px, transparent 1px)',
+            backgroundSize: '14% 100%',
+          }}
+        />
+        <div className="relative flex flex-wrap items-end justify-between gap-9">
+          <div>
+            <div className="mb-5 font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+              / Let&apos;s talk
+            </div>
+            <h2 className="m-0 max-w-[640px] font-sans text-[40px] font-medium leading-[0.98] tracking-[-0.02em] min-[901px]:text-[52px]">
+              Ready to explore
+              <br />
+              my work — or{' '}
+              <span className="font-serif font-normal italic text-accent">
+                build
+              </span>{' '}
+              something?
+            </h2>
+            <div className="mt-[34px] flex flex-wrap gap-[26px] font-mono text-[13px] text-cream-50">
+              <a
+                href="mailto:pukaluk.adam505@gmail.com"
+                className="border-b pb-0.5 text-cream no-underline"
+                style={{ borderColor: 'rgba(237,231,218,0.3)' }}
+              >
+                pukaluk.adam505@gmail.com
+              </a>
+              <a
+                href="tel:+48695031104"
+                className="border-b pb-0.5 text-cream no-underline"
+                style={{ borderColor: 'rgba(237,231,218,0.3)' }}
+              >
+                +48 695 031 104
+              </a>
+            </div>
+          </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 relative z-10">
-            Ready to explore my work?
-          </h2>
-          <p className="text-gray-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto relative z-10">
-            Dive into my portfolio to see how I combine technology and
-            creativity to build amazing digital experiences.
-          </p>
-
-          <div className="relative z-10 inline-block">
+          <div className="flex min-w-[220px] flex-col gap-3">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-8 py-4 text-base md:text-lg font-bold text-black bg-gradient-to-r from-white via-gray-200 to-gray-300 rounded-full hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              className="bg-accent px-6 py-4 text-center font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] no-underline"
             >
-              View My Projects
-              <ArrowRight className="size-5" />
+              View projects →
             </Link>
+            <div className="flex gap-3">
+              <a
+                href="https://github.com/Adam903PL/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 border px-2.5 py-3.5 text-center font-mono text-[12px] text-cream no-underline"
+                style={{ borderColor: 'rgba(237,231,218,0.25)' }}
+              >
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/adam-pukaluk-339058298/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 border px-2.5 py-3.5 text-center font-mono text-[12px] text-cream no-underline"
+                style={{ borderColor: 'rgba(237,231,218,0.25)' }}
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
         </div>
       </div>
