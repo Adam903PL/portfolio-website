@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero';
+import TechMarquee from '@/components/TechMarquee';
 import About from '@/components/About-Me';
 import React from 'react';
 import Skills from '@/components/Skills';
@@ -25,6 +26,7 @@ const Home = () => {
       <JsonLd data={profilePageJsonLd} />
       <JsonLd data={createBreadcrumbJsonLd([{ name: 'Home', path: '/' }])} />
       <Hero />
+      <TechMarquee />
       <About />
       <Skills />
       <BlogPreview />
