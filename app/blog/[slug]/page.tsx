@@ -2,14 +2,16 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowUpRight, Linkedin } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
-import { blogPosts } from '@/lib/blog-posts';
+import BlogRichText from '@/components/BlogRichText';
+import { blogPosts, getBlogPostImages } from '@/lib/blog-posts';
 import {
   createBlogPostJsonLd,
   createBreadcrumbJsonLd,
   createPageMetadata,
 } from '@/lib/seo';
+
+const LINE = 'rgba(26,23,18,0.16)';
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -52,6 +54,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const allImages = getBlogPostImages(post);
+  const hero = allImages[0];
+  const galleryImages = allImages.slice(1);
+  const heroAspect =
+    hero.orientation === 'portrait' ? 'aspect-[4/5]' : 'aspect-[16/9]';
+
   return (
     <>
       <JsonLd data={createBlogPostJsonLd(post)} />
@@ -62,40 +70,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           { name: post.title, path: post.canonicalPath },
         ])}
       />
-      <main className="min-h-screen px-4 pb-24 pt-28 text-white sm:px-6 lg:pt-32">
+      <main className="relative z-[2] px-5 pb-24 pt-16 sm:px-6">
         <article className="mx-auto max-w-3xl scroll-mt-28" lang="pl">
           <Link
             href="/blog"
-            className="mb-10 inline-flex items-center gap-2 rounded-[12px] border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white/70 backdrop-blur transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            className="mb-10 inline-flex items-center gap-2 border px-4 py-2 font-mono text-[12px] uppercase tracking-[0.04em] text-ink no-underline transition-colors hover:border-accent"
+            style={{ borderColor: 'rgba(26,23,18,0.28)' }}
           >
-            <ArrowLeft className="size-4" aria-hidden />
-            Back to Blog
+            ← Back to Blog
           </Link>
 
-          <div className="mb-5 flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-white/55 backdrop-blur">
-              <Linkedin className="size-4" aria-hidden />
-              {post.source}
-            </span>
-            <span className="h-px flex-1 bg-white/10" />
-            <p className="text-xs uppercase tracking-[0.22em] text-white/35">
-              {post.kicker}
-            </p>
+          <div className="mb-5 font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
+            {post.kicker}
           </div>
 
-          <h1 className="text-4xl font-black tracking-tight text-white sm:text-6xl">
+          <h1 className="m-0 font-sans text-[38px] font-medium leading-[1.05] tracking-[-0.02em] text-ink sm:text-[52px]">
             {post.title}
           </h1>
-          <p className="mt-5 text-base leading-7 text-white/58 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-[17px] leading-[1.6] text-ink-70">
             {post.excerpt}
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
             {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-white/45"
-              >
+              <span key={tag} className="font-mono text-[11px] text-accent">
                 #{tag}
               </span>
             ))}
@@ -103,41 +101,85 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               href={post.linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto inline-flex shrink-0 items-center gap-2 rounded-[10px] border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white/55 transition-[border-color,color,background-color] duration-200 hover:border-white/20 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="ml-auto inline-flex shrink-0 items-center gap-2 border px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.04em] text-ink no-underline transition-colors hover:border-accent"
+              style={{ borderColor: 'rgba(26,23,18,0.28)' }}
             >
-              Open on LinkedIn
-              <ArrowUpRight className="size-3.5" aria-hidden />
+              Open on LinkedIn ↗
             </a>
           </div>
 
-          <div className="relative my-8 overflow-hidden rounded-[16px] border border-white/10 bg-black">
-            <div className="relative aspect-[16/9]">
+          <div
+            className="relative my-8 overflow-hidden border bg-sand"
+            style={{ borderColor: LINE }}
+          >
+            <div className={`relative ${heroAspect}`}>
               <Image
                 src={post.image}
                 alt={post.imageAlt}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 768px"
-                className="object-contain"
+                className="object-cover"
                 style={{ objectPosition: post.imagePosition ?? 'center' }}
               />
             </div>
           </div>
 
-          <div className="space-y-4 text-sm leading-7 text-white/62 sm:text-[15px] sm:leading-8">
-            {post.content.map((paragraph, index) => (
-              <p
-                key={`${post.slug}-${index}`}
-                className={
-                  paragraph.startsWith('#')
-                    ? 'font-mono text-xs leading-6 text-white/30'
-                    : undefined
-                }
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <BlogRichText paragraphs={post.content} idPrefix={post.slug} />
+
+          {galleryImages.length > 0 ? (
+            <section
+              className="mt-12 border-t pt-10"
+              style={{ borderColor: LINE }}
+            >
+              <div className="mb-6 flex items-end justify-between gap-4">
+                <div>
+                  <p className="mb-2 font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+                    Event photos
+                  </p>
+                  <h2 className="m-0 font-sans text-[26px] font-medium tracking-[-0.01em] text-ink">
+                    More from the day
+                  </h2>
+                </div>
+                <span className="font-mono text-[11px] text-ink-30">
+                  {galleryImages.length} photos
+                </span>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {galleryImages.map((image, index) => (
+                  <figure
+                    key={image.src}
+                    className="m-0 overflow-hidden border bg-paper"
+                    style={{ borderColor: LINE }}
+                  >
+                    <div
+                      className={
+                        image.orientation === 'portrait'
+                          ? 'relative aspect-[4/5] bg-sand'
+                          : 'relative aspect-[16/10] bg-sand'
+                      }
+                    >
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 380px"
+                        className="object-cover"
+                        style={{ objectPosition: image.position ?? 'center' }}
+                      />
+                    </div>
+                    <figcaption
+                      className="border-t px-4 py-3 font-mono text-[11px] leading-5 text-ink-40"
+                      style={{ borderColor: LINE }}
+                    >
+                      {String(index + 1).padStart(2, '0')} / {image.alt}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          ) : null}
         </article>
       </main>
     </>
