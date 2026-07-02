@@ -119,8 +119,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 768px"
-                className="object-cover"
-                style={{ objectPosition: post.imagePosition ?? 'center' }}
+                className="object-contain"
               />
             </div>
           </div>
@@ -150,7 +149,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {galleryImages.map((image, index) => (
                   <figure
                     key={image.src}
-                    className="m-0 overflow-hidden border bg-paper"
+                    className="group m-0 overflow-hidden border bg-paper"
                     style={{ borderColor: LINE }}
                   >
                     <div
@@ -165,8 +164,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         alt={image.alt}
                         fill
                         sizes="(max-width: 768px) 100vw, 380px"
-                        className="object-cover"
-                        style={{ objectPosition: image.position ?? 'center' }}
+                        className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                       />
                     </div>
                     <figcaption

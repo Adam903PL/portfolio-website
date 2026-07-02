@@ -344,7 +344,7 @@ function ProjectCard({
             alt={`${card.name} — screenshot ${index + 1}`}
             fill
             sizes="(max-width: 900px) 100vw, 380px"
-            className="object-contain p-2"
+            className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.03]"
           />
           <span className="absolute right-2 top-2 flex size-7 items-center justify-center bg-ink/70 text-cream opacity-0 transition-opacity group-hover:opacity-100">
             <Maximize2 className="size-3.5" />

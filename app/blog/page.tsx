@@ -56,7 +56,7 @@ const BlogPage = () => {
       <section className="side-pad relative z-[2] py-4">
         <Link
           href={featured.canonicalPath}
-          className="block border bg-paper no-underline transition-colors hover:border-accent"
+          className="group block border bg-paper no-underline transition-colors hover:border-accent"
           style={{ borderColor: LINE_STRONG }}
         >
           <div className="feat-grid grid min-[901px]:grid-cols-[1.1fr_0.9fr]">
@@ -70,8 +70,7 @@ const BlogPage = () => {
                 fill
                 priority
                 sizes="(max-width: 900px) 100vw, 560px"
-                className="object-cover"
-                style={{ objectPosition: featured.imagePosition ?? 'center' }}
+                className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <span
                 className="absolute left-3.5 top-3.5 font-mono text-[11px] text-cream"
@@ -131,8 +130,7 @@ const BlogPage = () => {
                     alt={post.imageAlt}
                     fill
                     sizes="(max-width: 900px) 100vw, 560px"
-                    className="object-cover"
-                    style={{ objectPosition: post.imagePosition ?? 'center' }}
+                    className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
                 <span

@@ -38,14 +38,13 @@ const BlogPreview = () => {
               className="relative overflow-hidden border-b"
               style={{ borderColor: 'rgba(26,23,18,0.16)' }}
             >
-              <div className="relative h-[260px] w-full">
+              <div className="relative h-[260px] w-full bg-sand">
                 <Image
                   src={post.image}
                   alt={post.imageAlt}
                   fill
                   sizes="(max-width: 900px) 100vw, 380px"
-                  className="object-cover"
-                  style={{ objectPosition: post.imagePosition ?? 'center' }}
+                  className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
               <span
