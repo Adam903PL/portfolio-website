@@ -1,3 +1,10 @@
+export type BlogImage = {
+  src: string;
+  alt: string;
+  position?: string;
+  orientation?: 'landscape' | 'portrait';
+};
+
 export type BlogPost = {
   id: string;
   slug: string;
@@ -9,6 +16,7 @@ export type BlogPost = {
   image: string;
   imageAlt: string;
   imagePosition?: string;
+  gallery?: BlogImage[];
   linkedInUrl: string;
   canonicalPath: `/blog/${string}`;
   lastModified: string;
@@ -16,7 +24,92 @@ export type BlogPost = {
   content: string[];
 };
 
+export const getBlogPostImages = (post: BlogPost): BlogImage[] =>
+  post.gallery?.length
+    ? post.gallery
+    : [
+        {
+          src: post.image,
+          alt: post.imageAlt,
+          position: post.imagePosition,
+          orientation: 'landscape',
+        },
+      ];
+
 export const blogPosts: BlogPost[] = [
+  {
+    id: '7473078192002707458',
+    slug: 'it-unplugged-2026',
+    title: 'IT Unplugged: technologia, biznes i networking',
+    kicker: 'IT Unplugged / Networking / Techni Schools',
+    excerpt:
+      'Dobrze spędzony dzień na IT Unplugged: konkretne rozmowy, nowe perspektywy i bardzo mocny networkingowy klimat.',
+    source: 'LinkedIn',
+    publishedLabel: 'LinkedIn post',
+    image: '/img/blog/it-unplugged-2026/hero.jpeg',
+    imageAlt:
+      'Adam Pukaluk and Sebastian Mysakowski standing in front of the IT Unplugged event wall.',
+    imagePosition: 'center',
+    gallery: [
+      {
+        src: '/img/blog/it-unplugged-2026/hero.jpeg',
+        alt: 'Adam Pukaluk and Sebastian Mysakowski standing in front of the IT Unplugged event wall.',
+        position: 'center',
+        orientation: 'portrait',
+      },
+      {
+        src: '/img/blog/it-unplugged-2026/stage-fireside.jpg',
+        alt: 'IT Unplugged fireside chat stage about AI agents and banking.',
+        position: 'center',
+        orientation: 'landscape',
+      },
+      {
+        src: '/img/blog/it-unplugged-2026/motivation-slide.jpg',
+        alt: 'Motivation formula slide shown on the IT Unplugged stage.',
+        position: 'center',
+        orientation: 'portrait',
+      },
+      {
+        src: '/img/blog/it-unplugged-2026/vip-badge.jpg',
+        alt: 'Adam Pukaluk IT Unplugged VIP badge from CSK Lublin.',
+        position: 'center',
+        orientation: 'portrait',
+      },
+      {
+        src: '/img/blog/it-unplugged-2026/theprotocol-stand.jpg',
+        alt: 'The Protocol IT stand at IT Unplugged.',
+        position: 'center',
+        orientation: 'portrait',
+      },
+      {
+        src: '/img/blog/it-unplugged-2026/stage-performance.jpg',
+        alt: 'Dance performance on the IT Unplugged stage.',
+        position: 'center',
+        orientation: 'portrait',
+      },
+    ],
+    linkedInUrl:
+      'https://www.linkedin.com/posts/adam-pukaluk_itunplugged-it-technologia-ugcPost-7473078192002707458-jQHh/',
+    canonicalPath: '/blog/it-unplugged-2026',
+    lastModified: '2026-06-18',
+    tags: [
+      'ITUnplugged',
+      'IT',
+      'Technologia',
+      'Networking',
+      'Cybersecurity',
+      'SoftwareDevelopment',
+    ],
+    content: [
+      'Dziś miałem okazję uczestniczyć w wydarzeniu [IT UNPLUGGED](https://www.linkedin.com/company/it-unplugged/) i był to naprawdę dobrze spędzony dzień.',
+      'Całe wydarzenie miało bardzo dobrą energię. Dużo konkretnych rozmów, ciekawych perspektyw i ludzi, z którymi można było porozmawiać nie tylko o technologii, ale też o tym, jak wygląda branża od środka.',
+      'Cały dzień spędziłem w świetnym towarzystwie [Sebastian Mysakowski](https://www.linkedin.com/in/smysakowski/) oraz [Michał Żyszkiewicz](https://www.linkedin.com/in/michalzyszkiewicz/), co zdecydowanie dodało temu wydarzeniu jeszcze lepszego klimatu.',
+      'Szczególne podziękowania kieruję również do [Sławek Sobótka](https://www.linkedin.com/in/ssobot/), który od wielu lat wspiera Niepubliczne Technikum Programistyczne Techni Schools przy różnych działaniach. Tym razem to wsparcie miało bardzo konkretny wymiar w postaci wejściówki na IT Unplugged, dzięki której mogłem uczestniczyć w tym wydarzeniu.',
+      'To było najlepsze wydarzenie tego typu, w jakim do tej pory uczestniczyłem. Organizacyjnie, merytorycznie i networkingowo stało na bardzo wysokim poziomie. Jestem pewien, że jeszcze nie raz się tam pojawię.',
+      'PS Pozdrawiam Pana ze stanowiska [theprotocol.it](https://www.linkedin.com/company/theprotocol/).',
+      '#ITUnplugged #IT #Technologia #Networking #BranzaIT #Cybersecurity #SoftwareDevelopment #KarieraWIT #TheProtocolIT',
+    ],
+  },
   {
     id: '7450267832547799040',
     slug: 'civil42-hackathon',
