@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, m } from 'framer-motion';
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DURATION, EASE_EDITORIAL } from '@/lib/motion';
@@ -10,6 +10,7 @@ const LINE = 'rgba(26,23,18,0.28)';
 
 export function CommandPalette() {
   const router = useRouter();
+  const prefersReduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
@@ -92,7 +93,7 @@ export function CommandPalette() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: DURATION.fast }}
+          transition={{ duration: prefersReduced ? 0 : DURATION.fast }}
           onClick={close}
         >
           <m.div
@@ -100,10 +101,13 @@ export function CommandPalette() {
             aria-label="Command palette"
             className="w-full max-w-[560px] border bg-paper"
             style={{ borderColor: LINE }}
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: prefersReduced ? 0 : -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: DURATION.medium, ease: EASE_EDITORIAL }}
+            exit={{ opacity: 0, y: prefersReduced ? 0 : -12 }}
+            transition={{
+              duration: prefersReduced ? 0 : DURATION.medium,
+              ease: EASE_EDITORIAL,
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <div
