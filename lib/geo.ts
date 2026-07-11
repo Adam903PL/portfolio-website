@@ -1,4 +1,12 @@
-import { blogPosts } from './blog-posts';
+import { blogPosts, getBlogPostImages } from './blog-posts';
+import {
+  PRIVACY_POLICY_LAST_UPDATED,
+  PRIVACY_POLICY_MARKDOWN_PATH,
+  PRIVACY_POLICY_PATH,
+  privacyPolicyReferences,
+  privacyPolicySections,
+  privacyPolicySummary,
+} from './privacy-policy';
 import {
   absoluteUrl,
   contactLinks,
@@ -11,7 +19,7 @@ import {
   socialLinks,
 } from './seo';
 
-const LAST_UPDATED = '2026-06-04';
+const LAST_UPDATED = '2026-06-18';
 
 type GeoPage = {
   path: string;
@@ -54,6 +62,12 @@ const mainCanonicalGeoPages: GeoPage[] = [
     title: 'Contact',
     description:
       'Contact signals for collaboration, project work and full-stack development opportunities.',
+    section: 'core',
+  },
+  {
+    path: PRIVACY_POLICY_PATH,
+    title: 'Privacy Policy',
+    description: privacyPolicySummary,
     section: 'core',
   },
 ];
@@ -104,6 +118,13 @@ export const markdownGeoPages: GeoPage[] = [
     section: 'resources',
   },
   {
+    path: PRIVACY_POLICY_MARKDOWN_PATH,
+    title: 'Privacy policy markdown',
+    description:
+      'Machine-readable privacy policy for contact form data, email delivery and hosting logs.',
+    section: 'resources',
+  },
+  {
     path: '/llms-full.txt',
     title: 'Full AI context snapshot',
     description:
@@ -137,6 +158,20 @@ const renderPageList = (pages: GeoPage[]) =>
   pages
     .map((page) => bulletLink(page.title, page.path, page.description))
     .join('\n');
+
+const renderBlogPostImagesMarkdown = (
+  post: (typeof blogPosts)[number],
+  heading = '### Images',
+) =>
+  joinMarkdown([
+    heading,
+    getBlogPostImages(post)
+      .map(
+        (image, index) =>
+          `- Image ${index + 1}: ${absoluteUrl(image.src)}\n  Alt: ${image.alt}`,
+      )
+      .join('\n'),
+  ]);
 
 export function buildLlmsTxt() {
   return joinMarkdown([
@@ -248,8 +283,7 @@ export function buildBlogMarkdown() {
       `Source: ${post.source}`,
       `Original LinkedIn URL: ${post.linkedInUrl}`,
       `Tags: ${post.tags.map((tag) => `#${tag}`).join(', ')}`,
-      `Image: ${absoluteUrl(post.image)}`,
-      `Image alt: ${post.imageAlt}`,
+      renderBlogPostImagesMarkdown(post),
       '### Summary',
       post.excerpt,
       '### Full post text',
@@ -280,8 +314,7 @@ export function buildBlogPostMarkdown(slug: string) {
     `Source: ${post.source}`,
     `Original LinkedIn URL: ${post.linkedInUrl}`,
     `Tags: ${post.tags.map((tag) => `#${tag}`).join(', ')}`,
-    `Image: ${absoluteUrl(post.image)}`,
-    `Image alt: ${post.imageAlt}`,
+    renderBlogPostImagesMarkdown(post, '## Images'),
     '## Summary',
     post.excerpt,
     '## Full post text',
@@ -328,6 +361,34 @@ export function buildContactMarkdown() {
   ]);
 }
 
+export function buildPrivacyPolicyMarkdown() {
+  const renderedSections = privacyPolicySections.map((section) =>
+    joinMarkdown([
+      `## ${section.title}`,
+      `Language: ${section.language}`,
+      section.intro,
+      ...section.items.map((item) =>
+        joinMarkdown([
+          `### ${item.heading}`,
+          item.body.map((paragraph) => `- ${paragraph}`).join('\n'),
+        ]),
+      ),
+    ]),
+  );
+
+  return joinMarkdown([
+    '# Privacy Policy / Polityka prywatnosci',
+    privacyPolicySummary,
+    `Canonical URL: ${absoluteUrl(PRIVACY_POLICY_PATH)}`,
+    `Last updated: ${PRIVACY_POLICY_LAST_UPDATED}`,
+    ...renderedSections,
+    '## References',
+    privacyPolicyReferences
+      .map((reference) => `- [${reference.label}](${reference.href})`)
+      .join('\n'),
+  ]);
+}
+
 export function buildLlmsFullTxt() {
   return joinMarkdown([
     '# Adam Pukaluk Portfolio - Full AI Context',
@@ -339,6 +400,7 @@ export function buildLlmsFullTxt() {
     buildBlogMarkdown(),
     buildEducationMarkdown(),
     buildContactMarkdown(),
+    buildPrivacyPolicyMarkdown(),
     '## Crawler Policy',
     'Search and retrieval crawlers are allowed by robots.txt. API routes are blocked. Known training crawlers are blocked according to the site policy set in robots.txt.',
   ]);
@@ -380,6 +442,9 @@ export function getMarkdownForPath(pathname: string) {
     case '/contact':
     case '/contact.md':
       return buildContactMarkdown();
+    case '/privacy-policy':
+    case '/privacy-policy.md':
+      return buildPrivacyPolicyMarkdown();
     case '/llms.txt':
       return buildLlmsTxt();
     case '/llms-full.txt':

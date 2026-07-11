@@ -1,4 +1,9 @@
-import { blogPosts, type BlogPost } from './blog-posts';
+import { blogPosts, getBlogPostImages, type BlogPost } from './blog-posts';
+import {
+  PRIVACY_POLICY_LAST_UPDATED,
+  PRIVACY_POLICY_PATH,
+  privacyPolicySummary,
+} from './privacy-policy';
 import type { Metadata } from 'next';
 
 export const SITE_URL = 'https://www.adampukaluk.pl';
@@ -55,7 +60,7 @@ type SiteRoute = {
 const staticSiteRoutes: SiteRoute[] = [
   {
     path: '/',
-    lastModified: '2026-06-04',
+    lastModified: '2026-06-18',
     changeFrequency: 'weekly',
     priority: 1,
   },
@@ -67,7 +72,7 @@ const staticSiteRoutes: SiteRoute[] = [
   },
   {
     path: '/blog',
-    lastModified: '2026-06-04',
+    lastModified: '2026-06-18',
     changeFrequency: 'weekly',
     priority: 0.8,
   },
@@ -82,6 +87,12 @@ const staticSiteRoutes: SiteRoute[] = [
     lastModified: '2026-06-04',
     changeFrequency: 'monthly',
     priority: 0.5,
+  },
+  {
+    path: PRIVACY_POLICY_PATH,
+    lastModified: PRIVACY_POLICY_LAST_UPDATED,
+    changeFrequency: 'yearly',
+    priority: 0.3,
   },
 ];
 
@@ -341,7 +352,7 @@ export const createBlogJsonLd = (posts: BlogPost[]) => ({
     name: post.title,
     description: post.excerpt,
     articleBody: post.content.join('\n\n'),
-    image: absoluteUrl(post.image),
+    image: getBlogPostImages(post).map((image) => absoluteUrl(image.src)),
     url: absoluteUrl(post.canonicalPath),
     sameAs: post.linkedInUrl,
     dateModified: post.lastModified,
@@ -361,7 +372,7 @@ export const createBlogPostJsonLd = (post: BlogPost) => ({
   name: post.title,
   description: post.excerpt,
   articleBody: post.content.join('\n\n'),
-  image: absoluteUrl(post.image),
+  image: getBlogPostImages(post).map((image) => absoluteUrl(image.src)),
   url: absoluteUrl(post.canonicalPath),
   sameAs: post.linkedInUrl,
   dateModified: post.lastModified,
@@ -389,6 +400,23 @@ export const contactJsonLd = {
     'Contact page for full-stack development, automation and collaboration opportunities with Adam Pukaluk.',
   inLanguage: 'en',
   mainEntity: {
+    '@id': `${SITE_URL}/#person`,
+  },
+};
+
+export const privacyPolicyJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${SITE_URL}${PRIVACY_POLICY_PATH}#webpage`,
+  url: absoluteUrl(PRIVACY_POLICY_PATH),
+  name: 'Privacy Policy / Polityka prywatnosci',
+  description: privacyPolicySummary,
+  dateModified: PRIVACY_POLICY_LAST_UPDATED,
+  inLanguage: ['pl', 'en'],
+  isPartOf: {
+    '@id': `${SITE_URL}/#website`,
+  },
+  author: {
     '@id': `${SITE_URL}/#person`,
   },
 };
