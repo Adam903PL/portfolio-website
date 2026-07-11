@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { m } from 'framer-motion';
-import { useMotionSafe } from '@/lib/motion';
+import { VIEWPORT, useMotionSafe } from '@/lib/motion';
 
 interface BlogGridProps {
   children: ReactNode;
@@ -17,7 +17,7 @@ export function BlogGrid({ children, className }: BlogGridProps) {
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={VIEWPORT}
       variants={motionSafe.staggerContainer}
     >
       {children}

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import { m } from 'framer-motion';
-import { useMotionSafe } from '@/lib/motion';
+import { VIEWPORT, useMotionSafe } from '@/lib/motion';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
 import TypeScriptIcon from '@/public/img/icons/typescript-programming-language-icon.svg';
@@ -429,7 +429,7 @@ export default function Skills() {
         }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={VIEWPORT}
         variants={motionSafe.staggerContainer}
         key={filter}
       >

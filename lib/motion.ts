@@ -1,5 +1,4 @@
-import { Variants } from 'framer-motion';
-import { useReducedMotion } from 'framer-motion';
+import { useReducedMotion, type Variants } from 'framer-motion';
 
 export const EASE_EDITORIAL = [0.22, 1, 0.36, 1] as const;
 export const EASE_SHARP = [0.4, 0, 0.2, 1] as const;
@@ -11,21 +10,10 @@ export const DURATION = {
   slower: 0.7,
 } as const;
 
+export const VIEWPORT = { once: true, margin: '-80px' } as const;
+
 export const fadeSlideUp: Variants = {
   hidden: { opacity: 0, y: 16 },
-  visible: (custom = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: DURATION.medium,
-      ease: EASE_EDITORIAL,
-      delay: custom,
-    },
-  }),
-};
-
-export const fadeSlideDown: Variants = {
-  hidden: { opacity: 0, y: -16 },
   visible: (custom = 0) => ({
     opacity: 1,
     y: 0,
@@ -47,6 +35,23 @@ export const staggerContainer: Variants = {
   },
 };
 
+export const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: DURATION.medium, ease: EASE_EDITORIAL },
+  },
+};
+
+export const wordReveal: Variants = {
+  hidden: { y: '110%' },
+  visible: {
+    y: '0%',
+    transition: { duration: DURATION.slow, ease: EASE_EDITORIAL },
+  },
+};
+
 export const hoverLift = {
   y: -3,
   transition: { duration: DURATION.fast, ease: EASE_SHARP },
@@ -57,39 +62,38 @@ export const tapScale = {
   transition: { duration: DURATION.fast, ease: EASE_SHARP },
 } as const;
 
-export function useMotionSafe(): {
+type MotionSafeVariants = {
   fadeSlideUp: Variants;
-  fadeSlideDown: Variants;
   staggerContainer: Variants;
-} {
+  staggerItem: Variants;
+  wordReveal: Variants;
+};
+
+export function useMotionSafe(): MotionSafeVariants {
   const prefersReduced = useReducedMotion();
 
   if (prefersReduced) {
-    const noMotion = {
+    const instantFade: Variants = {
       hidden: { opacity: 0 },
-      visible: () => ({
-        opacity: 1,
-        transition: { duration: 0 },
-      }),
+      visible: () => ({ opacity: 1, transition: { duration: 0 } }),
     };
     return {
-      fadeSlideUp: noMotion,
-      fadeSlideDown: noMotion,
+      fadeSlideUp: instantFade,
       staggerContainer: {
         hidden: {},
         visible: {
-          transition: {
-            staggerChildren: 0,
-            delayChildren: 0,
-          },
+          transition: { staggerChildren: 0, delayChildren: 0 },
         },
       },
+      staggerItem: instantFade,
+      wordReveal: instantFade,
     };
   }
 
   return {
     fadeSlideUp,
-    fadeSlideDown,
     staggerContainer,
+    staggerItem,
+    wordReveal,
   };
 }

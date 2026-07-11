@@ -6,7 +6,7 @@ import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
 import { m, AnimatePresence } from 'framer-motion';
-import { hoverLift, useMotionSafe } from '@/lib/motion';
+import { VIEWPORT, hoverLift, useMotionSafe } from '@/lib/motion';
 
 import TaxMaster1 from '@/public/img/projectsImg/TaxMaxster/TaxMaster1.png';
 import TaxMaster2 from '@/public/img/projectsImg/TaxMaxster/TaxMaster2.png';
@@ -799,7 +799,7 @@ function AppsSection({
         className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={VIEWPORT}
         variants={motionSafe.staggerContainer}
       >
         {cards.map((card) => (
