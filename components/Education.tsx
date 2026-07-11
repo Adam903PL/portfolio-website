@@ -14,7 +14,7 @@ const stats = [
     value: '2023',
     accentPlus: true,
     label: 'Current track',
-    desc: 'TechniSchools full-stack — the active stage.',
+    desc: 'TechniSchools full-stack - the active stage.',
   },
   {
     value: 'Full-stack',
@@ -38,7 +38,7 @@ const timeline: Entry[] = [
     phase: 'Safe timeline',
     title: 'Primary Education Foundations',
     org: 'Lublin, Poland',
-    body: 'The foundation stage — early school years without forcing exact dates. Focus on mathematics, problem-solving, curiosity and first contact with computers.',
+    body: 'The foundation stage - early school years without forcing exact dates. Focus on mathematics, problem-solving, curiosity and first contact with computers.',
   },
   {
     year: 'Early',
@@ -52,7 +52,7 @@ const timeline: Entry[] = [
     phase: 'Game logic',
     title: 'Scratch & Interactive Projects',
     org: 'Self-learning',
-    body: 'Scratch bridged visual logic to real programming thinking — interactive scenes, small games, animation and event-driven behavior.',
+    body: 'Scratch bridged visual logic to real programming thinking - interactive scenes, small games, animation and event-driven behavior.',
   },
   {
     year: '2022',
@@ -67,7 +67,7 @@ const timeline: Entry[] = [
     active: true,
     title: 'TechniSchools Full-Stack Development',
     org: 'TechniSchools Lublin',
-    body: 'Current education focused on practical full-stack development, IT systems and real application work — where the path connects with shipped projects, automation and modern web tooling.',
+    body: 'Current education focused on practical full-stack development, IT systems and real application work - where the path connects with shipped projects, automation and modern web tooling.',
   },
 ];
 
@@ -77,7 +77,7 @@ export default function Education() {
       {/* Page hero */}
       <section className="side-pad relative z-[2] pb-10 pt-16">
         <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
-          Education — learning path
+          Education - learning path
         </div>
         <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
           From LEGO logic to
@@ -125,9 +125,9 @@ export default function Education() {
           / The timeline
         </div>
         <div>
-          {timeline.map((e, i) => (
+          {timeline.map((e) => (
             <div
-              key={i}
+              key={e.title}
               className="grid grid-cols-[80px_1fr] items-start gap-7 pb-1.5 min-[901px]:grid-cols-[120px_1fr]"
             >
               <div className="pt-1 text-right">
@@ -219,7 +219,7 @@ export default function Education() {
           style={{ borderColor: 'rgba(26,23,18,0.2)' }}
         >
           <h2 className="m-0 max-w-[520px] font-sans text-[32px] font-medium tracking-[-0.02em]">
-            See where this path leads —{' '}
+            See where this path leads -{' '}
             <span className="font-serif font-normal italic text-accent">
               the work.
             </span>

@@ -11,7 +11,7 @@ const BlogPreview = () => {
       <div className="mb-[38px] flex flex-wrap items-end justify-between gap-5">
         <div>
           <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-            / 03 — Writing
+            / 03 - Writing
           </div>
           <h2 className="m-0 font-sans text-[44px] font-medium leading-none tracking-[-0.02em]">
             From LinkedIn

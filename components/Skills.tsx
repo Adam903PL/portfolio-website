@@ -39,6 +39,17 @@ import DockerIcon from '@/public/img/icons/icons8-docker.svg';
 import N8NIcon from '@/public/img/icons/n8n.svg';
 import JetBrainsIcon from '@/public/img/icons/icons8-jetbrains.svg';
 import PostmanIcon from '@/public/img/icons/postman-icon.svg';
+import NestIcon from '@/public/img/icons/nestjs-icon.svg';
+import VercelIcon from '@/public/img/icons/vercel-icon.svg';
+import SentryIcon from '@/public/img/icons/sentry-icon.svg';
+import PlaywrightIcon from '@/public/img/icons/playwright-icon.svg';
+import GitHubActionsIcon from '@/public/img/icons/github-actions-icon.svg';
+import YamlIcon from '@/public/img/icons/yaml-icon.svg';
+import SupabaseIcon from '@/public/img/icons/supabase-icon.svg';
+import RailwayIcon from '@/public/img/icons/railway-icon.svg';
+import CloudflareIcon from '@/public/img/icons/cloudflare-icon.svg';
+import ConvCommitsIcon from '@/public/img/icons/conventional-commits-icon.svg';
+import BetterAuthIcon from '@/public/img/icons/betterauth-icon.svg';
 
 type Skill = {
   name: string;
@@ -56,6 +67,7 @@ const categories = [
   'Backend',
   'Databases',
   'Cloud & AI',
+  'DevOps',
   'Tools',
 ];
 
@@ -169,7 +181,20 @@ const skills: Skill[] = [
     mono: 'Fl',
     icon: FlaskIcon,
   },
-  { name: 'BetterAuth', cat: 'Backend', freq: '3 proj', mono: 'BA' },
+  {
+    name: 'BetterAuth',
+    cat: 'Backend',
+    freq: '3 proj',
+    mono: 'BA',
+    icon: BetterAuthIcon,
+  },
+  {
+    name: 'NestJS',
+    cat: 'Backend',
+    freq: '2 proj',
+    mono: 'Ne',
+    icon: NestIcon,
+  },
   {
     name: 'Stripe',
     cat: 'Backend',
@@ -198,7 +223,13 @@ const skills: Skill[] = [
     mono: 'MS',
     icon: MsSqlIcon,
   },
-  { name: 'Supabase', cat: 'Databases', freq: 'Several', mono: 'Sb' },
+  {
+    name: 'Supabase',
+    cat: 'Databases',
+    freq: 'Several',
+    mono: 'Sb',
+    icon: SupabaseIcon,
+  },
   {
     name: 'AWS',
     cat: 'Cloud & AI',
@@ -263,8 +294,20 @@ const skills: Skill[] = [
     mono: 'Dk',
     icon: DockerIcon,
   },
-  { name: 'Railway', cat: 'Tools', freq: 'Many', mono: 'Ra' },
-  { name: 'Cloudflare', cat: 'Tools', freq: 'Many', mono: 'Cf' },
+  {
+    name: 'Railway',
+    cat: 'Tools',
+    freq: 'Many',
+    mono: 'Ra',
+    icon: RailwayIcon,
+  },
+  {
+    name: 'Cloudflare',
+    cat: 'Tools',
+    freq: 'Many',
+    mono: 'Cf',
+    icon: CloudflareIcon,
+  },
   { name: 'n8n', cat: 'Tools', freq: 'Many', mono: 'n8', icon: N8NIcon },
   {
     name: 'JetBrains',
@@ -280,7 +323,48 @@ const skills: Skill[] = [
     mono: 'Pm',
     icon: PostmanIcon,
   },
-  { name: 'Conv. Commits', cat: 'Tools', freq: 'Many', mono: 'CC' },
+  {
+    name: 'Conv. Commits',
+    cat: 'Tools',
+    freq: 'Many',
+    mono: 'CC',
+    icon: ConvCommitsIcon,
+  },
+  {
+    name: 'Vercel',
+    cat: 'DevOps',
+    freq: 'Many',
+    mono: 'Ve',
+    icon: VercelIcon,
+  },
+  {
+    name: 'GitHub Actions',
+    cat: 'DevOps',
+    freq: 'Several',
+    mono: 'GA',
+    icon: GitHubActionsIcon,
+  },
+  {
+    name: 'Playwright',
+    cat: 'DevOps',
+    freq: 'Several',
+    mono: 'Pw',
+    icon: PlaywrightIcon,
+  },
+  {
+    name: 'Sentry',
+    cat: 'DevOps',
+    freq: 'Few',
+    mono: 'Se',
+    icon: SentryIcon,
+  },
+  {
+    name: 'YAML',
+    cat: 'DevOps',
+    freq: 'Many',
+    mono: 'Ya',
+    icon: YamlIcon,
+  },
 ];
 
 export default function Skills() {
@@ -297,14 +381,14 @@ export default function Skills() {
       <div className="mb-[34px] flex flex-wrap items-end justify-between gap-5">
         <div>
           <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-            / 02 — Stack
+            / 02 - Stack
           </div>
           <h2 className="m-0 font-sans text-[44px] font-medium leading-none tracking-[-0.02em]">
             Skills &amp; technologies
           </h2>
         </div>
         <div className="max-w-[300px] text-right font-mono text-[13px] text-ink-40">
-          41 technologies across 7 domains — filtered by what I actually ship.
+          47 technologies across 8 domains - filtered by what I actually ship.
         </div>
       </div>
 

@@ -56,9 +56,9 @@ type BlogRichTextProps = {
 const BlogRichText = ({ paragraphs, idPrefix }: BlogRichTextProps) => {
   return (
     <div className="space-y-4 text-[15px] leading-8 text-ink-70">
-      {paragraphs.map((paragraph, index) => (
+      {paragraphs.map((paragraph) => (
         <p
-          key={`${idPrefix}-${index}`}
+          key={`${idPrefix}::${paragraph}`}
           className={getParagraphClassName(paragraph)}
         >
           {renderInlineLinks(paragraph)}

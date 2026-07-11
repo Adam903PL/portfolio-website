@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
@@ -205,7 +205,7 @@ const webApps: AppCard[] = [
   {
     name: 'TechniFees',
     meta: '1 dev',
-    desc: 'My first app — a school-fee manager built with Python and Tkinter.',
+    desc: 'My first app - a school-fee manager built with Python and Tkinter.',
     tech: ['Python', 'Tkinter', 'smtplib', 'PostgreSQL'],
     images: [TechniFees1, TechniFees2, TechniFees3],
     href: 'https://github.com/Adam903PL/TechniFees',
@@ -341,7 +341,7 @@ function ProjectCard({
         >
           <Image
             src={card.images[index]}
-            alt={`${card.name} — screenshot ${index + 1}`}
+            alt={`${card.name} - screenshot ${index + 1}`}
             fill
             sizes="(max-width: 900px) 100vw, 380px"
             className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.03]"
@@ -416,6 +416,39 @@ function ProjectCard({
   );
 }
 
+function LightboxShell({
+  label,
+  onClose,
+  children,
+}: {
+  label: string;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    dialogRef.current?.showModal();
+  }, []);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      aria-label={label}
+      onCancel={(e) => {
+        // Keep React state as the source of truth instead of the dialog's
+        // internal open flag: prevent the native close and unmount via state.
+        e.preventDefault();
+        onClose();
+      }}
+      onClose={onClose}
+      className="fixed inset-0 z-[120] m-0 h-dvh max-h-none w-screen max-w-none flex-col bg-ink/95 p-4 text-cream backdrop-blur-sm backdrop:bg-transparent open:flex"
+    >
+      {children}
+    </dialog>
+  );
+}
+
 function ImageLightbox({
   state,
   onClose,
@@ -427,15 +460,10 @@ function ImageLightbox({
 }) {
   const multi = state.images.length > 1;
   return (
-    <div
-      className="fixed inset-0 z-[120] flex flex-col bg-ink/95 p-4 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${state.alt} screenshots`}
-    >
+    <LightboxShell label={`${state.alt} screenshots`} onClose={onClose}>
       <div className="flex items-center justify-between">
         <span className="font-mono text-[12px] uppercase tracking-[0.06em] text-cream-50">
-          {state.alt} — {state.index + 1} / {state.images.length}
+          {state.alt} - {state.index + 1} / {state.images.length}
         </span>
         <button
           type="button"
@@ -460,7 +488,7 @@ function ImageLightbox({
         <Image
           key={state.index}
           src={state.images[state.index]}
-          alt={`${state.alt} — screenshot ${state.index + 1}`}
+          alt={`${state.alt} - screenshot ${state.index + 1}`}
           className="mx-auto h-auto max-h-[82dvh] w-auto max-w-[min(1040px,90vw)] border object-contain"
           style={{ borderColor: 'rgba(237,231,218,0.15)' }}
         />
@@ -475,7 +503,7 @@ function ImageLightbox({
           </button>
         )}
       </div>
-    </div>
+    </LightboxShell>
   );
 }
 
@@ -490,16 +518,11 @@ function VideoLightbox({
 }) {
   const video = civilVideos[index];
   return (
-    <div
-      className="fixed inset-0 z-[120] flex flex-col bg-ink/95 p-4 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Civil42 video demos"
-    >
+    <LightboxShell label="Civil42 video demos" onClose={onClose}>
       <div className="flex items-center justify-between">
         <div>
           <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent">
-            Civil42 demo — {index + 1} / {civilVideos.length}
+            Civil42 demo - {index + 1} / {civilVideos.length}
           </div>
           <div className="mt-1 font-sans text-[18px] font-semibold text-cream">
             {video.title}
@@ -545,7 +568,258 @@ function VideoLightbox({
           <ChevronRight className="size-6" />
         </button>
       </div>
-    </div>
+    </LightboxShell>
+  );
+}
+
+function ProjectsHero() {
+  return (
+    <section className="side-pad relative z-[2] pb-11 pt-16">
+      <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
+        Selected work - 2023 → 2026
+      </div>
+      <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
+        Things I&apos;ve
+        <br />
+        <span className="font-serif text-[1.05em] italic text-accent">
+          shipped
+        </span>{' '}
+        &amp; broken.
+      </h1>
+      <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-ink-70">
+        Full-stack products, AI tooling and cross-platform mobile apps - built
+        with React, Next.js and a stack that keeps growing. Two flagship
+        ecosystems, plus everything else.
+      </p>
+    </section>
+  );
+}
+
+function FeaturedPvc() {
+  return (
+    <section className="side-pad relative z-[2] py-6">
+      <div className="border bg-paper" style={{ borderColor: LINE_STRONG }}>
+        <div
+          className="flex flex-wrap items-center justify-between gap-3 border-b bg-ink px-[26px] py-[18px] text-cream"
+          style={{ borderColor: LINE }}
+        >
+          <div className="font-mono text-[12px] uppercase tracking-[0.06em]">
+            <span className="text-accent">★</span>&nbsp; Featured ecosystem - 5
+            public repos
+          </div>
+          <div className="font-mono text-[12px] text-cream-50">PVC</div>
+        </div>
+        <div className="feat-grid grid min-[901px]:grid-cols-[1.1fr_0.9fr]">
+          <div
+            className="border-b px-[30px] py-[34px] min-[901px]:border-b-0 min-[901px]:border-r"
+            style={{ borderColor: LINE }}
+          >
+            <h2 className="m-0 font-sans text-[32px] font-semibold tracking-[-0.01em]">
+              Prompt Version Control
+            </h2>
+            <p className="mt-3 text-[16px] font-medium text-ink">
+              AI security &amp; audit layer for vibe-coding workflows.
+            </p>
+            <p className="mt-4 text-[15px] leading-[1.6] text-ink-70">
+              A multi-repo system connecting a web dashboard, CLI, local AI
+              firewall, Telegram alerts and remote machine management. It helps
+              teams review AI sessions, understand token usage, and stop
+              sensitive data before it leaves the developer&apos;s machine.
+            </p>
+            <div className="mt-[22px] flex flex-wrap gap-2">
+              {pvcTech.map((t) => (
+                <TechTag key={t} label={t} />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col">
+            {pvcRepos.map((r) => (
+              <a
+                key={r.name}
+                href={r.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3.5 border-b px-6 py-4 no-underline transition-colors hover:bg-sand"
+                style={{ borderColor: 'rgba(26,23,18,0.14)' }}
+              >
+                <span className="w-[78px] flex-none pt-0.5 font-mono text-[11px] uppercase text-accent">
+                  {r.kind}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[14px] font-semibold text-ink">
+                    {r.name}
+                  </span>
+                  <span className="mt-0.5 block text-[12px] leading-[1.4] text-ink-50">
+                    {r.desc}
+                  </span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedCivil42({ onPlay }: { onPlay: (index: number) => void }) {
+  return (
+    <section className="side-pad relative z-[2] py-6">
+      <div className="border bg-paper" style={{ borderColor: LINE_STRONG }}>
+        <div
+          className="flex flex-wrap items-center justify-between gap-3 border-b bg-ink px-[26px] py-[18px] text-cream"
+          style={{ borderColor: LINE }}
+        >
+          <div className="font-mono text-[12px] uppercase tracking-[0.06em]">
+            <span className="text-accent">★</span>&nbsp; Crisis command system
+          </div>
+          <div className="font-mono text-[12px] text-cream-50">CIVIL42</div>
+        </div>
+        <div className="feat-grid grid min-[901px]:grid-cols-[0.9fr_1.1fr]">
+          {/* Video demos */}
+          <div
+            className="flex flex-col gap-3 border-b bg-sand p-4 min-[901px]:border-b-0 min-[901px]:border-r"
+            style={{ borderColor: LINE }}
+          >
+            <div className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-40">
+              Video demos - watch &amp; listen
+            </div>
+            {civilVideos.map((v, i) => (
+              <button
+                key={v.src}
+                type="button"
+                onClick={() => onPlay(i)}
+                className="group relative block w-full overflow-hidden border bg-ink text-left"
+                style={{ borderColor: LINE }}
+                aria-label={`Play ${v.title} fullscreen`}
+              >
+                <div className="relative h-[150px] w-full">
+                  <Image
+                    src={v.poster}
+                    alt={v.title}
+                    fill
+                    sizes="(max-width: 900px) 100vw, 400px"
+                    className="object-cover opacity-85 transition-opacity group-hover:opacity-100"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex size-12 items-center justify-center rounded-full bg-accent text-[color:var(--color-accent-ink)] transition-transform group-hover:scale-105">
+                      <Play className="size-5 fill-current" />
+                    </span>
+                  </span>
+                  <span
+                    className="absolute right-2 top-2 font-mono text-[10px] text-cream"
+                    style={{
+                      background: 'rgba(26,23,18,0.65)',
+                      padding: '3px 7px',
+                    }}
+                  >
+                    {v.duration}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between px-3 py-2">
+                  <span className="font-mono text-[11px] text-cream">
+                    {v.title}
+                  </span>
+                  <span className="font-mono text-[10px] text-cream-50">
+                    {v.label}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="px-[30px] py-[34px]">
+            <h2 className="m-0 font-sans text-[32px] font-semibold tracking-[-0.01em]">
+              Civil42 / Crisis OS
+            </h2>
+            <p className="mt-3 text-[16px] font-medium">
+              Operational AI cockpit for crisis decisions, agents &amp; phone
+              intelligence.
+            </p>
+            <p className="mt-4 text-[15px] leading-[1.6] text-ink-70">
+              Connects an incident-command dashboard, a LangGraph agent council
+              and a voice-AI backend. It compares scenarios, collects real-world
+              data through phone calls, and turns it into operational
+              recommendations.
+            </p>
+            <div className="mt-[22px] flex flex-wrap gap-2">
+              {civilTech.map((t) => (
+                <TechTag key={t} label={t} />
+              ))}
+            </div>
+            <div className="mt-[22px] flex flex-wrap gap-2.5">
+              {civilRepos.map((r) => (
+                <a
+                  key={r.name}
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border px-3.5 py-[9px] font-mono text-[12px] text-ink no-underline transition-colors hover:border-accent"
+                  style={{ borderColor: 'rgba(26,23,18,0.28)' }}
+                >
+                  {r.name} →
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AppsSection({
+  eyebrow,
+  title,
+  cards,
+  onOpen,
+  className,
+}: {
+  eyebrow: string;
+  title: string;
+  cards: AppCard[];
+  onOpen: (state: NonNullable<LightboxState>) => void;
+  className: string;
+}) {
+  return (
+    <section className={`side-pad relative z-[2] ${className}`}>
+      <div className="mb-7 flex items-baseline gap-4">
+        <div className="font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+          {eyebrow}
+        </div>
+        <h2 className="m-0 font-sans text-[34px] font-medium tracking-[-0.02em]">
+          {title}
+        </h2>
+      </div>
+      <div className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3">
+        {cards.map((card) => (
+          <ProjectCard key={card.name} card={card} onOpen={onOpen} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProjectsCta() {
+  return (
+    <section className="side-pad relative z-[2] py-[60px]">
+      <div
+        className="flex flex-wrap items-center justify-between gap-6 border-t pt-10"
+        style={{ borderColor: 'rgba(26,23,18,0.2)' }}
+      >
+        <h2 className="m-0 max-w-[520px] font-sans text-[34px] font-medium tracking-[-0.02em]">
+          Have something you want built?{' '}
+          <span className="font-serif font-normal italic text-accent">
+            Let&apos;s talk.
+          </span>
+        </h2>
+        <Link
+          href="/contact"
+          className="bg-accent px-[26px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] no-underline"
+        >
+          Get in touch →
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -560,11 +834,9 @@ export default function Projects() {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
+    // Escape is handled natively by the <dialog> (LightboxShell onCancel);
+    // this listener only adds arrow-key navigation.
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setLightbox(null);
-        setVideoIndex(null);
-      }
       if (lightbox) {
         if (e.key === 'ArrowRight')
           setLightbox((s) =>
@@ -609,246 +881,24 @@ export default function Projects() {
 
   return (
     <>
-      {/* Page hero */}
-      <section className="side-pad relative z-[2] pb-11 pt-16">
-        <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
-          Selected work — 2023 → 2026
-        </div>
-        <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
-          Things I&apos;ve
-          <br />
-          <span className="font-serif text-[1.05em] italic text-accent">
-            shipped
-          </span>{' '}
-          &amp; broken.
-        </h1>
-        <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-ink-70">
-          Full-stack products, AI tooling and cross-platform mobile apps — built
-          with React, Next.js and a stack that keeps growing. Two flagship
-          ecosystems, plus everything else.
-        </p>
-      </section>
-
-      {/* Featured — PVC */}
-      <section className="side-pad relative z-[2] py-6">
-        <div className="border bg-paper" style={{ borderColor: LINE_STRONG }}>
-          <div
-            className="flex flex-wrap items-center justify-between gap-3 border-b bg-ink px-[26px] py-[18px] text-cream"
-            style={{ borderColor: LINE }}
-          >
-            <div className="font-mono text-[12px] uppercase tracking-[0.06em]">
-              <span className="text-accent">★</span>&nbsp; Featured ecosystem —
-              5 public repos
-            </div>
-            <div className="font-mono text-[12px] text-cream-50">PVC</div>
-          </div>
-          <div className="feat-grid grid min-[901px]:grid-cols-[1.1fr_0.9fr]">
-            <div
-              className="border-b px-[30px] py-[34px] min-[901px]:border-b-0 min-[901px]:border-r"
-              style={{ borderColor: LINE }}
-            >
-              <h2 className="m-0 font-sans text-[32px] font-semibold tracking-[-0.01em]">
-                Prompt Version Control
-              </h2>
-              <p className="mt-3 text-[16px] font-medium text-ink">
-                AI security &amp; audit layer for vibe-coding workflows.
-              </p>
-              <p className="mt-4 text-[15px] leading-[1.6] text-ink-70">
-                A multi-repo system connecting a web dashboard, CLI, local AI
-                firewall, Telegram alerts and remote machine management. It
-                helps teams review AI sessions, understand token usage, and stop
-                sensitive data before it leaves the developer&apos;s machine.
-              </p>
-              <div className="mt-[22px] flex flex-wrap gap-2">
-                {pvcTech.map((t) => (
-                  <TechTag key={t} label={t} />
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col">
-              {pvcRepos.map((r) => (
-                <a
-                  key={r.name}
-                  href={r.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex gap-3.5 border-b px-6 py-4 no-underline transition-colors hover:bg-sand"
-                  style={{ borderColor: 'rgba(26,23,18,0.14)' }}
-                >
-                  <span className="w-[78px] flex-none pt-0.5 font-mono text-[11px] uppercase text-accent">
-                    {r.kind}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-[14px] font-semibold text-ink">
-                      {r.name}
-                    </span>
-                    <span className="mt-0.5 block text-[12px] leading-[1.4] text-ink-50">
-                      {r.desc}
-                    </span>
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured — Civil42 */}
-      <section className="side-pad relative z-[2] py-6">
-        <div className="border bg-paper" style={{ borderColor: LINE_STRONG }}>
-          <div
-            className="flex flex-wrap items-center justify-between gap-3 border-b bg-ink px-[26px] py-[18px] text-cream"
-            style={{ borderColor: LINE }}
-          >
-            <div className="font-mono text-[12px] uppercase tracking-[0.06em]">
-              <span className="text-accent">★</span>&nbsp; Crisis command system
-            </div>
-            <div className="font-mono text-[12px] text-cream-50">CIVIL42</div>
-          </div>
-          <div className="feat-grid grid min-[901px]:grid-cols-[0.9fr_1.1fr]">
-            {/* Video demos */}
-            <div
-              className="flex flex-col gap-3 border-b bg-sand p-4 min-[901px]:border-b-0 min-[901px]:border-r"
-              style={{ borderColor: LINE }}
-            >
-              <div className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-40">
-                Video demos — watch &amp; listen
-              </div>
-              {civilVideos.map((v, i) => (
-                <button
-                  key={v.src}
-                  type="button"
-                  onClick={() => setVideoIndex(i)}
-                  className="group relative block w-full overflow-hidden border bg-ink text-left"
-                  style={{ borderColor: LINE }}
-                  aria-label={`Play ${v.title} fullscreen`}
-                >
-                  <div className="relative h-[150px] w-full">
-                    <Image
-                      src={v.poster}
-                      alt={v.title}
-                      fill
-                      sizes="(max-width: 900px) 100vw, 400px"
-                      className="object-cover opacity-85 transition-opacity group-hover:opacity-100"
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="flex size-12 items-center justify-center rounded-full bg-accent text-[color:var(--color-accent-ink)] transition-transform group-hover:scale-105">
-                        <Play className="size-5 fill-current" />
-                      </span>
-                    </span>
-                    <span
-                      className="absolute right-2 top-2 font-mono text-[10px] text-cream"
-                      style={{
-                        background: 'rgba(26,23,18,0.65)',
-                        padding: '3px 7px',
-                      }}
-                    >
-                      {v.duration}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between px-3 py-2">
-                    <span className="font-mono text-[11px] text-cream">
-                      {v.title}
-                    </span>
-                    <span className="font-mono text-[10px] text-cream-50">
-                      {v.label}
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className="px-[30px] py-[34px]">
-              <h2 className="m-0 font-sans text-[32px] font-semibold tracking-[-0.01em]">
-                Civil42 / Crisis OS
-              </h2>
-              <p className="mt-3 text-[16px] font-medium">
-                Operational AI cockpit for crisis decisions, agents &amp; phone
-                intelligence.
-              </p>
-              <p className="mt-4 text-[15px] leading-[1.6] text-ink-70">
-                Connects an incident-command dashboard, a LangGraph agent
-                council and a voice-AI backend. It compares scenarios, collects
-                real-world data through phone calls, and turns it into
-                operational recommendations.
-              </p>
-              <div className="mt-[22px] flex flex-wrap gap-2">
-                {civilTech.map((t) => (
-                  <TechTag key={t} label={t} />
-                ))}
-              </div>
-              <div className="mt-[22px] flex flex-wrap gap-2.5">
-                {civilRepos.map((r) => (
-                  <a
-                    key={r.name}
-                    href={r.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="border px-3.5 py-[9px] font-mono text-[12px] text-ink no-underline transition-colors hover:border-accent"
-                    style={{ borderColor: 'rgba(26,23,18,0.28)' }}
-                  >
-                    {r.name} →
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Web apps */}
-      <section className="side-pad relative z-[2] pb-5 pt-14">
-        <div className="mb-7 flex items-baseline gap-4">
-          <div className="font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-            / Web
-          </div>
-          <h2 className="m-0 font-sans text-[34px] font-medium tracking-[-0.02em]">
-            Full-stack applications
-          </h2>
-        </div>
-        <div className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3">
-          {webApps.map((card) => (
-            <ProjectCard key={card.name} card={card} onOpen={setLightbox} />
-          ))}
-        </div>
-      </section>
-
-      {/* Mobile apps */}
-      <section className="side-pad relative z-[2] pb-5 pt-11">
-        <div className="mb-7 flex items-baseline gap-4">
-          <div className="font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-            / Mobile
-          </div>
-          <h2 className="m-0 font-sans text-[34px] font-medium tracking-[-0.02em]">
-            React Native apps
-          </h2>
-        </div>
-        <div className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3">
-          {mobileApps.map((card) => (
-            <ProjectCard key={card.name} card={card} onOpen={setLightbox} />
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="side-pad relative z-[2] py-[60px]">
-        <div
-          className="flex flex-wrap items-center justify-between gap-6 border-t pt-10"
-          style={{ borderColor: 'rgba(26,23,18,0.2)' }}
-        >
-          <h2 className="m-0 max-w-[520px] font-sans text-[34px] font-medium tracking-[-0.02em]">
-            Have something you want built?{' '}
-            <span className="font-serif font-normal italic text-accent">
-              Let&apos;s talk.
-            </span>
-          </h2>
-          <Link
-            href="/contact"
-            className="bg-accent px-[26px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] no-underline"
-          >
-            Get in touch →
-          </Link>
-        </div>
-      </section>
+      <ProjectsHero />
+      <FeaturedPvc />
+      <FeaturedCivil42 onPlay={setVideoIndex} />
+      <AppsSection
+        eyebrow="/ Web"
+        title="Full-stack applications"
+        cards={webApps}
+        onOpen={setLightbox}
+        className="pb-5 pt-14"
+      />
+      <AppsSection
+        eyebrow="/ Mobile"
+        title="React Native apps"
+        cards={mobileApps}
+        onOpen={setLightbox}
+        className="pb-5 pt-11"
+      />
+      <ProjectsCta />
 
       {lightbox && (
         <ImageLightbox

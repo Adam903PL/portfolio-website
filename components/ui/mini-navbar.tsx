@@ -25,8 +25,8 @@ export default function Navbar() {
       className="side-pad sticky top-0 z-40 border-b"
       style={{
         background: 'rgba(237,231,218,0.82)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
         borderColor: 'var(--color-line-soft)',
       }}
     >

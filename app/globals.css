@@ -3,7 +3,7 @@
 
 /*
  * Mono-glass editorial design system.
- * Cream paper, ink text, orange accent — Instrument Serif / Space Grotesk / Space Mono.
+ * Cream paper, ink text, orange accent - Instrument Serif / Space Grotesk / Space Mono.
  */
 @theme inline {
   --color-background: var(--background);
@@ -165,5 +165,18 @@
     box-shadow:
       0 0 0 1px rgba(29, 185, 84, 0.28),
       0 0 48px rgba(29, 185, 84, 0.34);
+  }
+}
+
+/* Honor the OS "reduce motion" preference (WCAG 2.3.3): collapse all
+   decorative animation (marquee, blink, wave, hover zooms) to near-zero. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

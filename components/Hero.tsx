@@ -38,7 +38,7 @@ export default function Hero() {
           </h1>
           <p className="mt-[30px] max-w-[520px] text-[18px] leading-[1.55] text-ink-70">
             17-year-old developer from Poland. Three years shipping across the
-            full stack — React &amp; Next.js on the front, Node &amp; Postgres
+            full stack - React &amp; Next.js on the front, Node &amp; Postgres
             behind it, automation and security woven through.
           </p>
           <div className="mt-[34px] flex flex-wrap gap-[14px]">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 
 const EMAIL = 'pukaluk.adam505@gmail.com';
 const LINE = 'rgba(26,23,18,0.16)';
@@ -17,15 +17,57 @@ const socials = [
   { label: '☕ Coffee ↗', href: 'https://buymeacoffee.com/adam903' },
 ];
 
+type Status = 'idle' | 'sending' | 'success' | 'error';
+
+type FormState = {
+  name: string;
+  email: string;
+  message: string;
+  status: Status;
+  feedback: string;
+};
+
+type FormAction =
+  | { type: 'field'; field: 'name' | 'email' | 'message'; value: string }
+  | { type: 'submitting' }
+  | { type: 'success'; feedback: string }
+  | { type: 'error'; feedback: string }
+  | { type: 'invalid'; feedback: string };
+
+const initialFormState: FormState = {
+  name: '',
+  email: '',
+  message: '',
+  status: 'idle',
+  feedback: '',
+};
+
+function formReducer(state: FormState, action: FormAction): FormState {
+  switch (action.type) {
+    case 'field':
+      return { ...state, [action.field]: action.value };
+    case 'submitting':
+      return { ...state, status: 'sending', feedback: '' };
+    case 'success':
+      return {
+        ...state,
+        status: 'success',
+        feedback: action.feedback,
+        name: '',
+        email: '',
+        message: '',
+      };
+    case 'error':
+    case 'invalid':
+      return { ...state, status: 'error', feedback: action.feedback };
+    default:
+      return state;
+  }
+}
+
 export default function Contact() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [state, dispatch] = useReducer(formReducer, initialFormState);
   const [copyLabel, setCopyLabel] = useState('Copy');
-  const [status, setStatus] = useState<
-    'idle' | 'sending' | 'success' | 'error'
-  >('idle');
-  const [feedback, setFeedback] = useState('');
 
   const copyEmail = () => {
     const done = () => {
@@ -40,16 +82,21 @@ export default function Contact() {
   };
 
   const send = async () => {
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setStatus('error');
-      setFeedback('Please add your name, email and a message.');
+    const name = state.name.trim();
+    const email = state.email.trim();
+    const message = state.message.trim();
+
+    if (!name || !email || !message) {
+      dispatch({
+        type: 'invalid',
+        feedback: 'Please add your name, email and a message.',
+      });
       return;
     }
 
-    setStatus('sending');
-    setFeedback('');
+    dispatch({ type: 'submitting' });
 
-    const [firstName, ...rest] = name.trim().split(/\s+/);
+    const [firstName, ...rest] = name.split(/\s+/);
 
     try {
       const res = await fetch('/api/send', {
@@ -58,8 +105,8 @@ export default function Contact() {
         body: JSON.stringify({
           firstName,
           lastName: rest.join(' '),
-          email: email.trim(),
-          message: message.trim(),
+          email,
+          message,
         }),
       });
 
@@ -72,18 +119,18 @@ export default function Contact() {
         throw new Error(detail || `Request failed (${res.status})`);
       }
 
-      setStatus('success');
-      setFeedback("Message sent — I'll get back to you within a day.");
-      setName('');
-      setEmail('');
-      setMessage('');
+      dispatch({
+        type: 'success',
+        feedback: "Message sent - I'll get back to you within a day.",
+      });
     } catch (err) {
-      setStatus('error');
-      setFeedback(
-        err instanceof Error
-          ? err.message
-          : 'Something went wrong — email me directly instead.',
-      );
+      dispatch({
+        type: 'error',
+        feedback:
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong - email me directly instead.',
+      });
     }
   };
 
@@ -95,7 +142,7 @@ export default function Contact() {
       {/* Page hero */}
       <section className="side-pad relative z-[2] pb-5 pt-16">
         <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
-          Contact — let&apos;s build something
+          Contact - let&apos;s build something
         </div>
         <h1 className="display-xl m-0 font-sans font-medium leading-[0.9] tracking-[-0.03em]">
           Say{' '}
@@ -118,7 +165,7 @@ export default function Contact() {
           >
             <p className="m-0 max-w-[400px] text-[17px] leading-[1.6] text-ink-70">
               Open to full-stack roles, freelance builds and interesting
-              collaborations. Fastest way to reach me is email — I usually reply
+              collaborations. Fastest way to reach me is email - I usually reply
               within a day.
             </p>
 
@@ -213,39 +260,69 @@ export default function Contact() {
             </div>
             <div className="flex flex-col gap-[18px]">
               <div>
-                <label className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50">
+                <label
+                  htmlFor="contact-name"
+                  className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50"
+                >
                   Your name
                 </label>
                 <input
+                  id="contact-name"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={state.name}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'field',
+                      field: 'name',
+                      value: e.target.value,
+                    })
+                  }
                   placeholder="Jane Kowalska"
                   className={inputClass}
                   style={{ borderColor: INVERT }}
                 />
               </div>
               <div>
-                <label className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50">
+                <label
+                  htmlFor="contact-email"
+                  className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50"
+                >
                   Email
                 </label>
                 <input
+                  id="contact-email"
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={state.email}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'field',
+                      field: 'email',
+                      value: e.target.value,
+                    })
+                  }
                   placeholder="you@company.com"
                   className={inputClass}
                   style={{ borderColor: INVERT }}
                 />
               </div>
               <div>
-                <label className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50">
+                <label
+                  htmlFor="contact-message"
+                  className="mb-2 block font-mono text-[11px] uppercase tracking-[0.04em] text-cream-50"
+                >
                   Message
                 </label>
                 <textarea
+                  id="contact-message"
                   rows={5}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  value={state.message}
+                  onChange={(e) =>
+                    dispatch({
+                      type: 'field',
+                      field: 'message',
+                      value: e.target.value,
+                    })
+                  }
                   placeholder="Tell me about the project, role or idea…"
                   className={`${inputClass} resize-y leading-[1.5]`}
                   style={{ borderColor: INVERT }}
@@ -254,26 +331,26 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={send}
-                disabled={status === 'sending'}
+                disabled={state.status === 'sending'}
                 className="mt-1.5 cursor-pointer border-none bg-accent px-[22px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {status === 'sending' ? 'Sending…' : 'Send message →'}
+                {state.status === 'sending' ? 'Sending…' : 'Send message →'}
               </button>
               <div
                 className="font-mono text-[11px] leading-[1.5]"
                 style={{
                   color:
-                    status === 'success'
+                    state.status === 'success'
                       ? '#7FD18B'
-                      : status === 'error'
+                      : state.status === 'error'
                         ? 'var(--color-accent)'
                         : 'rgba(237,231,218,0.4)',
                 }}
                 role="status"
                 aria-live="polite"
               >
-                {feedback ||
-                  'Sends straight to my inbox — no mail client needed.'}
+                {state.feedback ||
+                  'Sends straight to my inbox - no mail client needed.'}
               </div>
             </div>
           </div>

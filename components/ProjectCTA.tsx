@@ -23,7 +23,7 @@ const ProjectCTA = () => {
             <h2 className="m-0 max-w-[640px] font-sans text-[40px] font-medium leading-[0.98] tracking-[-0.02em] min-[901px]:text-[52px]">
               Ready to explore
               <br />
-              my work — or{' '}
+              my work - or{' '}
               <span className="font-serif font-normal italic text-accent">
                 build
               </span>{' '}

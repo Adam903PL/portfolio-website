@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -11,7 +12,7 @@ const Footer = () => {
           AP
         </span>
         <span className="font-mono text-[12px] text-ink-40">
-          © 2026 Adam Pukaluk — Lublin, Poland
+          © 2026 Adam Pukaluk - Lublin, Poland
         </span>
       </div>
       <div className="flex gap-[22px] font-mono text-[12px]">
@@ -31,12 +32,12 @@ const Footer = () => {
         >
           LinkedIn
         </a>
-        <a
+        <Link
           href="/privacy-policy"
           className="text-ink-40 no-underline transition-colors hover:text-ink"
         >
           Privacy
-        </a>
+        </Link>
       </div>
     </footer>
   );

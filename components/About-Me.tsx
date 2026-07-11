@@ -2,8 +2,8 @@ import React from 'react';
 
 const stats = [
   { value: '15+', label: 'Projects shipped' },
-  { value: '41', label: 'Technologies' },
-  { value: '7', label: 'Domains' },
+  { value: '47', label: 'Technologies' },
+  { value: '8', label: 'Domains' },
 ];
 
 const capabilities = [
@@ -24,7 +24,7 @@ export default function About() {
   return (
     <section id="about" className="side-pad relative z-[2] pb-10 pt-24">
       <div className="mb-[22px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-        / 01 — About
+        / 01 - About
       </div>
 
       <div className="about-grid grid items-start gap-14 min-[901px]:grid-cols-2">
@@ -50,7 +50,7 @@ export default function About() {
               TechniSchools Lublin
             </a>
             . I move fluidly between full-stack product work, automation with
-            n8n &amp; PowerShell, and cybersecurity on Kali Linux — always
+            n8n &amp; PowerShell, and cybersecurity on Kali Linux - always
             shipping real projects, not tutorials.
           </p>
           <div className="mt-[38px] flex gap-10">
@@ -67,7 +67,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Right column — capability list */}
+        {/* Right column - capability list */}
         <div
           className="flex flex-col border"
           style={{ borderColor: 'rgba(26,23,18,0.16)' }}
