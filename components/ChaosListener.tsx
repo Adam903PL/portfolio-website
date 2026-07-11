@@ -32,7 +32,11 @@ export function ChaosListener() {
 
     const onKey = (e: KeyboardEvent) => {
       progress.current =
-        e.key === KONAMI[progress.current] ? progress.current + 1 : 0;
+        e.key === KONAMI[progress.current]
+          ? progress.current + 1
+          : e.key === KONAMI[0]
+            ? 1
+            : 0;
       if (progress.current === KONAMI.length) {
         progress.current = 0;
         trigger();
