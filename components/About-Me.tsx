@@ -1,10 +1,11 @@
 import React from 'react';
-import { RevealSection } from '@/components/motion/RevealSection';
+import { Reveal } from '@/components/motion/Reveal';
+import { CountUp } from '@/components/motion/CountUp';
 
 const stats = [
-  { value: '15+', label: 'Projects shipped' },
-  { value: '47', label: 'Technologies' },
-  { value: '8', label: 'Domains' },
+  { value: 15, suffix: '+', label: 'Projects shipped' },
+  { value: 47, suffix: '', label: 'Technologies' },
+  { value: 8, suffix: '', label: 'Domains' },
 ];
 
 const capabilities = [
@@ -24,7 +25,7 @@ const capabilities = [
 export default function About() {
   return (
     <section id="about" className="side-pad relative z-[2] pb-10 pt-24">
-      <RevealSection>
+      <Reveal>
         <div className="mb-[22px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
           / 01 - About
         </div>
@@ -59,7 +60,7 @@ export default function About() {
               {stats.map((stat) => (
                 <div key={stat.label}>
                   <div className="font-serif text-[46px] leading-none">
-                    {stat.value}
+                    <CountUp value={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-40">
                     {stat.label}
@@ -99,7 +100,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      </RevealSection>
+      </Reveal>
     </section>
   );
 }

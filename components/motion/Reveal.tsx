@@ -2,28 +2,23 @@
 
 import { m } from 'framer-motion';
 import { ReactNode } from 'react';
-import { useMotionSafe } from '@/lib/motion';
+import { VIEWPORT, useMotionSafe } from '@/lib/motion';
 
-interface RevealSectionProps {
+interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
 }
 
-export function RevealSection({
-  children,
-  delay = 0,
-  className,
-}: RevealSectionProps) {
+export function Reveal({ children, delay = 0, className }: RevealProps) {
   const motionSafe = useMotionSafe();
-  const variant = motionSafe.fadeSlideUp;
 
   return (
     <m.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      variants={variant}
+      viewport={VIEWPORT}
+      variants={motionSafe.fadeSlideUp}
       custom={delay}
       className={className}
     >
