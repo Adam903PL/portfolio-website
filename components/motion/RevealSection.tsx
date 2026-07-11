@@ -1,9 +1,8 @@
 'use client';
 
-import { LazyMotion, m } from 'framer-motion';
-import { domAnimation } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ReactNode } from 'react';
-import { fadeSlideUp, useMotionSafe } from '@/lib/motion';
+import { useMotionSafe } from '@/lib/motion';
 
 interface RevealSectionProps {
   children: ReactNode;

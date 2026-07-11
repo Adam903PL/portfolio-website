@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import { LazyMotion, m } from 'framer-motion';
-import { domAnimation } from 'framer-motion';
-import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
+import { m } from 'framer-motion';
+import { useMotionSafe } from '@/lib/motion';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
 import TypeScriptIcon from '@/public/img/icons/typescript-programming-language-icon.svg';

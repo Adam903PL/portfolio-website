@@ -5,14 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
-import { LazyMotion, m, AnimatePresence } from 'framer-motion';
-import { domAnimation } from 'framer-motion';
-import {
-  fadeSlideUp,
-  staggerContainer,
-  hoverLift,
-  useMotionSafe,
-} from '@/lib/motion';
+import { m, AnimatePresence } from 'framer-motion';
+import { hoverLift, useMotionSafe } from '@/lib/motion';
 
 import TaxMaster1 from '@/public/img/projectsImg/TaxMaxster/TaxMaster1.png';
 import TaxMaster2 from '@/public/img/projectsImg/TaxMaxster/TaxMaster2.png';

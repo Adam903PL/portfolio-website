@@ -4,6 +4,7 @@ import './globals.css';
 import MiniNavbar from '@/components/ui/mini-navbar';
 import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
+import { MotionProvider } from '@/components/motion/MotionProvider';
 import {
   DEFAULT_DESCRIPTION,
   OG_IMAGE_PATH,
@@ -123,11 +124,13 @@ export default function RootLayout({
           }}
         />
 
-        <div className="relative z-[2] min-h-screen overflow-x-hidden">
-          <MiniNavbar />
-          {children}
-          <Footer />
-        </div>
+        <MotionProvider>
+          <div className="relative z-[2] min-h-screen overflow-x-hidden">
+            <MiniNavbar />
+            {children}
+            <Footer />
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );

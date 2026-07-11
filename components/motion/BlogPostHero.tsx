@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { LazyMotion, m } from 'framer-motion';
-import { domAnimation } from 'framer-motion';
-import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
+import { m } from 'framer-motion';
+import { useMotionSafe } from '@/lib/motion';
 
 interface BlogPostHeroProps {
   backHref?: string;
