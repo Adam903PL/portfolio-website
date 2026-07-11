@@ -81,6 +81,15 @@ export default function Navbar() {
           >
             Contact&nbsp;→
           </Link>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event('toggle-palette'))}
+            aria-label="Open command palette"
+            className="hidden border px-2.5 py-[7px] font-mono text-[11px] uppercase tracking-[0.04em] text-ink-40 transition-colors hover:border-accent hover:text-ink min-[901px]:inline-block"
+            style={{ borderColor: 'rgba(26,23,18,0.28)' }}
+          >
+            Ctrl K
+          </button>
 
           {/* Mobile toggle */}
           <button
