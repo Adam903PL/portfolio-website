@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Reveal } from '@/components/motion/Reveal';
+import { StatusLine } from '@/components/StatusLine';
 
 const Footer = () => {
   return (
@@ -13,8 +14,11 @@ const Footer = () => {
           <span className="flex size-[30px] items-center justify-center bg-ink font-mono text-[13px] font-bold text-cream">
             AP
           </span>
-          <span className="font-mono text-[12px] text-ink-40">
-            © 2026 Adam Pukaluk - Lublin, Poland
+          <span className="flex flex-col gap-0.5">
+            <span className="font-mono text-[12px] text-ink-40">
+              © 2026 Adam Pukaluk - Lublin, Poland
+            </span>
+            <StatusLine />
           </span>
         </div>
         <div className="flex gap-[22px] font-mono text-[12px]">
