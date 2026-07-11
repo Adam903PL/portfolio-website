@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import { m } from 'framer-motion';
 import { VIEWPORT, useMotionSafe } from '@/lib/motion';
@@ -370,16 +370,22 @@ const skills: Skill[] = [
   },
 ];
 
-export default function Skills() {
-  const [filter, setFilter] = useState('All');
-  const motionSafe = useMotionSafe();
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    const tech = new URLSearchParams(window.location.search).get('tech');
-    if (!tech) return;
-    const match = skills.find((s) => s.name.toLowerCase() === tech);
-    if (match) setFilter(match.cat); // eslint-disable-line react-hooks/set-state-in-effect
-  }, []);
+export default function Skills() {
+  const [filterOverride, setFilterOverride] = useState<string | null>(null);
+  const urlFilter = useSyncExternalStore(
+    emptySubscribe,
+    () => {
+      const tech = new URLSearchParams(window.location.search).get('tech');
+      if (!tech) return null;
+      const match = skills.find((s) => s.name.toLowerCase() === tech);
+      return match ? match.cat : null;
+    },
+    () => null,
+  );
+  const filter = filterOverride ?? urlFilter ?? 'All';
+  const motionSafe = useMotionSafe();
 
   const visible = skills.filter((s) => filter === 'All' || s.cat === filter);
 
@@ -411,7 +417,7 @@ export default function Skills() {
             <button
               key={cat}
               type="button"
-              onClick={() => setFilter(cat)}
+              onClick={() => setFilterOverride(cat)}
               className="cursor-pointer rounded-[2px] border font-mono text-[12px] uppercase tracking-[0.03em] transition-colors"
               style={{
                 padding: '9px 15px',
