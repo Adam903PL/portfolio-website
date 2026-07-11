@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, m } from 'framer-motion';
 import { DURATION, EASE_SHARP } from '@/lib/motion';
+import { ScrambleText } from '@/components/motion/ScrambleText';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -64,7 +65,7 @@ export default function Navbar() {
                   : { color: 'var(--color-ink)' }
               }
             >
-              {link.label}
+              <ScrambleText text={link.label} />
             </Link>
           ))}
         </nav>

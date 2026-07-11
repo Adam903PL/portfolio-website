@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import { m } from 'framer-motion';
 import { VIEWPORT, useMotionSafe } from '@/lib/motion';
+import { ScrambleText } from '@/components/motion/ScrambleText';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
 import TypeScriptIcon from '@/public/img/icons/typescript-programming-language-icon.svg';
@@ -384,7 +385,7 @@ export default function Skills() {
       <div className="mb-[34px] flex flex-wrap items-end justify-between gap-5">
         <div>
           <div className="mb-[18px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-            / 02 - Stack
+            <ScrambleText text="/ 02 - Stack" />
           </div>
           <h2 className="m-0 font-sans text-[44px] font-medium leading-none tracking-[-0.02em]">
             Skills &amp; technologies

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Reveal } from '@/components/motion/Reveal';
 import { CountUp } from '@/components/motion/CountUp';
+import { ScrambleText } from '@/components/motion/ScrambleText';
 
 const stats = [
   { value: 15, suffix: '+', label: 'Projects shipped' },
@@ -27,7 +28,7 @@ export default function About() {
     <section id="about" className="side-pad relative z-[2] pb-10 pt-24">
       <Reveal>
         <div className="mb-[22px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
-          / 01 - About
+          <ScrambleText text="/ 01 - About" />
         </div>
 
         <div className="about-grid grid items-start gap-14 min-[901px]:grid-cols-2">
