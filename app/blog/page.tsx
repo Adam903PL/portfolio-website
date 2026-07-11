@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { BlogGrid, BlogGridItem } from '@/components/motion/BlogGrid';
 import { blogPosts } from '@/lib/blog-posts';
 import {
   createBlogJsonLd,
@@ -112,62 +113,63 @@ const BlogPage = () => {
 
       {/* Post grid */}
       <section className="side-pad relative z-[2] pb-5 pt-9">
-        <div className="grid-2 grid gap-[22px] min-[901px]:grid-cols-2">
+        <BlogGrid className="grid-2 grid gap-[22px] min-[901px]:grid-cols-2">
           {rest.map((post, i) => (
-            <Link
-              key={post.id}
-              href={post.canonicalPath}
-              className="group flex flex-col border bg-paper no-underline transition-colors hover:border-accent"
-              style={{ borderColor: LINE }}
-            >
-              <div
-                className="relative overflow-hidden border-b"
+            <BlogGridItem key={post.id}>
+              <Link
+                href={post.canonicalPath}
+                className="group flex flex-col border bg-paper no-underline transition-colors hover:border-accent"
                 style={{ borderColor: LINE }}
               >
-                <div className="relative h-[220px] w-full bg-sand">
-                  <Image
-                    src={post.image}
-                    alt={post.imageAlt}
-                    fill
-                    sizes="(max-width: 900px) 100vw, 560px"
-                    className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                </div>
-                <span
-                  className="absolute left-3 top-3 font-mono text-[11px] text-cream"
-                  style={{
-                    background: 'rgba(26,23,18,0.6)',
-                    padding: '4px 8px',
-                  }}
-                >
-                  0{i + 2}
-                </span>
-              </div>
-              <div className="flex flex-1 flex-col px-6 pb-[26px] pt-6">
-                <div className="font-mono text-[11px] uppercase tracking-[0.04em] text-ink-30">
-                  {post.kicker}
-                </div>
-                <h3 className="mb-2.5 mt-3 font-sans text-[22px] font-semibold leading-[1.2]">
-                  {post.title}
-                </h3>
-                <p className="m-0 flex-1 text-[14px] leading-[1.55] text-ink-60">
-                  {post.excerpt}
-                </p>
                 <div
-                  className="mt-5 flex items-center justify-between border-t pt-4"
-                  style={{ borderColor: 'rgba(26,23,18,0.14)' }}
+                  className="relative overflow-hidden border-b"
+                  style={{ borderColor: LINE }}
                 >
-                  <span className="font-mono text-[12px] text-accent">
-                    Read post →
-                  </span>
-                  <span className="font-mono text-[11px] text-ink-30">
-                    LinkedIn
+                  <div className="relative h-[220px] w-full bg-sand">
+                    <Image
+                      src={post.image}
+                      alt={post.imageAlt}
+                      fill
+                      sizes="(max-width: 900px) 100vw, 560px"
+                      className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <span
+                    className="absolute left-3 top-3 font-mono text-[11px] text-cream"
+                    style={{
+                      background: 'rgba(26,23,18,0.6)',
+                      padding: '4px 8px',
+                    }}
+                  >
+                    0{i + 2}
                   </span>
                 </div>
-              </div>
-            </Link>
+                <div className="flex flex-1 flex-col px-6 pb-[26px] pt-6">
+                  <div className="font-mono text-[11px] uppercase tracking-[0.04em] text-ink-30">
+                    {post.kicker}
+                  </div>
+                  <h3 className="mb-2.5 mt-3 font-sans text-[22px] font-semibold leading-[1.2]">
+                    {post.title}
+                  </h3>
+                  <p className="m-0 flex-1 text-[14px] leading-[1.55] text-ink-60">
+                    {post.excerpt}
+                  </p>
+                  <div
+                    className="mt-5 flex items-center justify-between border-t pt-4"
+                    style={{ borderColor: 'rgba(26,23,18,0.14)' }}
+                  >
+                    <span className="font-mono text-[12px] text-accent">
+                      Read post →
+                    </span>
+                    <span className="font-mono text-[11px] text-ink-30">
+                      LinkedIn
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </BlogGridItem>
           ))}
-        </div>
+        </BlogGrid>
       </section>
 
       {/* CTA */}

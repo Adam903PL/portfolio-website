@@ -5,6 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  fadeSlideUp,
+  staggerContainer,
+  hoverLift,
+  useMotionSafe,
+} from '@/lib/motion';
 
 import TaxMaster1 from '@/public/img/projectsImg/TaxMaxster/TaxMaster1.png';
 import TaxMaster2 from '@/public/img/projectsImg/TaxMaxster/TaxMaster2.png';
@@ -325,9 +332,10 @@ function ProjectCard({
   };
 
   return (
-    <div
+    <motion.div
       className="flex flex-col border bg-paper transition-colors hover:border-accent"
       style={{ borderColor: LINE }}
+      whileHover={hoverLift}
     >
       <div
         className="relative overflow-hidden border-b"
@@ -412,7 +420,7 @@ function ProjectCard({
           {card.hrefLabel} ↗
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -780,6 +788,8 @@ function AppsSection({
   onOpen: (state: NonNullable<LightboxState>) => void;
   className: string;
 }) {
+  const motionSafe = useMotionSafe();
+
   return (
     <section className={`side-pad relative z-[2] ${className}`}>
       <div className="mb-7 flex items-baseline gap-4">
@@ -790,11 +800,19 @@ function AppsSection({
           {title}
         </h2>
       </div>
-      <div className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3">
+      <motion.div
+        className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        variants={motionSafe.staggerContainer}
+      >
         {cards.map((card) => (
-          <ProjectCard key={card.name} card={card} onOpen={onOpen} />
+          <motion.div key={card.name} variants={motionSafe.fadeSlideUp}>
+            <ProjectCard card={card} onOpen={onOpen} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

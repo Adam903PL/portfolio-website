@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useReducer, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { tapScale, DURATION, EASE_SHARP } from '@/lib/motion';
 
 const EMAIL = 'pukaluk.adam505@gmail.com';
 const LINE = 'rgba(26,23,18,0.16)';
@@ -328,14 +330,37 @@ export default function Contact() {
                   style={{ borderColor: INVERT }}
                 />
               </div>
-              <button
+              <motion.button
                 type="button"
                 onClick={send}
                 disabled={state.status === 'sending'}
                 className="mt-1.5 cursor-pointer border-none bg-accent px-[22px] py-4 font-mono text-[13px] uppercase tracking-[0.04em] text-[color:var(--color-accent-ink)] disabled:cursor-not-allowed disabled:opacity-60"
+                whileTap={tapScale}
               >
-                {state.status === 'sending' ? 'Sending…' : 'Send message →'}
-              </button>
+                <AnimatePresence mode="wait">
+                  {state.status === 'sending' ? (
+                    <motion.span
+                      key="sending"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: DURATION.fast }}
+                    >
+                      Sending…
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="idle"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: DURATION.fast }}
+                    >
+                      Send message →
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.button>
               <div
                 className="font-mono text-[11px] leading-[1.5]"
                 style={{

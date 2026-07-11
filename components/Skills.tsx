@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
+import { motion } from 'framer-motion';
+import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
 import TypeScriptIcon from '@/public/img/icons/typescript-programming-language-icon.svg';
@@ -369,6 +371,7 @@ const skills: Skill[] = [
 
 export default function Skills() {
   const [filter, setFilter] = useState('All');
+  const motionSafe = useMotionSafe();
 
   const visible = skills.filter((s) => filter === 'All' || s.cat === filter);
 
@@ -418,18 +421,24 @@ export default function Skills() {
       </div>
 
       {/* Skills grid */}
-      <div
+      <motion.div
         className="grid border-l border-t"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
           borderColor: 'rgba(26,23,18,0.16)',
         }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+        variants={motionSafe.staggerContainer}
+        key={filter}
       >
         {visible.map((s) => (
-          <div
+          <motion.div
             key={s.name}
             className="flex items-center gap-3.5 border-b border-r bg-cream px-5 py-[18px]"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
+            variants={motionSafe.fadeSlideUp}
           >
             <div
               className="flex size-10 flex-none items-center justify-center border bg-sand font-mono text-[14px] font-bold text-ink"
@@ -452,9 +461,9 @@ export default function Skills() {
                 {s.cat} · {s.freq}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
