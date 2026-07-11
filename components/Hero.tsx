@@ -5,8 +5,9 @@ import HeroPortrait from '@/public/img/gy19rvVD.jpg';
 import { Reveal } from '@/components/motion/Reveal';
 import { TextReveal } from '@/components/motion/TextReveal';
 import { CountUp } from '@/components/motion/CountUp';
+import { AgeCounter } from '@/components/AgeCounter';
 
-const eyebrow = ['Full-Stack Developer', 'Lublin, Poland', 'Est. 2009'];
+const eyebrow = ['Full-Stack Developer', 'Lublin, Poland'];
 
 const stats = [
   { value: 17, suffix: '', label: 'Years old', border: true },
@@ -34,6 +35,8 @@ export default function Hero() {
             <span>{item}</span>
           </React.Fragment>
         ))}
+        <span className="text-ink-10">/</span>
+        <AgeCounter />
       </Reveal>
 
       <div className="hero-grid grid items-end gap-12 min-[901px]:grid-cols-[1.2fr_1fr]">
