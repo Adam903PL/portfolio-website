@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image, { type StaticImageData } from 'next/image';
-import { motion } from 'framer-motion';
+import { LazyMotion, m } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
 import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
 
 import JavaScriptIcon from '@/public/img/icons/javascript-programming-language-icon.svg';
@@ -421,7 +422,7 @@ export default function Skills() {
       </div>
 
       {/* Skills grid */}
-      <motion.div
+      <m.div
         className="grid border-l border-t"
         style={{
           gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
@@ -434,7 +435,7 @@ export default function Skills() {
         key={filter}
       >
         {visible.map((s) => (
-          <motion.div
+          <m.div
             key={s.name}
             className="flex items-center gap-3.5 border-b border-r bg-cream px-5 py-[18px]"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
@@ -461,9 +462,9 @@ export default function Skills() {
                 {s.cat} · {s.freq}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

@@ -1,7 +1,8 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { LazyMotion, m } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
 import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
 
 interface BlogGridProps {
@@ -13,7 +14,7 @@ export function BlogGrid({ children, className }: BlogGridProps) {
   const motionSafe = useMotionSafe();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -21,7 +22,7 @@ export function BlogGrid({ children, className }: BlogGridProps) {
       variants={motionSafe.staggerContainer}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -32,5 +33,5 @@ interface BlogItemProps {
 export function BlogGridItem({ children }: BlogItemProps) {
   const motionSafe = useMotionSafe();
 
-  return <motion.div variants={motionSafe.fadeSlideUp}>{children}</motion.div>;
+  return <m.div variants={motionSafe.fadeSlideUp}>{children}</m.div>;
 }

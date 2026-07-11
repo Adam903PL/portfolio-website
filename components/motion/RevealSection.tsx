@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { LazyMotion, m } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
 import { ReactNode } from 'react';
 import { fadeSlideUp, useMotionSafe } from '@/lib/motion';
 
@@ -19,7 +20,7 @@ export function RevealSection({
   const variant = motionSafe.fadeSlideUp;
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
@@ -28,6 +29,6 @@ export function RevealSection({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

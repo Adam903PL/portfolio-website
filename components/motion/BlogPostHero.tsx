@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { LazyMotion, m } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
 import { staggerContainer, fadeSlideUp, useMotionSafe } from '@/lib/motion';
 
 interface BlogPostHeroProps {
@@ -22,12 +23,12 @@ export function BlogPostHero({
   const motionSafe = useMotionSafe();
 
   return (
-    <motion.div
+    <m.div
       initial="hidden"
       animate="visible"
       variants={motionSafe.staggerContainer}
     >
-      <motion.div variants={motionSafe.fadeSlideUp}>
+      <m.div variants={motionSafe.fadeSlideUp}>
         <Link
           href={backHref}
           className="mb-10 inline-flex items-center gap-2 border px-4 py-2 font-mono text-[12px] uppercase tracking-[0.04em] text-ink no-underline transition-colors hover:border-accent"
@@ -35,33 +36,33 @@ export function BlogPostHero({
         >
           ← Back to Blog
         </Link>
-      </motion.div>
+      </m.div>
 
       {kicker && (
-        <motion.div
+        <m.div
           variants={motionSafe.fadeSlideUp}
           className="mb-5 font-mono text-[12px] uppercase tracking-[0.08em] text-accent"
         >
           {kicker}
-        </motion.div>
+        </m.div>
       )}
 
-      <motion.h1
+      <m.h1
         variants={motionSafe.fadeSlideUp}
         className="m-0 font-sans text-[38px] font-medium leading-[1.05] tracking-[-0.02em] text-ink sm:text-[52px]"
       >
         {title}
-      </motion.h1>
+      </m.h1>
 
-      <motion.p
+      <m.p
         variants={motionSafe.fadeSlideUp}
         className="mt-5 max-w-2xl text-[17px] leading-[1.6] text-ink-70"
       >
         {excerpt}
-      </motion.p>
+      </m.p>
 
       {tags.length > 0 && (
-        <motion.div
+        <m.div
           variants={motionSafe.fadeSlideUp}
           className="mt-6 flex flex-wrap items-center gap-3"
         >
@@ -70,8 +71,8 @@ export function BlogPostHero({
               #{tag}
             </span>
           ))}
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

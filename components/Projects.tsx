@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { StaticImageData } from 'next/image';
 import { ChevronLeft, ChevronRight, Maximize2, Play, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LazyMotion, m, AnimatePresence } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
 import {
   fadeSlideUp,
   staggerContainer,
@@ -332,7 +333,7 @@ function ProjectCard({
   };
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col border bg-paper transition-colors hover:border-accent"
       style={{ borderColor: LINE }}
       whileHover={hoverLift}
@@ -420,7 +421,7 @@ function ProjectCard({
           {card.hrefLabel} ↗
         </a>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -800,7 +801,7 @@ function AppsSection({
           {title}
         </h2>
       </div>
-      <motion.div
+      <m.div
         className="grid-3 grid gap-[22px] min-[901px]:grid-cols-3"
         initial="hidden"
         whileInView="visible"
@@ -808,11 +809,11 @@ function AppsSection({
         variants={motionSafe.staggerContainer}
       >
         {cards.map((card) => (
-          <motion.div key={card.name} variants={motionSafe.fadeSlideUp}>
+          <m.div key={card.name} variants={motionSafe.fadeSlideUp}>
             <ProjectCard card={card} onOpen={onOpen} />
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </section>
   );
 }

@@ -1,15 +1,9 @@
 'use client';
 
 import React, { useReducer, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  tapScale,
-  DURATION,
-  EASE_SHARP,
-  buttonHover,
-  fadeSlideUp,
-  useMotionSafe,
-} from '@/lib/motion';
+import { LazyMotion, m, AnimatePresence } from 'framer-motion';
+import { domAnimation } from 'framer-motion';
+import { tapScale, DURATION, EASE_SHARP } from '@/lib/motion';
 
 const EMAIL = 'pukaluk.adam505@gmail.com';
 const LINE = 'rgba(26,23,18,0.16)';
@@ -195,7 +189,7 @@ export default function Contact() {
                     {EMAIL}
                   </a>
                 </div>
-                <motion.button
+                <m.button
                   type="button"
                   onClick={copyEmail}
                   className="cursor-pointer border bg-transparent px-[13px] py-[9px] font-mono text-[11px] uppercase tracking-[0.04em] text-ink"
@@ -207,7 +201,7 @@ export default function Contact() {
                   whileTap={{ scale: 0.95 }}
                 >
                   {copyLabel}
-                </motion.button>
+                </m.button>
               </div>
               {/* phone */}
               <div
@@ -252,7 +246,7 @@ export default function Contact() {
               </div>
               <div className="flex flex-wrap gap-2.5">
                 {socials.map((s) => (
-                  <motion.a
+                  <m.a
                     key={s.label}
                     href={s.href}
                     target="_blank"
@@ -266,7 +260,7 @@ export default function Contact() {
                     whileTap={{ scale: 0.98 }}
                   >
                     {s.label}
-                  </motion.a>
+                  </m.a>
                 ))}
               </div>
             </div>
@@ -347,7 +341,7 @@ export default function Contact() {
                   style={{ borderColor: INVERT }}
                 />
               </div>
-              <motion.button
+              <m.button
                 type="button"
                 onClick={send}
                 disabled={state.status === 'sending'}
@@ -356,7 +350,7 @@ export default function Contact() {
               >
                 <AnimatePresence mode="wait">
                   {state.status === 'sending' ? (
-                    <motion.span
+                    <m.span
                       key="sending"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -364,9 +358,9 @@ export default function Contact() {
                       transition={{ duration: DURATION.fast }}
                     >
                       Sending…
-                    </motion.span>
+                    </m.span>
                   ) : (
-                    <motion.span
+                    <m.span
                       key="idle"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -374,10 +368,10 @@ export default function Contact() {
                       transition={{ duration: DURATION.fast }}
                     >
                       Send message →
-                    </motion.span>
+                    </m.span>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </m.button>
               <div
                 className="font-mono text-[11px] leading-[1.5]"
                 style={{
