@@ -1,0 +1,508 @@
+- generic [ref=f1e2]:
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "AP Adam Pukaluk full-stack dev" [ref=f1e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=f1e6]: AP
+        - generic [ref=f1e7]:
+          - text: Adam Pukaluk
+          - text: full-stack dev
+      - navigation [ref=f1e8]:
+        - link "Home" [ref=f1e9] [cursor=pointer]:
+          - /url: /
+        - link "Projects" [ref=f1e10] [cursor=pointer]:
+          - /url: /projects
+        - link "Blog" [ref=f1e11] [cursor=pointer]:
+          - /url: /blog
+        - link "Education" [ref=f1e12] [cursor=pointer]:
+          - /url: /education
+      - generic [ref=f1e13]:
+        - generic [ref=f1e14]: Open to work
+        - link "Contact →" [ref=f1e16] [cursor=pointer]:
+          - /url: /contact
+  - generic [ref=f1e17]:
+    - generic [ref=f1e18]:
+      - generic [ref=f1e19]: Full-Stack Developer
+      - generic [ref=f1e20]: /
+      - generic [ref=f1e21]: Lublin, Poland
+      - generic [ref=f1e22]: /
+      - generic [ref=f1e23]: Est. 2009
+    - generic [ref=f1e24]:
+      - generic [ref=f1e25]:
+        - heading "I build exceptional digital experiences." [level=1] [ref=f1e26]:
+          - text: I build
+          - text: exceptional digital
+          - text: experiences.
+        - paragraph [ref=f1e27]: 17-year-old developer from Poland. Three years shipping across the full stack - React & Next.js on the front, Node & Postgres behind it, automation and security woven through.
+        - generic [ref=f1e28]:
+          - link "View my work →" [ref=f1e29] [cursor=pointer]:
+            - /url: /projects
+          - link "Get in touch" [ref=f1e30] [cursor=pointer]:
+            - /url: /contact
+          - link "☕ Buy me a coffee" [ref=f1e31] [cursor=pointer]:
+            - /url: https://buymeacoffee.com/adam903
+      - generic [ref=f1e32]:
+        - generic [ref=f1e33]:
+          - img "Adam Pukaluk" [ref=f1e35]
+          - generic [ref=f1e36]: AVAILABLE
+        - generic [ref=f1e37]:
+          - generic [ref=f1e38]:
+            - generic [ref=f1e39]: "17"
+            - generic [ref=f1e40]: Years old
+          - generic [ref=f1e41]:
+            - generic [ref=f1e42]: 3+
+            - generic [ref=f1e43]: Yrs building
+  - generic [ref=f1e45]:
+    - generic [ref=f1e46]:
+      - generic [ref=f1e47]:
+        - text: React
+        - generic [ref=f1e48]: ✦
+      - generic [ref=f1e49]:
+        - text: Next.js
+        - generic [ref=f1e50]: ✦
+      - generic [ref=f1e51]:
+        - text: TypeScript
+        - generic [ref=f1e52]: ✦
+      - generic [ref=f1e53]:
+        - text: Node.js
+        - generic [ref=f1e54]: ✦
+      - generic [ref=f1e55]:
+        - text: PostgreSQL
+        - generic [ref=f1e56]: ✦
+      - generic [ref=f1e57]:
+        - text: Tailwind
+        - generic [ref=f1e58]: ✦
+      - generic [ref=f1e59]:
+        - text: Python
+        - generic [ref=f1e60]: ✦
+      - generic [ref=f1e61]:
+        - text: n8n
+        - generic [ref=f1e62]: ✦
+      - generic [ref=f1e63]:
+        - text: Docker
+        - generic [ref=f1e64]: ✦
+      - generic [ref=f1e65]:
+        - text: FastAPI
+        - generic [ref=f1e66]: ✦
+      - generic [ref=f1e67]:
+        - text: Prisma
+        - generic [ref=f1e68]: ✦
+      - generic [ref=f1e69]:
+        - text: AWS
+        - generic [ref=f1e70]: ✦
+      - generic [ref=f1e71]:
+        - text: Kali Linux
+        - generic [ref=f1e72]: ✦
+      - generic [ref=f1e73]:
+        - text: Stripe
+        - generic [ref=f1e74]: ✦
+      - generic [ref=f1e75]:
+        - text: Supabase
+        - generic [ref=f1e76]: ✦
+    - generic [ref=f1e77]:
+      - generic [ref=f1e78]:
+        - text: React
+        - generic [ref=f1e79]: ✦
+      - generic [ref=f1e80]:
+        - text: Next.js
+        - generic [ref=f1e81]: ✦
+      - generic [ref=f1e82]:
+        - text: TypeScript
+        - generic [ref=f1e83]: ✦
+      - generic [ref=f1e84]:
+        - text: Node.js
+        - generic [ref=f1e85]: ✦
+      - generic [ref=f1e86]:
+        - text: PostgreSQL
+        - generic [ref=f1e87]: ✦
+      - generic [ref=f1e88]:
+        - text: Tailwind
+        - generic [ref=f1e89]: ✦
+      - generic [ref=f1e90]:
+        - text: Python
+        - generic [ref=f1e91]: ✦
+      - generic [ref=f1e92]:
+        - text: n8n
+        - generic [ref=f1e93]: ✦
+      - generic [ref=f1e94]:
+        - text: Docker
+        - generic [ref=f1e95]: ✦
+      - generic [ref=f1e96]:
+        - text: FastAPI
+        - generic [ref=f1e97]: ✦
+      - generic [ref=f1e98]:
+        - text: Prisma
+        - generic [ref=f1e99]: ✦
+      - generic [ref=f1e100]:
+        - text: AWS
+        - generic [ref=f1e101]: ✦
+      - generic [ref=f1e102]:
+        - text: Kali Linux
+        - generic [ref=f1e103]: ✦
+      - generic [ref=f1e104]:
+        - text: Stripe
+        - generic [ref=f1e105]: ✦
+      - generic [ref=f1e106]:
+        - text: Supabase
+        - generic [ref=f1e107]: ✦
+  - generic [ref=f1e108]:
+    - generic [ref=f1e109]: / 01 - About
+    - generic [ref=f1e110]:
+      - generic [ref=f1e111]:
+        - heading "Crafting digital experiences that work." [level=2] [ref=f1e112]:
+          - text: Crafting digital
+          - text: experiences that work.
+        - paragraph [ref=f1e113]:
+          - text: Student at
+          - link "TechniSchools Lublin" [ref=f1e114] [cursor=pointer]:
+            - /url: https://technischools.com
+          - text: . I move fluidly between full-stack product work, automation with n8n & PowerShell, and cybersecurity on Kali Linux - always shipping real projects, not tutorials.
+        - generic [ref=f1e115]:
+          - generic [ref=f1e116]:
+            - generic [ref=f1e117]: 15+
+            - generic [ref=f1e118]: Projects shipped
+          - generic [ref=f1e119]:
+            - generic [ref=f1e120]: "47"
+            - generic [ref=f1e121]: Technologies
+          - generic [ref=f1e122]:
+            - generic [ref=f1e123]: "8"
+            - generic [ref=f1e124]: Domains
+      - generic [ref=f1e125]:
+        - generic [ref=f1e126]:
+          - generic [ref=f1e127]: A
+          - generic [ref=f1e128]:
+            - generic [ref=f1e129]: Full-Stack Development
+            - generic [ref=f1e130]: React · Next.js · Node.js
+        - generic [ref=f1e131]:
+          - generic [ref=f1e132]: B
+          - generic [ref=f1e133]:
+            - generic [ref=f1e134]: UI / UX Design
+            - generic [ref=f1e135]: Figma · Tailwind · Motion
+        - generic [ref=f1e136]:
+          - generic [ref=f1e137]: C
+          - generic [ref=f1e138]:
+            - generic [ref=f1e139]: Automation & Security
+            - generic [ref=f1e140]: n8n · PowerShell · Kali Linux
+        - generic [ref=f1e141]:
+          - generic [ref=f1e142]: ● Currently building
+          - generic [ref=f1e143]: ORBactive
+  - generic [ref=f1e144]:
+    - generic [ref=f1e145]:
+      - generic [ref=f1e146]:
+        - generic [ref=f1e147]: / 02 - Stack
+        - heading "Skills & technologies" [level=2] [ref=f1e148]
+      - generic [ref=f1e149]: 47 technologies across 8 domains - filtered by what I actually ship.
+    - generic [ref=f1e150]:
+      - button "All" [ref=f1e151] [cursor=pointer]
+      - button "Languages" [ref=f1e152] [cursor=pointer]
+      - button "Frameworks" [ref=f1e153] [cursor=pointer]
+      - button "Libraries" [ref=f1e154] [cursor=pointer]
+      - button "Backend" [ref=f1e155] [cursor=pointer]
+      - button "Databases" [ref=f1e156] [cursor=pointer]
+      - button "Cloud & AI" [ref=f1e157] [cursor=pointer]
+      - button "DevOps" [ref=f1e158] [cursor=pointer]
+      - button "Tools" [ref=f1e159] [cursor=pointer]
+    - generic [ref=f1e160]:
+      - generic [ref=f1e161]:
+        - img [ref=f1e163]
+        - generic [ref=f1e164]:
+          - generic [ref=f1e165]: JavaScript
+          - generic [ref=f1e166]: Languages · Many
+      - generic [ref=f1e167]:
+        - img [ref=f1e169]
+        - generic [ref=f1e170]:
+          - generic [ref=f1e171]: TypeScript
+          - generic [ref=f1e172]: Languages · Many
+      - generic [ref=f1e173]:
+        - img [ref=f1e175]
+        - generic [ref=f1e176]:
+          - generic [ref=f1e177]: Python
+          - generic [ref=f1e178]: Languages · Many
+      - generic [ref=f1e179]:
+        - img [ref=f1e181]
+        - generic [ref=f1e182]:
+          - generic [ref=f1e183]: HTML
+          - generic [ref=f1e184]: Languages · Many
+      - generic [ref=f1e185]:
+        - img [ref=f1e187]
+        - generic [ref=f1e188]:
+          - generic [ref=f1e189]: PHP
+          - generic [ref=f1e190]: Languages · Several
+      - generic [ref=f1e191]:
+        - img [ref=f1e193]
+        - generic [ref=f1e194]:
+          - generic [ref=f1e195]: Kotlin
+          - generic [ref=f1e196]: Languages · Several
+      - generic [ref=f1e197]:
+        - img [ref=f1e199]
+        - generic [ref=f1e200]:
+          - generic [ref=f1e201]: C++
+          - generic [ref=f1e202]: Languages · Few
+      - generic [ref=f1e203]:
+        - img [ref=f1e205]
+        - generic [ref=f1e206]:
+          - generic [ref=f1e207]: React
+          - generic [ref=f1e208]: Frameworks · 7 proj
+      - generic [ref=f1e209]:
+        - img [ref=f1e211]
+        - generic [ref=f1e212]:
+          - generic [ref=f1e213]: Next.js
+          - generic [ref=f1e214]: Frameworks · 3 proj
+      - generic [ref=f1e215]:
+        - img [ref=f1e217]
+        - generic [ref=f1e218]:
+          - generic [ref=f1e219]: Tailwind CSS
+          - generic [ref=f1e220]: Frameworks · Several
+      - generic [ref=f1e221]:
+        - img [ref=f1e223]
+        - generic [ref=f1e224]:
+          - generic [ref=f1e225]: React Native
+          - generic [ref=f1e226]: Frameworks · 2 proj
+      - generic [ref=f1e227]:
+        - img [ref=f1e229]
+        - generic [ref=f1e230]:
+          - generic [ref=f1e231]: Zustand
+          - generic [ref=f1e232]: Libraries · Many
+      - generic [ref=f1e233]:
+        - img [ref=f1e235]
+        - generic [ref=f1e236]:
+          - generic [ref=f1e237]: Redux Toolkit
+          - generic [ref=f1e238]: Libraries · Several
+      - generic [ref=f1e239]:
+        - img [ref=f1e241]
+        - generic [ref=f1e242]:
+          - generic [ref=f1e243]: React Hook Form
+          - generic [ref=f1e244]: Libraries · Several
+      - generic [ref=f1e245]:
+        - img [ref=f1e247]
+        - generic [ref=f1e248]:
+          - generic [ref=f1e249]: Lottie
+          - generic [ref=f1e250]: Libraries · Many
+      - generic [ref=f1e251]:
+        - img [ref=f1e253]
+        - generic [ref=f1e254]:
+          - generic [ref=f1e255]: Node.js
+          - generic [ref=f1e256]: Backend · Many
+      - generic [ref=f1e257]:
+        - img [ref=f1e259]
+        - generic [ref=f1e260]:
+          - generic [ref=f1e261]: Express.js
+          - generic [ref=f1e262]: Backend · Many
+      - generic [ref=f1e263]:
+        - img [ref=f1e265]
+        - generic [ref=f1e266]:
+          - generic [ref=f1e267]: FastAPI
+          - generic [ref=f1e268]: Backend · 4 proj
+      - generic [ref=f1e269]:
+        - img [ref=f1e271]
+        - generic [ref=f1e272]:
+          - generic [ref=f1e273]: Flask
+          - generic [ref=f1e274]: Backend · 4 proj
+      - generic [ref=f1e275]:
+        - img [ref=f1e277]
+        - generic [ref=f1e278]:
+          - generic [ref=f1e279]: BetterAuth
+          - generic [ref=f1e280]: Backend · 3 proj
+      - generic [ref=f1e281]:
+        - img [ref=f1e283]
+        - generic [ref=f1e284]:
+          - generic [ref=f1e285]: NestJS
+          - generic [ref=f1e286]: Backend · 2 proj
+      - generic [ref=f1e287]:
+        - img [ref=f1e289]
+        - generic [ref=f1e290]:
+          - generic [ref=f1e291]: Stripe
+          - generic [ref=f1e292]: Backend · Several
+      - generic [ref=f1e293]:
+        - img [ref=f1e295]
+        - generic [ref=f1e296]:
+          - generic [ref=f1e297]: Prisma
+          - generic [ref=f1e298]: Databases · Several
+      - generic [ref=f1e299]:
+        - img [ref=f1e301]
+        - generic [ref=f1e302]:
+          - generic [ref=f1e303]: PostgreSQL
+          - generic [ref=f1e304]: Databases · Many
+      - generic [ref=f1e305]:
+        - img [ref=f1e307]
+        - generic [ref=f1e308]:
+          - generic [ref=f1e309]: MS SQL
+          - generic [ref=f1e310]: Databases · Many
+      - generic [ref=f1e311]:
+        - img [ref=f1e313]
+        - generic [ref=f1e314]:
+          - generic [ref=f1e315]: Supabase
+          - generic [ref=f1e316]: Databases · Several
+      - generic [ref=f1e317]:
+        - img [ref=f1e319]
+        - generic [ref=f1e320]:
+          - generic [ref=f1e321]: AWS
+          - generic [ref=f1e322]: Cloud & AI · Several
+      - generic [ref=f1e323]:
+        - img [ref=f1e325]
+        - generic [ref=f1e326]:
+          - generic [ref=f1e327]: Amazon S3
+          - generic [ref=f1e328]: Cloud & AI · Several
+      - generic [ref=f1e329]:
+        - img [ref=f1e331]
+        - generic [ref=f1e332]:
+          - generic [ref=f1e333]: Amazon EC2
+          - generic [ref=f1e334]: Cloud & AI · Few
+      - generic [ref=f1e335]:
+        - img [ref=f1e337]
+        - generic [ref=f1e338]:
+          - generic [ref=f1e339]: Google Cloud
+          - generic [ref=f1e340]: Cloud & AI · Few
+      - generic [ref=f1e341]:
+        - img [ref=f1e343]
+        - generic [ref=f1e344]:
+          - generic [ref=f1e345]: Claude Code
+          - generic [ref=f1e346]: Cloud & AI · Often
+      - generic [ref=f1e347]:
+        - img [ref=f1e349]
+        - generic [ref=f1e350]:
+          - generic [ref=f1e351]: Antigravity
+          - generic [ref=f1e352]: Cloud & AI · Often
+      - generic [ref=f1e353]:
+        - img [ref=f1e355]
+        - generic [ref=f1e356]:
+          - generic [ref=f1e357]: OpenAI Codex
+          - generic [ref=f1e358]: Cloud & AI · Often
+      - generic [ref=f1e359]:
+        - img [ref=f1e361]
+        - generic [ref=f1e362]:
+          - generic [ref=f1e363]: Git
+          - generic [ref=f1e364]: Tools · Daily
+      - generic [ref=f1e365]:
+        - img [ref=f1e367]
+        - generic [ref=f1e368]:
+          - generic [ref=f1e369]: VS Code
+          - generic [ref=f1e370]: Tools · Daily
+      - generic [ref=f1e371]:
+        - img [ref=f1e373]
+        - generic [ref=f1e374]:
+          - generic [ref=f1e375]: Docker
+          - generic [ref=f1e376]: Tools · Several
+      - generic [ref=f1e377]:
+        - img [ref=f1e379]
+        - generic [ref=f1e380]:
+          - generic [ref=f1e381]: Railway
+          - generic [ref=f1e382]: Tools · Many
+      - generic [ref=f1e383]:
+        - img [ref=f1e385]
+        - generic [ref=f1e386]:
+          - generic [ref=f1e387]: Cloudflare
+          - generic [ref=f1e388]: Tools · Many
+      - generic [ref=f1e389]:
+        - img [ref=f1e391]
+        - generic [ref=f1e392]:
+          - generic [ref=f1e393]: n8n
+          - generic [ref=f1e394]: Tools · Many
+      - generic [ref=f1e395]:
+        - img [ref=f1e397]
+        - generic [ref=f1e398]:
+          - generic [ref=f1e399]: JetBrains
+          - generic [ref=f1e400]: Tools · Often
+      - generic [ref=f1e401]:
+        - img [ref=f1e403]
+        - generic [ref=f1e404]:
+          - generic [ref=f1e405]: Postman
+          - generic [ref=f1e406]: Tools · Many
+      - generic [ref=f1e407]:
+        - img [ref=f1e409]
+        - generic [ref=f1e410]:
+          - generic [ref=f1e411]: Conv. Commits
+          - generic [ref=f1e412]: Tools · Many
+      - generic [ref=f1e413]:
+        - img [ref=f1e415]
+        - generic [ref=f1e416]:
+          - generic [ref=f1e417]: Vercel
+          - generic [ref=f1e418]: DevOps · Many
+      - generic [ref=f1e419]:
+        - img [ref=f1e421]
+        - generic [ref=f1e422]:
+          - generic [ref=f1e423]: GitHub Actions
+          - generic [ref=f1e424]: DevOps · Several
+      - generic [ref=f1e425]:
+        - img [ref=f1e427]
+        - generic [ref=f1e428]:
+          - generic [ref=f1e429]: Playwright
+          - generic [ref=f1e430]: DevOps · Several
+      - generic [ref=f1e431]:
+        - img [ref=f1e433]
+        - generic [ref=f1e434]:
+          - generic [ref=f1e435]: Sentry
+          - generic [ref=f1e436]: DevOps · Few
+      - generic [ref=f1e437]:
+        - img [ref=f1e439]
+        - generic [ref=f1e440]:
+          - generic [ref=f1e441]: YAML
+          - generic [ref=f1e442]: DevOps · Many
+  - generic [ref=f1e443]:
+    - generic [ref=f1e444]:
+      - generic [ref=f1e445]:
+        - generic [ref=f1e446]: / 03 - Writing
+        - heading "From LinkedIn" [level=2] [ref=f1e447]
+      - link "View all →" [ref=f1e448] [cursor=pointer]:
+        - /url: /blog
+    - generic [ref=f1e449]:
+      - 'link "Adam Pukaluk and Sebastian Mysakowski standing in front of the IT Unplugged event wall. 01 IT Unplugged / Networking / Techni Schools IT Unplugged: technologia, biznes i networking Dobrze spędzony dzień na IT Unplugged: konkretne rozmowy, nowe perspektywy i bardzo mocny networkingowy klimat. Read post →" [ref=f1e450] [cursor=pointer]':
+        - /url: /blog/it-unplugged-2026
+        - generic [ref=f1e451]:
+          - img "Adam Pukaluk and Sebastian Mysakowski standing in front of the IT Unplugged event wall." [ref=f1e453]
+          - generic [ref=f1e454]: "01"
+        - generic [ref=f1e455]:
+          - generic [ref=f1e456]: IT Unplugged / Networking / Techni Schools
+          - 'heading "IT Unplugged: technologia, biznes i networking" [level=3] [ref=f1e457]'
+          - paragraph [ref=f1e458]: "Dobrze spędzony dzień na IT Unplugged: konkretne rozmowy, nowe perspektywy i bardzo mocny networkingowy klimat."
+          - generic [ref=f1e459]: Read post →
+      - 'link "Adam Pukaluk with the Civil42 hackathon team in front of a brick wall. 02 Hackathon / Dual-use / TechniSchools Civil42 Hackathon: 24h kodowania Maraton kodowania, burz mózgów i totalnego skupienia. Projekty dual-use, presja czasu i zespół, który dowiózł. Read post →" [ref=f1e460] [cursor=pointer]':
+        - /url: /blog/civil42-hackathon
+        - generic [ref=f1e461]:
+          - img "Adam Pukaluk with the Civil42 hackathon team in front of a brick wall." [ref=f1e463]
+          - generic [ref=f1e464]: "02"
+        - generic [ref=f1e465]:
+          - generic [ref=f1e466]: Hackathon / Dual-use / TechniSchools
+          - 'heading "Civil42 Hackathon: 24h kodowania" [level=3] [ref=f1e467]'
+          - paragraph [ref=f1e468]: Maraton kodowania, burz mózgów i totalnego skupienia. Projekty dual-use, presja czasu i zespół, który dowiózł.
+          - generic [ref=f1e469]: Read post →
+      - link "Adam Pukaluk presenting Vibe Coding to students at Techni Schools. 03 AI tools / Education / Developer workflow Vibe Coding w Techni Schools Wykład o tym, jak AI zmienia pracę programisty i dlaczego fundamenty nadal są ważniejsze niż samo klikanie w narzędzia. Read post →" [ref=f1e470] [cursor=pointer]:
+        - /url: /blog/vibe-coding-techni-schools
+        - generic [ref=f1e471]:
+          - img "Adam Pukaluk presenting Vibe Coding to students at Techni Schools." [ref=f1e473]
+          - generic [ref=f1e474]: "03"
+        - generic [ref=f1e475]:
+          - generic [ref=f1e476]: AI tools / Education / Developer workflow
+          - heading "Vibe Coding w Techni Schools" [level=3] [ref=f1e477]
+          - paragraph [ref=f1e478]: Wykład o tym, jak AI zmienia pracę programisty i dlaczego fundamenty nadal są ważniejsze niż samo klikanie w narzędzia.
+          - generic [ref=f1e479]: Read post →
+  - generic [ref=f1e483]:
+    - generic [ref=f1e484]:
+      - generic [ref=f1e485]: / Let's talk
+      - heading "Ready to explore my work - or build something?" [level=2] [ref=f1e486]:
+        - text: Ready to explore
+        - text: my work - or build something?
+      - generic [ref=f1e487]:
+        - link "pukaluk.adam505@gmail.com" [ref=f1e488] [cursor=pointer]:
+          - /url: mailto:pukaluk.adam505@gmail.com
+        - link "+48 695 031 104" [ref=f1e489] [cursor=pointer]:
+          - /url: tel:+48695031104
+    - generic [ref=f1e490]:
+      - link "View projects →" [ref=f1e491] [cursor=pointer]:
+        - /url: /projects
+      - generic [ref=f1e492]:
+        - link "GitHub" [ref=f1e493] [cursor=pointer]:
+          - /url: https://github.com/Adam903PL/
+        - link "LinkedIn" [ref=f1e494] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/adam-pukaluk-339058298/
+  - contentinfo [ref=f1e495]:
+    - generic [ref=f1e496]:
+      - generic [ref=f1e497]: AP
+      - generic [ref=f1e498]: © 2026 Adam Pukaluk - Lublin, Poland
+    - generic [ref=f1e499]:
+      - link "GitHub" [ref=f1e500] [cursor=pointer]:
+        - /url: https://github.com/Adam903PL/
+      - link "LinkedIn" [ref=f1e501] [cursor=pointer]:
+        - /url: https://www.linkedin.com/in/adam-pukaluk-339058298/
+      - link "Privacy" [ref=f1e502] [cursor=pointer]:
+        - /url: /privacy-policy

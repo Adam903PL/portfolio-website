@@ -35,7 +35,7 @@ const BlogPage = () => {
       {/* Page hero */}
       <section className="side-pad relative z-[2] pb-11 pt-16">
         <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
-          Field notes — from LinkedIn
+          Field notes - from LinkedIn
         </div>
         <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
           Writing &amp;
@@ -46,7 +46,7 @@ const BlogPage = () => {
           .
         </h1>
         <p className="mt-7 max-w-[560px] text-[18px] leading-[1.55] text-ink-70">
-          Hand-picked posts from LinkedIn — events, hackathons and talks — with
+          Hand-picked posts from LinkedIn - events, hackathons and talks - with
           the full context and a link to the original, without heavy embeds
           weighing down the page.
         </p>
