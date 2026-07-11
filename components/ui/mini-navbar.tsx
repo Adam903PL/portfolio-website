@@ -112,11 +112,11 @@ export default function Navbar() {
       <AnimatePresence initial={false}>
         {open && (
           <m.div
-            className="overflow-hidden min-[901px]:hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: DURATION.medium, ease: EASE_SHARP }}
+            className="min-[901px]:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: DURATION.fast, ease: EASE_SHARP }}
           >
             <nav
               className="flex flex-col gap-1 border-t py-3 font-mono text-[13px] uppercase tracking-[0.04em]"
