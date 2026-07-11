@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { CommandPalette } from '@/components/palette/CommandPalette';
+import { ChaosListener } from '@/components/ChaosListener';
 import {
   DEFAULT_DESCRIPTION,
   OG_IMAGE_PATH,
@@ -132,6 +133,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <CommandPalette />
+          <ChaosListener />
         </MotionProvider>
       </body>
     </html>

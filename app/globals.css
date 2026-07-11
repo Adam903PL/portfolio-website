@@ -136,14 +136,31 @@
 }
 
 @keyframes wave {
-  0%, 100% { 
+  0%, 100% {
     transform: translateY(0) scaleY(1);
     opacity: 0.7;
   }
-  50% { 
+  50% {
     transform: translateY(-4px) scaleY(1.4);
     opacity: 1;
   }
+}
+
+/* Chaos easter egg: active while <html data-chaos> is set (~4s) */
+@keyframes chaosSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+html[data-chaos] .marquee-track {
+  animation-duration: 3s !important;
+}
+html[data-chaos] .hero-portrait {
+  animation: chaosSpin 1s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+html[data-chaos] h1,
+html[data-chaos] h2 {
+  color: var(--color-accent) !important;
 }
 
 /* Honor the OS "reduce motion" preference (WCAG 2.3.3): collapse all

@@ -77,7 +77,7 @@ export default function Hero() {
         {/* Portrait card */}
         <div className="relative mx-auto w-full max-w-[420px]">
           <div
-            className="relative overflow-hidden border bg-sand"
+            className="hero-portrait relative overflow-hidden border bg-sand"
             style={{ borderColor: 'rgba(26,23,18,0.16)' }}
           >
             <div className="relative aspect-[4/5] w-full">

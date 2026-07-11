@@ -40,7 +40,7 @@ export default function TechMarquee() {
       className="relative z-[2] mt-6 overflow-hidden border-y bg-ink py-[15px]"
       style={{ borderColor: 'rgba(26,23,18,0.16)' }}
     >
-      <div className="flex w-max animate-[marq_32s_linear_infinite] font-mono text-[14px] tracking-[0.02em] text-cream">
+      <div className="marquee-track flex w-max animate-[marq_32s_linear_infinite] font-mono text-[14px] tracking-[0.02em] text-cream">
         <Strip />
         <Strip />
       </div>
