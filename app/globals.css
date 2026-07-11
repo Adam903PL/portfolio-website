@@ -163,6 +163,10 @@ html[data-chaos] h2 {
   color: var(--color-accent) !important;
 }
 
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 /* Honor the OS "reduce motion" preference (WCAG 2.3.3): collapse all
    decorative animation (marquee, blink, wave, hover zooms) to near-zero. */
 @media (prefers-reduced-motion: reduce) {

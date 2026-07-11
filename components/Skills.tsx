@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import { m } from 'framer-motion';
 import { VIEWPORT, useMotionSafe } from '@/lib/motion';
@@ -373,6 +373,13 @@ const skills: Skill[] = [
 export default function Skills() {
   const [filter, setFilter] = useState('All');
   const motionSafe = useMotionSafe();
+
+  useEffect(() => {
+    const tech = new URLSearchParams(window.location.search).get('tech');
+    if (!tech) return;
+    const match = skills.find((s) => s.name.toLowerCase() === tech);
+    if (match) setFilter(match.cat); // eslint-disable-line react-hooks/set-state-in-effect
+  }, []);
 
   const visible = skills.filter((s) => filter === 'All' || s.cat === filter);
 
