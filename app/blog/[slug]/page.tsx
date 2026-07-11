@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import BlogRichText from '@/components/BlogRichText';
+import { BlogPostHero } from '@/components/motion/BlogPostHero';
 import { blogPosts, getBlogPostImages } from '@/lib/blog-posts';
 import {
   createBlogPostJsonLd,
@@ -72,31 +73,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <main className="relative z-[2] px-5 pb-24 pt-16 sm:px-6">
         <article className="mx-auto max-w-3xl scroll-mt-28" lang="pl">
-          <Link
-            href="/blog"
-            className="mb-10 inline-flex items-center gap-2 border px-4 py-2 font-mono text-[12px] uppercase tracking-[0.04em] text-ink no-underline transition-colors hover:border-accent"
-            style={{ borderColor: 'rgba(26,23,18,0.28)' }}
-          >
-            ← Back to Blog
-          </Link>
-
-          <div className="mb-5 font-mono text-[12px] uppercase tracking-[0.08em] text-accent">
-            {post.kicker}
-          </div>
-
-          <h1 className="m-0 font-sans text-[38px] font-medium leading-[1.05] tracking-[-0.02em] text-ink sm:text-[52px]">
-            {post.title}
-          </h1>
-          <p className="mt-5 max-w-2xl text-[17px] leading-[1.6] text-ink-70">
-            {post.excerpt}
-          </p>
+          <BlogPostHero
+            kicker={post.kicker}
+            title={post.title}
+            excerpt={post.excerpt}
+            tags={post.tags}
+          />
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            {post.tags.map((tag) => (
-              <span key={tag} className="font-mono text-[11px] text-accent">
-                #{tag}
-              </span>
-            ))}
             <a
               href={post.linkedInUrl}
               target="_blank"

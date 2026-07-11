@@ -19,7 +19,7 @@ const BlogPreview = () => {
         </div>
         <Link
           href="/blog"
-          className="border-b border-accent pb-[3px] font-mono text-[13px] uppercase tracking-[0.04em] text-ink no-underline"
+          className="border-b border-accent pb-[3px] font-mono text-[13px] uppercase tracking-[0.04em] text-ink no-underline transition-colors hover:text-accent"
         >
           View all →
         </Link>

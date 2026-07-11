@@ -2,7 +2,14 @@
 
 import React, { useReducer, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { tapScale, DURATION, EASE_SHARP } from '@/lib/motion';
+import {
+  tapScale,
+  DURATION,
+  EASE_SHARP,
+  buttonHover,
+  fadeSlideUp,
+  useMotionSafe,
+} from '@/lib/motion';
 
 const EMAIL = 'pukaluk.adam505@gmail.com';
 const LINE = 'rgba(26,23,18,0.16)';
@@ -188,14 +195,19 @@ export default function Contact() {
                     {EMAIL}
                   </a>
                 </div>
-                <button
+                <motion.button
                   type="button"
                   onClick={copyEmail}
                   className="cursor-pointer border bg-transparent px-[13px] py-[9px] font-mono text-[11px] uppercase tracking-[0.04em] text-ink"
                   style={{ borderColor: 'rgba(26,23,18,0.28)' }}
+                  whileHover={{
+                    scale: 1.05,
+                    transition: { duration: DURATION.fast, ease: EASE_SHARP },
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {copyLabel}
-                </button>
+                </motion.button>
               </div>
               {/* phone */}
               <div
@@ -240,16 +252,21 @@ export default function Contact() {
               </div>
               <div className="flex flex-wrap gap-2.5">
                 {socials.map((s) => (
-                  <a
+                  <motion.a
                     key={s.label}
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="border px-[15px] py-2.5 font-mono text-[12px] text-ink no-underline transition-colors hover:border-accent"
                     style={{ borderColor: 'rgba(26,23,18,0.28)' }}
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { duration: DURATION.fast, ease: EASE_SHARP },
+                    }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {s.label}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
