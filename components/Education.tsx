@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { Reveal } from '@/components/motion/Reveal';
+import { Stagger, StaggerItem } from '@/components/motion/Stagger';
 
 const LINE = 'rgba(26,23,18,0.16)';
 const LINE_STRONG = 'rgba(26,23,18,0.18)';
@@ -76,32 +78,34 @@ export default function Education() {
     <>
       {/* Page hero */}
       <section className="side-pad relative z-[2] pb-10 pt-16">
-        <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
-          Education - learning path
-        </div>
-        <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
-          From LEGO logic to
-          <br />
-          <span className="font-serif text-[1.05em] italic text-accent">
-            full-stack
-          </span>{' '}
-          product work.
-        </h1>
-        <p className="mt-7 max-w-[600px] text-[18px] leading-[1.55] text-ink-70">
-          A readable timeline: early stages shown as honest self-learning
-          phases, confirmed years kept explicit. This is how the path connects
-          to the projects I ship today.
-        </p>
+        <Reveal>
+          <div className="mb-[26px] font-mono text-[13px] uppercase tracking-[0.08em] text-accent">
+            Education - learning path
+          </div>
+          <h1 className="display-xl m-0 font-sans font-medium leading-[0.92] tracking-[-0.03em]">
+            From LEGO logic to
+            <br />
+            <span className="font-serif text-[1.05em] italic text-accent">
+              full-stack
+            </span>{' '}
+            product work.
+          </h1>
+          <p className="mt-7 max-w-[600px] text-[18px] leading-[1.55] text-ink-70">
+            A readable timeline: early stages shown as honest self-learning
+            phases, confirmed years kept explicit. This is how the path connects
+            to the projects I ship today.
+          </p>
+        </Reveal>
       </section>
 
       {/* Stats */}
       <section className="side-pad relative z-[2] pb-11 pt-3">
-        <div
+        <Stagger
           className="stat-grid grid border-l border-t min-[901px]:grid-cols-3"
           style={{ borderColor: LINE_STRONG }}
         >
           {stats.map((s) => (
-            <div
+            <StaggerItem
               key={s.label}
               className="border-b border-r px-7 py-[26px]"
               style={{ borderColor: LINE_STRONG }}
@@ -114,19 +118,19 @@ export default function Education() {
               <div className="mt-1 font-mono text-[12px] text-ink-40">
                 {s.desc}
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
 
       {/* Timeline */}
       <section className="side-pad relative z-[2] pb-10 pt-6">
-        <div className="mb-[30px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
+        <Reveal className="mb-[30px] font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
           / The timeline
-        </div>
+        </Reveal>
         <div>
           {timeline.map((e) => (
-            <div
+            <Reveal
               key={e.title}
               className="grid grid-cols-[80px_1fr] items-start gap-7 pb-1.5 min-[901px]:grid-cols-[120px_1fr]"
             >
@@ -207,14 +211,14 @@ export default function Education() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* CTA */}
       <section className="side-pad relative z-[2] pb-[60px] pt-5">
-        <div
+        <Reveal
           className="flex flex-wrap items-center justify-between gap-6 border-t pt-10"
           style={{ borderColor: 'rgba(26,23,18,0.2)' }}
         >
@@ -230,7 +234,7 @@ export default function Education() {
           >
             View projects →
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );

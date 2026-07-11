@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Reveal } from '@/components/motion/Reveal';
 
 const markdownLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
 
@@ -55,7 +56,7 @@ type BlogRichTextProps = {
 
 const BlogRichText = ({ paragraphs, idPrefix }: BlogRichTextProps) => {
   return (
-    <div className="space-y-4 text-[15px] leading-8 text-ink-70">
+    <Reveal className="space-y-4 text-[15px] leading-8 text-ink-70">
       {paragraphs.map((paragraph) => (
         <p
           key={`${idPrefix}::${paragraph}`}
@@ -64,7 +65,7 @@ const BlogRichText = ({ paragraphs, idPrefix }: BlogRichTextProps) => {
           {renderInlineLinks(paragraph)}
         </p>
       ))}
-    </div>
+    </Reveal>
   );
 };
 

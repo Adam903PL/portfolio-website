@@ -1,16 +1,17 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { VIEWPORT, useMotionSafe } from '@/lib/motion';
 
 interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  style?: CSSProperties;
 }
 
-export function Reveal({ children, delay = 0, className }: RevealProps) {
+export function Reveal({ children, delay = 0, className, style }: RevealProps) {
   const motionSafe = useMotionSafe();
 
   return (
@@ -21,6 +22,7 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
       variants={motionSafe.fadeSlideUp}
       custom={delay}
       className={className}
+      style={style}
     >
       {children}
     </m.div>

@@ -1,15 +1,16 @@
 'use client';
 
 import { m } from 'framer-motion';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { VIEWPORT, useMotionSafe } from '@/lib/motion';
 
 interface StaggerProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }
 
-export function Stagger({ children, className }: StaggerProps) {
+export function Stagger({ children, className, style }: StaggerProps) {
   const motionSafe = useMotionSafe();
 
   return (
@@ -19,6 +20,7 @@ export function Stagger({ children, className }: StaggerProps) {
       viewport={VIEWPORT}
       variants={motionSafe.staggerContainer}
       className={className}
+      style={style}
     >
       {children}
     </m.div>
@@ -28,13 +30,18 @@ export function Stagger({ children, className }: StaggerProps) {
 interface StaggerItemProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
 }
 
-export function StaggerItem({ children, className }: StaggerItemProps) {
+export function StaggerItem({ children, className, style }: StaggerItemProps) {
   const motionSafe = useMotionSafe();
 
   return (
-    <m.div variants={motionSafe.staggerItem} className={className}>
+    <m.div
+      variants={motionSafe.staggerItem}
+      className={className}
+      style={style}
+    >
       {children}
     </m.div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Reveal } from '@/components/motion/Reveal';
 
 const ProjectCTA = () => {
   return (
@@ -15,7 +16,7 @@ const ProjectCTA = () => {
             backgroundSize: '14% 100%',
           }}
         />
-        <div className="relative flex flex-wrap items-end justify-between gap-9">
+        <Reveal className="relative flex flex-wrap items-end justify-between gap-9">
           <div>
             <div className="mb-5 font-mono text-[12px] uppercase tracking-[0.1em] text-accent">
               / Let&apos;s talk
@@ -75,7 +76,7 @@ const ProjectCTA = () => {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
