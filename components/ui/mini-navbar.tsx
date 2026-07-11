@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { AnimatePresence, m } from 'framer-motion';
+import { DURATION, EASE_SHARP } from '@/lib/motion';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -49,7 +51,9 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="no-underline transition-colors"
+              className={`no-underline transition-colors ${
+                isActive(link.href) ? '' : 'link-underline'
+              }`}
               style={
                 isActive(link.href)
                   ? {
@@ -105,39 +109,45 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div
-        className={`overflow-hidden transition-[max-height] duration-300 min-[901px]:hidden ${
-          open ? 'max-h-80' : 'max-h-0'
-        }`}
-      >
-        <nav
-          className="flex flex-col gap-1 border-t py-3 font-mono text-[13px] uppercase tracking-[0.04em]"
-          style={{ borderColor: 'var(--color-line-soft)' }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="py-2 no-underline"
-              style={{
-                color: isActive(link.href)
-                  ? 'var(--color-accent)'
-                  : 'var(--color-ink)',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="mt-2 inline-block rounded-[2px] bg-ink px-[18px] py-[11px] text-center text-cream no-underline"
+      <AnimatePresence initial={false}>
+        {open && (
+          <m.div
+            className="overflow-hidden min-[901px]:hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: DURATION.medium, ease: EASE_SHARP }}
           >
-            Contact&nbsp;→
-          </Link>
-        </nav>
-      </div>
+            <nav
+              className="flex flex-col gap-1 border-t py-3 font-mono text-[13px] uppercase tracking-[0.04em]"
+              style={{ borderColor: 'var(--color-line-soft)' }}
+            >
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="py-2 no-underline"
+                  style={{
+                    color: isActive(link.href)
+                      ? 'var(--color-accent)'
+                      : 'var(--color-ink)',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="mt-2 inline-block rounded-[2px] bg-ink px-[18px] py-[11px] text-center text-cream no-underline"
+              >
+                Contact&nbsp;→
+              </Link>
+            </nav>
+          </m.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
