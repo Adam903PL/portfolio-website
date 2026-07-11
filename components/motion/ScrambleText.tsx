@@ -15,19 +15,27 @@ export function ScrambleText({
   className?: string;
 }) {
   const [display, setDisplay] = useState(text);
+  const [prevText, setPrevText] = useState(text);
   const intervalRef = useRef<number | null>(null);
   const prefersReduced = useReducedMotion();
 
-  useEffect(() => {
-    if (intervalRef.current) window.clearInterval(intervalRef.current);
-    intervalRef.current = null;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+  if (prevText !== text) {
+    setPrevText(text);
     setDisplay(text);
+  }
 
+  useEffect(() => {
+    if (intervalRef.current) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, [text]);
+
+  useEffect(() => {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
-  }, [text]);
+  }, []);
 
   const scramble = () => {
     if (prefersReduced) return;
