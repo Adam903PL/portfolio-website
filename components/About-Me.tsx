@@ -97,7 +97,7 @@ export default function About() {
               <div className="font-mono text-[12px] tracking-[0.04em]">
                 <span className="text-accent">●</span>&nbsp; Currently building
               </div>
-              <div className="text-[15px] font-semibold">ORBactive</div>
+              <div className="text-[15px] font-semibold">ORB</div>
             </div>
           </div>
         </div>

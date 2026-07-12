@@ -20,7 +20,7 @@ export function StatusLine() {
 
   return (
     <span className="font-mono text-[12px] text-ink-40">
-      {time ?? '--:--'} in Lublin - currently building ORBactive
+      {time ?? '--:--'} in Lublin - currently building ORB
       <span className="ml-1 inline-block h-[12px] w-[7px] animate-[blink_1.2s_steps(1)_infinite] bg-accent align-middle" />
     </span>
   );
