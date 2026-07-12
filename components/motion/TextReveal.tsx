@@ -42,7 +42,9 @@ export function TextReveal({
           {segment.text.split(' ').map((word, wi) => (
             <React.Fragment key={`${word}-${wi}`}>
               {wi > 0 && ' '}
-              <span className="inline-block overflow-hidden align-bottom">
+              {/* pb/-mb extend the clip box below the tight line-height so
+                  descenders (g, y, p) are not cut off */}
+              <span className="-mb-[0.18em] inline-block overflow-hidden pb-[0.18em] align-bottom">
                 <m.span
                   className={`inline-block ${segment.className ?? ''}`}
                   variants={motionSafe.wordReveal}
