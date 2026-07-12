@@ -7,7 +7,9 @@ const YEAR_MS = 365.25 * 24 * 60 * 60 * 1000;
 
 export function AgeCounter() {
   const [live, setLive] = useState(false);
-  const [age, setAge] = useState('');
+  const [age, setAge] = useState(() =>
+    ((Date.now() - BIRTH) / YEAR_MS).toFixed(8),
+  );
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export function AgeCounter() {
     <button
       type="button"
       onClick={() => setLive((v) => !v)}
-      className="cursor-pointer border-none bg-transparent p-0 font-mono text-[13px] uppercase tracking-[0.08em] text-ink-40"
+      className={`cursor-pointer border-none bg-transparent p-0 font-mono text-[13px] uppercase tracking-[0.08em] text-ink-40${live ? ' inline-block min-w-[17ch] text-left' : ''}`}
       aria-label="Toggle live age counter"
     >
       {live ? `${age} years` : 'Est. 2009'}
