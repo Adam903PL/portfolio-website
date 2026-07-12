@@ -6,7 +6,7 @@ const items = [
   'TypeScript',
   'Node.js',
   'PostgreSQL',
-  'Tailwind',
+  'Tailwind CSS',
   'Python',
   'n8n',
   'Docker',
