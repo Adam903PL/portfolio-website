@@ -5,10 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { DURATION, EASE_EDITORIAL } from '@/lib/motion';
 import { Command, filterCommands, getCommands } from '@/lib/commands';
-import { PalettePreview } from '@/components/palette/PalettePreview';
 
 const LINE = 'rgba(26,23,18,0.28)';
-const LINE_SOFT = 'rgba(26,23,18,0.16)';
 
 export function CommandPalette() {
   const router = useRouter();
@@ -107,7 +105,7 @@ export function CommandPalette() {
           <m.div
             role="dialog"
             aria-label="Command palette"
-            className="w-full max-w-[560px] border bg-paper min-[901px]:max-w-[840px]"
+            className="w-full max-w-[560px] border bg-paper"
             style={{ borderColor: LINE }}
             initial={{ opacity: 0, y: prefersReduced ? 0 : -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -138,50 +136,42 @@ export function CommandPalette() {
                 esc
               </span>
             </div>
-            <div className="min-[901px]:grid min-[901px]:grid-cols-[1.2fr_1fr]">
-              <ul
-                ref={listRef}
-                className="no-scrollbar m-0 max-h-[320px] list-none overflow-y-auto p-0"
-              >
-                {results.length === 0 && (
-                  <li className="px-4 py-3.5 font-mono text-[13px] text-ink-40">
-                    No results.
-                  </li>
-                )}
-                {results.map((cmd, i) => (
-                  <li key={cmd.id}>
-                    <button
-                      type="button"
-                      onClick={() => run(cmd)}
-                      onMouseEnter={() => setSelected(i)}
-                      className="flex w-full items-center justify-between px-4 py-3 text-left font-mono text-[13px]"
-                      style={{
-                        background:
-                          i === selected ? 'var(--color-ink)' : 'transparent',
-                        color:
-                          i === selected
-                            ? 'var(--color-cream)'
-                            : 'var(--color-ink)',
-                      }}
+            <ul
+              ref={listRef}
+              className="no-scrollbar m-0 max-h-[320px] list-none overflow-y-auto p-0"
+            >
+              {results.length === 0 && (
+                <li className="px-4 py-3.5 font-mono text-[13px] text-ink-40">
+                  No results.
+                </li>
+              )}
+              {results.map((cmd, i) => (
+                <li key={cmd.id}>
+                  <button
+                    type="button"
+                    onClick={() => run(cmd)}
+                    onMouseEnter={() => setSelected(i)}
+                    className="flex w-full items-center justify-between px-4 py-3 text-left font-mono text-[13px]"
+                    style={{
+                      background:
+                        i === selected ? 'var(--color-ink)' : 'transparent',
+                      color:
+                        i === selected
+                          ? 'var(--color-cream)'
+                          : 'var(--color-ink)',
+                    }}
+                  >
+                    <span>{cmd.label}</span>
+                    <span
+                      className="text-[10px] uppercase tracking-[0.06em]"
+                      style={{ opacity: 0.5 }}
                     >
-                      <span>{cmd.label}</span>
-                      <span
-                        className="text-[10px] uppercase tracking-[0.06em]"
-                        style={{ opacity: 0.5 }}
-                      >
-                        {cmd.hint}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <div
-                className="hidden border-l min-[901px]:block"
-                style={{ borderColor: LINE_SOFT }}
-              >
-                <PalettePreview command={results[selected] ?? null} />
-              </div>
-            </div>
+                      {cmd.hint}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
           </m.div>
         </m.div>
       )}
