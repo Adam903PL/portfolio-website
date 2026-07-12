@@ -7,7 +7,6 @@ import BlogPreview from '@/components/BlogPreview';
 import ProjectCTA from '@/components/ProjectCTA';
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
-import { SectionRail } from '@/components/SectionRail';
 import {
   createBreadcrumbJsonLd,
   createPageMetadata,
@@ -24,7 +23,6 @@ export const metadata: Metadata = createPageMetadata({
 const Home = () => {
   return (
     <>
-      <SectionRail />
       <JsonLd data={profilePageJsonLd} />
       <JsonLd data={createBreadcrumbJsonLd([{ name: 'Home', path: '/' }])} />
       <Hero />
