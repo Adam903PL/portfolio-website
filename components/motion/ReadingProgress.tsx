@@ -8,7 +8,7 @@ export function ReadingProgress() {
   return (
     <m.div
       aria-hidden
-      className="fixed left-0 top-0 z-[60] h-[2px] w-full origin-left bg-accent"
+      className="fixed left-0 top-0 z-[45] h-[2px] w-full origin-left bg-accent"
       style={{ scaleX: scrollYProgress }}
     />
   );
