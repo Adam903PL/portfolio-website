@@ -85,11 +85,18 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => window.dispatchEvent(new Event('toggle-palette'))}
-            aria-label="Open command palette"
-            className="hidden border px-2.5 py-[7px] font-mono text-[11px] uppercase tracking-[0.04em] text-ink-40 transition-colors hover:border-accent hover:text-ink min-[901px]:inline-block"
+            aria-label="Open command palette (Ctrl+K)"
+            title="Open command palette (Ctrl+K)"
+            className="inline-flex items-center gap-2 border px-2.5 py-[7px] font-mono text-[11px] uppercase tracking-[0.04em] text-ink-40 transition-colors hover:border-accent hover:text-ink"
             style={{ borderColor: 'rgba(26,23,18,0.28)' }}
           >
-            Ctrl K
+            <span>Search</span>
+            <span
+              className="hidden border px-1.5 py-px text-[10px] text-ink-30 min-[901px]:inline"
+              style={{ borderColor: 'rgba(26,23,18,0.2)' }}
+            >
+              Ctrl K
+            </span>
           </button>
 
           {/* Mobile toggle */}
