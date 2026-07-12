@@ -28,7 +28,8 @@ function Strip() {
         >
           <a
             href={`/?tech=${encodeURIComponent(item.toLowerCase())}#skills`}
-            className="text-cream no-underline transition-colors hover:text-accent"
+            className="text-cream underline decoration-[rgba(237,231,218,0.3)] underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
+            title={`Show ${item} in the skills grid`}
           >
             {item}
           </a>
