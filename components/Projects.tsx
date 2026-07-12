@@ -331,6 +331,7 @@ function ProjectCard({
       className="flex flex-col border bg-paper transition-colors hover:border-accent"
       style={{ borderColor: LINE }}
       whileHover={hoverLift}
+      data-cursor-label="View project"
     >
       <div
         className="relative overflow-hidden border-b"

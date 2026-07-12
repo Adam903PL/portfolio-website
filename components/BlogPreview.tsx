@@ -36,6 +36,7 @@ const BlogPreview = () => {
               href={post.canonicalPath}
               className="group flex w-full flex-col border bg-paper no-underline transition-colors hover:border-accent"
               style={{ borderColor: 'rgba(26,23,18,0.16)' }}
+              data-cursor-label="Read post"
             >
               <div
                 className="relative overflow-hidden border-b"

@@ -59,6 +59,7 @@ const BlogPage = () => {
           href={featured.canonicalPath}
           className="group block border bg-paper no-underline transition-colors hover:border-accent"
           style={{ borderColor: LINE_STRONG }}
+          data-cursor-label="Read post"
         >
           <div className="feat-grid grid min-[901px]:grid-cols-[1.1fr_0.9fr]">
             <div
@@ -120,6 +121,7 @@ const BlogPage = () => {
                 href={post.canonicalPath}
                 className="group flex flex-col border bg-paper no-underline transition-colors hover:border-accent"
                 style={{ borderColor: LINE }}
+                data-cursor-label="Read post"
               >
                 <div
                   className="relative overflow-hidden border-b"
