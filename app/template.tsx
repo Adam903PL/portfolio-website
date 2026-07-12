@@ -9,10 +9,10 @@ export default function Template({ children }: { children: ReactNode }) {
 
   return (
     <m.div
-      initial={{ opacity: 0, y: prefersReduced ? 0 : 12 }}
+      initial={{ opacity: 0, y: prefersReduced ? 0 : 28 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: prefersReduced ? 0 : DURATION.medium,
+        duration: prefersReduced ? 0 : DURATION.slower,
         ease: EASE_EDITORIAL,
       }}
     >
