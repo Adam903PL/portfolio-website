@@ -10,6 +10,7 @@ interface BlogPostHeroProps {
   title: string;
   excerpt: string;
   tags?: string[];
+  readTime?: string;
 }
 
 export function BlogPostHero({
@@ -18,6 +19,7 @@ export function BlogPostHero({
   title,
   excerpt,
   tags = [],
+  readTime,
 }: BlogPostHeroProps) {
   const motionSafe = useMotionSafe();
 
@@ -60,11 +62,16 @@ export function BlogPostHero({
         {excerpt}
       </m.p>
 
-      {tags.length > 0 && (
+      {(tags.length > 0 || readTime) && (
         <m.div
           variants={motionSafe.fadeSlideUp}
           className="mt-6 flex flex-wrap items-center gap-3"
         >
+          {readTime && (
+            <span className="font-mono text-[11px] text-ink-30">
+              {readTime}
+            </span>
+          )}
           {tags.map((tag) => (
             <span key={tag} className="font-mono text-[11px] text-accent">
               #{tag}

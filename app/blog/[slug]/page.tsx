@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import BlogRichText from '@/components/BlogRichText';
 import { BlogPostHero } from '@/components/motion/BlogPostHero';
+import { ReadingProgress } from '@/components/motion/ReadingProgress';
 import { blogPosts, getBlogPostImages } from '@/lib/blog-posts';
 import {
   createBlogPostJsonLd,
@@ -55,6 +56,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  const words = post.content.join(' ').split(/\s+/).filter(Boolean).length;
+  const readTime = `~${Math.max(1, Math.ceil(words / 200))} min read`;
+
   const allImages = getBlogPostImages(post);
   const hero = allImages[0];
   const galleryImages = allImages.slice(1);
@@ -72,12 +76,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         ])}
       />
       <main className="relative z-[2] px-5 pb-24 pt-16 sm:px-6">
+        <ReadingProgress />
         <article className="mx-auto max-w-3xl scroll-mt-28" lang="pl">
           <BlogPostHero
             kicker={post.kicker}
             title={post.title}
             excerpt={post.excerpt}
             tags={post.tags}
+            readTime={readTime}
           />
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
