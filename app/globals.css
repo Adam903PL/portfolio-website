@@ -167,6 +167,14 @@ html[data-chaos] h2 {
   animation-play-state: paused;
 }
 
+/* Scrollable areas that hide their scrollbar (command palette results) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Honor the OS "reduce motion" preference (WCAG 2.3.3): collapse all
    decorative animation (marquee, blink, wave, hover zooms) to near-zero. */
 @media (prefers-reduced-motion: reduce) {

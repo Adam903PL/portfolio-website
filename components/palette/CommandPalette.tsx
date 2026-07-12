@@ -15,6 +15,7 @@ export function CommandPalette() {
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const commands = useMemo(() => getCommands(), []);
   const results = useMemo(
     () => filterCommands(commands, query),
@@ -70,14 +71,19 @@ export function CommandPalette() {
     };
   }, [open]);
 
+  const moveSelection = (next: number) => {
+    setSelected(next);
+    listRef.current?.children[next]?.scrollIntoView({ block: 'nearest' });
+  };
+
   const onInputKey = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelected((s) => Math.min(s + 1, results.length - 1));
+      moveSelection(Math.min(selected + 1, results.length - 1));
     }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelected((s) => Math.max(s - 1, 0));
+      moveSelection(Math.max(selected - 1, 0));
     }
     if (e.key === 'Enter' && results[selected]) {
       run(results[selected]);
@@ -130,7 +136,10 @@ export function CommandPalette() {
                 esc
               </span>
             </div>
-            <ul className="m-0 max-h-[320px] list-none overflow-y-auto p-0">
+            <ul
+              ref={listRef}
+              className="no-scrollbar m-0 max-h-[320px] list-none overflow-y-auto p-0"
+            >
               {results.length === 0 && (
                 <li className="px-4 py-3.5 font-mono text-[13px] text-ink-40">
                   No results.
