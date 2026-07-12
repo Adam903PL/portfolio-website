@@ -187,7 +187,7 @@ html[data-chaos] h2 {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 200;
   width: 12px;
   height: 12px;
   border-radius: 9999px;
@@ -210,7 +210,7 @@ html[data-chaos] h2 {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 101;
+  z-index: 201;
   pointer-events: none;
   white-space: nowrap;
   transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0)
