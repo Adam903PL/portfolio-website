@@ -9,7 +9,10 @@ const Footer = () => {
       className="side-pad relative z-[2] border-t pb-12 pt-9"
       style={{ borderColor: 'rgba(26,23,18,0.16)' }}
     >
-      <Reveal className="flex flex-wrap items-center justify-between gap-4">
+      <Reveal
+        viewportMargin="0px"
+        className="flex flex-wrap items-center justify-between gap-4"
+      >
         <div className="flex items-center gap-3.5">
           <span className="flex size-[30px] items-center justify-center bg-ink font-mono text-[13px] font-bold text-cream">
             AP
